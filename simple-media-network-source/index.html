@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="description" content="Distributed educational media network for real life decisions — independent publishing, expert-reviewed, lifecycle-based guidance without sales pressure.">
+    
+    <!-- Mobile Web App Capable -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#FAFAF8">
+    
+    <!-- Performance & Mobile Optimization -->
+    <meta name="format-detection" content="telephone=no">
+    <link rel="preconnect" href="https://images.unsplash.com">
+    
+    <title>Simple Media Network — Clarity for Life's Most Important Decisions</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data for AEO / AI Overview -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Simple Media Network",
+      "url": "https://simplemedianetworks.com",
+      "description": "Distributed educational media network for real life decisions",
+      "knowsAbout": [
+        "Financial Education",
+        "Retirement Planning",
+        "Parenting Guidance",
+        "Small Business Resources",
+        "Career Development"
+      ],
+      "ethicsPolicy": "https://simplemedianetworks.com/editorial-principles"
+    }
+    </script>
+
+<style>
+/* ============================================
+   PHASE 3: EMOTIONAL DEPTH + ICONOGRAPHY
+   Premium Institutional Design with Human Warmth
+   ============================================ */
+
+/* ========== DESIGN TOKENS ========== */
+:root {
+  /* Premium Color System */
+  --color-ink-black: #0A0A0A;
+  --color-deep-charcoal: #1A1A1A;
+  --color-text-primary: #2B2B2B;
+  --color-text-secondary: #6B6B6B;
+  --color-text-tertiary: #9B9B9B;
+  
+  --color-bg-primary: #FAFAF8;
+  --color-bg-elevated: #FFFFFF;
+  --color-bg-subtle: #F5F5F3;
+  
+  --color-navy-deep: #0F1419;
+  --color-navy-700: #1F2A44;
+  --color-accent-green: #4A6B5C;
+  --color-accent-gold: #B8956A;
+  
+  /* Sophisticated Gradients */
+  --gradient-dark: linear-gradient(180deg, #0F1419 0%, #1A1A1A 100%);
+  --gradient-subtle: linear-gradient(180deg, #FAFAF8 0%, #F5F5F3 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  --gradient-warm-overlay: linear-gradient(135deg, rgba(74, 107, 92, 0.08) 0%, transparent 100%);
+  
+  /* Premium Typography */
+  --font-headline: 'Source Serif 4', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Type Scale - Ultra Refined */
+  --text-hero: clamp(3.5rem, 8vw, 5.5rem);
+  --text-h1: clamp(2.5rem, 5vw, 4.5rem);
+  --text-h2: clamp(1.875rem, 4vw, 3rem);
+  --text-h3: clamp(1.5rem, 3vw, 2.25rem);
+  --text-body-large: clamp(1.125rem, 2vw, 1.25rem);
+  --text-body: 1.125rem;
+  --text-small: 0.9375rem;
+  --text-label: 0.8125rem;
+  
+  /* Spacing System */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 9rem;
+  
+  /* Layout */
+  --max-width: 1480px;
+  --content-width: 1180px;
+  --narrow-width: 720px;
+  
+  /* Motion - Refined */
+  --motion-instant: 120ms;
+  --motion-fast: 250ms;
+  --motion-smooth: 400ms;
+  --motion-slow: 600ms;
+  --motion-icon-draw: 1200ms;
+  --ease-premium: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* Effects */
+  --shadow-subtle: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-elevated: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-premium: 0 8px 32px rgba(0,0,0,0.12);
+  --shadow-icon: drop-shadow(0 2px 8px rgba(74, 107, 92, 0.15));
+  --blur-glass: 20px;
+}
+
+/* ========== BASE RESET ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  overflow-x: hidden;
+  /* Mobile touch optimization */
+  -webkit-tap-highlight-color: rgba(74, 107, 92, 0.2);
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: 100%;
+  /* Smooth scrolling for anchor links */
+  scroll-behavior: smooth;
+}
+
+/* Mobile-specific touch improvements */
+@media (hover: none) and (pointer: coarse) {
+  /* Touch device specific styles */
+  a, button, .brand-card, .audience-item, .vertical-card, .principle-item {
+    /* Larger touch targets */
+    min-height: 44px;
+    /* Remove hover effects on touch, use active instead */
+    -webkit-tap-highlight-color: rgba(74, 107, 92, 0.15);
+  }
+  
+  /* Disable hover effects on touch devices */
+  .brand-card:hover,
+  .vertical-card:hover,
+  .principle-item:hover {
+    transform: none;
+  }
+  
+  /* Use active state instead */
+  .brand-card:active,
+  .vertical-card:active,
+  .principle-item:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+}
+
+/* ========== TYPOGRAPHY SYSTEM ========== */
+h1, h2, h3, h4 {
+  font-family: var(--font-headline);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-ink-black);
+  margin-bottom: var(--space-md);
+}
+
+.hero-headline {
+  font-size: var(--text-hero);
+  font-weight: 200;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-lg);
+}
+
+.section-headline {
+  font-size: var(--text-h2);
+  font-weight: 300;
+  margin-bottom: var(--space-lg);
+}
+
+.subsection-headline {
+  font-size: var(--text-h3);
+  font-weight: 400;
+  margin-bottom: var(--space-md);
+}
+
+.body-large {
+  font-size: var(--text-body-large);
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+.label {
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+}
+
+/* ========== ICON SYSTEM ========== */
+.icon {
+  width: 48px;
+  height: 48px;
+  stroke: var(--color-accent-green);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: all var(--motion-fast) var(--ease-premium);
+}
+
+.icon-small {
+  width: 32px;
+  height: 32px;
+}
+
+.icon-large {
+  width: 64px;
+  height: 64px;
+}
+
+.icon-animated {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.icon-animated.visible {
+  animation: iconDraw var(--motion-icon-draw) var(--ease-premium) forwards;
+}
+
+@keyframes iconDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-md);
+  filter: var(--shadow-icon);
+}
+
+.icon-wrapper:hover .icon {
+  stroke: var(--color-ink-black);
+  stroke-width: 2;
+  transform: scale(1.05);
+}
+
+/* ========== PREMIUM HEADER ========== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(250, 250, 248, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: all var(--motion-smooth) var(--ease-premium);
+}
+
+.site-header.scrolled {
+  background: rgba(250, 250, 248, 0.95);
+  box-shadow: var(--shadow-subtle);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-logo {
+  font-family: var(--font-headline);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-ink-black);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.site-nav {
+  display: flex;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.site-nav a {
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--motion-fast) var(--ease-premium);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.site-nav a:hover {
+  color: var(--color-accent-green);
+}
+
+.site-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-accent-green);
+  transition: width var(--motion-smooth) var(--ease-premium);
+}
+
+.site-nav a:hover::after {
+  width: 100%;
+}
+
+.site-nav .icon {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.5;
+}
+
+/* ========== HERO SECTION - EMOTIVE SPLIT SCREEN ========== */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 0;
+  background: var(--color-bg-primary);
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+.hero-content-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-content {
+  text-align: center;
+  position: relative;
+}
+
+/* Clean Hero Card */
+.hero-glass-card {
+  background: transparent;
+  padding: var(--space-3xl) var(--space-2xl);
+  position: relative;
+  animation: fadeInUp 1s var(--ease-premium) 0.3s backwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-label {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-accent-green);
+  color: white;
+  font-size: var(--text-label);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: var(--space-lg);
+  border-radius: 4px;
+}
+
+.hero-headline {
+  animation: fadeInUp 1s var(--ease-premium) 0.5s backwards;
+}
+
+.hero-subhead {
+  font-size: var(--text-body-large);
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-lg);
+  animation: fadeInUp 1s var(--ease-premium) 0.7s backwards;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-body);
+  color: var(--color-accent-green);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 2px solid var(--color-accent-green);
+  padding-bottom: 2px;
+  transition: all var(--motion-fast) var(--ease-premium);
+  animation: fadeInUp 1s var(--ease-premium) 0.9s backwards;
+}
+
+.hero-cta:hover {
+  color: var(--color-ink-black);
+  border-color: var(--color-ink-black);
+  transform: translateY(-2px);
+}
+
+/* ========== TRUST STATS SECTION ========== */
+.stats-section {
+  background: var(--gradient-dark);
+  color: white;
+  padding: var(--space-3xl) var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+}
+
+.stats-container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-2xl);
+  margin-top: var(--space-xl);
+}
+
+.stat-item {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all var(--motion-smooth) var(--ease-premium);
+}
+
+.stat-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stat-number {
+  font-family: var(--font-headline);
+  font-size: var(--text-h1);
+  font-weight: 200;
+  color: white;
+  display: block;
+  margin-bottom: var(--space-sm);
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-size: var(--text-body);
+  color: rgba(255,255,255,0.7);
+  font-weight: 400;
+}
+
+/* ========== EMOTIVE IMAGE SECTIONS ========== */
+.image-section {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin: var(--space-3xl) 0;
+}
+
+.image-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-warm-overlay);
+  z-index: 1;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.image-full-bleed {
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.85) contrast(1.1);
+  transition: transform var(--motion-slow) var(--ease-premium);
+}
+
+.image-section:hover .image-full-bleed {
+  transform: scale(1.02);
+}
+
+.image-contained {
+  max-width: var(--content-width);
+  width: 100%;
+  height: auto;
+  margin: var(--space-3xl) auto;
+  display: block;
+  border-radius: 8px;
+  box-shadow: var(--shadow-elevated);
+  filter: saturate(0.85) contrast(1.1);
+  position: relative;
+}
+
+.image-contained::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-warm-overlay);
+  border-radius: 8px;
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
+
+/* ========== CONTENT SECTIONS ========== */
+.content-section {
+  max-width: var(--content-width);
+  margin: var(--space-3xl) auto;
+  padding: 0 var(--space-lg);
+}
+
+.content-section-narrow {
+  max-width: var(--narrow-width);
+  margin: var(--space-3xl) auto;
+  padding: 0 var(--space-lg);
+}
+
+.content-section p {
+  margin-bottom: var(--space-md);
+  line-height: 1.8;
+}
+
+/* ========== CONTRAST SECTION (WHAT WE ARE NOT) ========== */
+.contrast-section {
+  background: var(--gradient-dark);
+  color: white;
+  padding: var(--space-3xl) var(--space-lg);
+  margin: var(--space-3xl) 0;
+  position: relative;
+}
+
+.contrast-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.02) 39px, rgba(255,255,255,0.02) 40px);
+  pointer-events: none;
+}
+
+.contrast-inner {
+  max-width: var(--narrow-width);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.contrast-section .section-headline {
+  color: white;
+  margin-bottom: var(--space-xl);
+}
+
+.contrast-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.contrast-list li {
+  padding-left: var(--space-lg);
+  position: relative;
+  font-size: var(--text-body-large);
+  color: rgba(255,255,255,0.9);
+  line-height: 1.8;
+}
+
+.contrast-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent-gold);
+  font-weight: 600;
+}
+
+/* ========== SYSTEM SECTION (HOW IT WORKS) ========== */
+.system-section {
+  max-width: var(--content-width);
+  margin: var(--space-3xl) auto;
+  padding: 0 var(--space-lg);
+}
+
+.system-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2xl);
+  margin-top: var(--space-xl);
+}
+
+.system-block {
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all var(--motion-smooth) var(--ease-premium);
+}
+
+.system-block.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.block-number {
+  font-family: var(--font-headline);
+  font-size: 3rem;
+  font-weight: 200;
+  color: var(--color-accent-green);
+  margin-bottom: var(--space-md);
+  line-height: 1;
+}
+
+.block-title {
+  font-size: var(--text-h3);
+  font-weight: 400;
+  margin-bottom: var(--space-sm);
+  color: var(--color-ink-black);
+}
+
+.block-description {
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* ========== PRINCIPLES GRID ========== */
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+.principle-item {
+  background: var(--color-bg-elevated);
+  padding: var(--space-xl);
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all var(--motion-smooth) var(--ease-premium);
+  position: relative;
+}
+
+.principle-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-elevated);
+  border-color: var(--color-accent-green);
+}
+
+.principle-title {
+  font-size: var(--text-h3);
+  font-weight: 500;
+  margin-bottom: var(--space-sm);
+  color: var(--color-ink-black);
+}
+
+.principle-description {
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* ========== AUDIENCE SECTION ========== */
+.audience-section {
+  max-width: var(--narrow-width);
+  margin: var(--space-3xl) auto;
+  padding: 0 var(--space-lg);
+}
+
+.audience-list {
+  list-style: none;
+  margin-top: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.audience-item {
+  padding: var(--space-lg);
+  background: var(--color-bg-elevated);
+  border-left: 3px solid var(--color-accent-green);
+  border-radius: 4px;
+  transition: all var(--motion-fast) var(--ease-premium);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.audience-item .icon-wrapper {
+  flex-shrink: 0;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+.audience-item:hover {
+  background: var(--color-bg-subtle);
+  border-left-width: 5px;
+  padding-left: calc(var(--space-lg) - 2px);
+}
+
+.audience-item strong {
+  font-size: var(--text-body-large);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.audience-content {
+  flex: 1;
+}
+  font-weight: 600;
+  color: var(--color-ink-black);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+/* ========== NETWORK BRANDS - PREMIUM GRID ========== */
+.network-brands-section {
+  background: var(--color-bg-elevated);
+  padding: var(--space-3xl) var(--space-lg);
+  margin: var(--space-3xl) 0 0 0;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+.network-inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2xl);
+  margin-top: var(--space-xl);
+}
+
+.brand-card {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 12px;
+  padding: var(--space-2xl) var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 200px;
+  transition: all var(--motion-smooth) var(--ease-premium);
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand-card:hover {
+  border-color: var(--color-accent-green);
+  box-shadow: var(--shadow-premium);
+  transform: translateY(-6px);
+  text-decoration: none;
+}
+
+.brand-card:hover .brand-logo {
+  transform: scale(1.05);
+}
+
+.brand-logo-wrapper {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-lg);
+}
+
+.brand-logo {
+  max-width: 200px;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform var(--motion-smooth) var(--ease-premium);
+  filter: none;
+}
+
+.brand-description {
+  font-size: var(--text-small);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ========== PREMIUM FOOTER ========== */
+.site-footer {
+  background: var(--color-navy-deep);
+  color: rgba(255,255,255,0.8);
+  padding: var(--space-3xl) var(--space-lg) var(--space-xl);
+  position: relative;
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+}
+
+.footer-inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-3xl);
+}
+
+.footer-primary h3 {
+  font-size: var(--text-h3);
+  color: white;
+  margin-bottom: var(--space-md);
+  font-weight: 400;
+}
+
+.footer-primary p {
+  font-size: var(--text-body);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+  color: rgba(255,255,255,0.7);
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.footer-links a {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: var(--text-small);
+  transition: color var(--motion-fast) var(--ease-premium);
+  border-bottom: 1px solid transparent;
+}
+
+.footer-links a:hover {
+  color: white;
+  border-bottom-color: var(--color-accent-green);
+}
+
+.footer-secondary h4 {
+  font-size: var(--text-body);
+  color: white;
+  margin-bottom: var(--space-md);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--text-label);
+}
+
+.footer-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.footer-nav a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: var(--text-small);
+  transition: all var(--motion-fast) var(--ease-premium);
+  display: inline-block;
+}
+
+.footer-nav a:hover {
+  color: white;
+  transform: translateX(4px);
+}
+
+.footer-bottom {
+  max-width: var(--content-width);
+  margin: var(--space-xl) auto 0;
+  padding-top: var(--space-xl);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+  font-size: var(--text-small);
+  color: rgba(255,255,255,0.5);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet (1024px and below) */
+@media (max-width: 1024px) {
+  :root {
+    --space-xl: 3rem;
+    --space-2xl: 3.5rem;
+    --space-3xl: 4.5rem;
+  }
+  
+  .hero-section {
+    min-height: 90vh;
+    padding: var(--space-2xl) var(--space-lg);
+  }
+  
+  .hero-content-wrapper {
+    max-width: 100%;
+  }
+  
+  .hero-glass-card {
+    padding: var(--space-2xl) var(--space-lg);
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+  
+  .system-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .principles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .vertical-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .brands-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+  
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+/* Mobile (768px and below) - PRIMARY MOBILE BREAKPOINT */
+@media (max-width: 768px) {
+  :root {
+    /* Tighter spacing for mobile */
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 2.5rem;
+    --space-3xl: 3rem;
+    
+    /* Mobile-optimized typography */
+    --text-hero: clamp(2rem, 10vw, 3rem);
+    --text-h1: clamp(1.75rem, 8vw, 2.5rem);
+    --text-h2: clamp(1.5rem, 6vw, 2rem);
+    --text-h3: clamp(1.25rem, 5vw, 1.75rem);
+    --text-body-large: 1.125rem;
+    --text-body: 1rem;
+  }
+  
+  /* ===== HEADER ===== */
+  .site-header {
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .header-inner {
+    padding: 0;
+  }
+  
+  .site-logo img {
+    height: 40px !important; /* Slightly smaller on mobile */
+  }
+  
+  .site-nav {
+    display: flex;
+    gap: var(--space-sm);
+    font-size: 0.875rem;
+  }
+  
+  .site-nav a {
+    padding: var(--space-xs) var(--space-sm);
+  }
+  
+  /* ===== HERO SECTION ===== */
+  .hero-section {
+    min-height: 70vh; /* Shorter for mobile to reduce scroll */
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  .hero-glass-card {
+    padding: var(--space-xl) var(--space-md);
+  }
+  
+  .hero-label {
+    font-size: 0.75rem;
+    margin-bottom: var(--space-sm);
+  }
+  
+  .hero-headline {
+    margin-bottom: var(--space-md);
+    line-height: 1.15;
+  }
+  
+  .hero-subhead {
+    font-size: var(--text-body);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+  }
+  
+  .hero-cta {
+    font-size: var(--text-body);
+    padding: var(--space-sm) 0;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    /* Larger touch target */
+    min-height: 44px;
+  }
+  
+  /* ===== STATS SECTION ===== */
+  .stats-section {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  .stats-container {
+    padding: 0;
+  }
+  
+  .section-headline {
+    font-size: var(--text-h2) !important;
+    margin-bottom: var(--space-lg) !important;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  
+  .stat-number {
+    font-size: clamp(2.5rem, 12vw, 3.5rem);
+  }
+  
+  .stat-label {
+    font-size: var(--text-body);
+  }
+  
+  /* ===== CONTENT SECTIONS ===== */
+  .content-section,
+  .content-section-narrow {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  .body-large {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    margin-bottom: var(--space-md);
+  }
+  
+  p {
+    margin-bottom: var(--space-md);
+    line-height: 1.7;
+  }
+  
+  /* ===== CONTRAST/DARK SECTIONS ===== */
+  .contrast-section {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  .contrast-inner {
+    padding: 0;
+  }
+  
+  .contrast-list {
+    gap: var(--space-md);
+  }
+  
+  .contrast-list li {
+    padding-left: var(--space-lg);
+    font-size: var(--text-body);
+  }
+  
+  /* ===== SYSTEM/HOW IT WORKS ===== */
+  .system-section {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  .system-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  
+  .system-step {
+    padding: var(--space-lg);
+  }
+  
+  /* ===== VERTICAL ECOSYSTEM ===== */
+  .vertical-section {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  .vertical-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  
+  .vertical-card {
+    padding: var(--space-lg);
+  }
+  
+  /* ===== EDITORIAL STANDARDS ===== */
+  .standards-section {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  .principles-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  
+  .principle-item {
+    padding: var(--space-lg);
+  }
+  
+  /* ===== AUDIENCE SECTION ===== */
+  .audience-section {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  .audience-list {
+    gap: var(--space-md);
+  }
+  
+  .audience-item {
+    padding: var(--space-md);
+    gap: var(--space-sm);
+    flex-direction: row;
+  }
+  
+  .audience-item .icon-wrapper {
+    margin-top: 2px;
+  }
+  
+  .audience-item .icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .audience-item strong {
+    font-size: 1rem;
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+  
+  .audience-content {
+    font-size: 0.9375rem;
+  }
+  
+  /* ===== IMAGES ===== */
+  .image-section {
+    margin: var(--space-xl) 0;
+  }
+  
+  .image-full-bleed {
+    height: 50vh;
+    max-height: 400px;
+  }
+  
+  .image-contained {
+    max-height: 400px;
+    margin: var(--space-xl) var(--space-md);
+  }
+  
+  /* ===== NETWORK BRANDS ===== */
+  .network-brands-section {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  .network-inner {
+    padding: 0;
+  }
+  
+  .brands-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .brand-card {
+    padding: var(--space-lg);
+    min-height: 160px;
+    /* Larger touch target for mobile */
+    min-height: 180px;
+  }
+  
+  .brand-logo-wrapper {
+    height: 80px;
+    margin-bottom: var(--space-md);
+  }
+  
+  .brand-logo {
+    max-width: 180px;
+    max-height: 60px;
+  }
+  
+  .brand-description {
+    font-size: 0.9375rem;
+  }
+  
+  /* ===== FOOTER ===== */
+  .site-footer {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  
+  .footer-primary h3 {
+    font-size: var(--text-h3);
+  }
+  
+  .footer-links {
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-md);
+  }
+  
+  .footer-bottom {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    font-size: 0.875rem;
+  }
+}
+
+/* Small Mobile (480px and below) - EXTRA SMALL SCREENS */
+@media (max-width: 480px) {
+  :root {
+    /* Even tighter spacing */
+    --space-md: 0.875rem;
+    --space-lg: 1.25rem;
+    --space-xl: 1.75rem;
+    --space-2xl: 2rem;
+    --space-3xl: 2.5rem;
+  }
+  
+  /* Hide complex nav on tiny screens */
+  .site-nav {
+    display: none;
+  }
+  
+  /* Add mobile menu indicator */
+  .site-logo::after {
+    content: '';
+    /* Space for hamburger menu (to be added if needed) */
+  }
+  
+  .hero-section {
+    min-height: 60vh;
+    padding: var(--space-xl) var(--space-sm);
+  }
+  
+  .hero-glass-card {
+    padding: var(--space-lg) var(--space-sm);
+  }
+  
+  .hero-label {
+    font-size: 0.6875rem;
+  }
+  
+  .hero-headline {
+    font-size: clamp(1.75rem, 9vw, 2.25rem);
+  }
+  
+  .stats-section {
+    padding: var(--space-xl) var(--space-sm);
+  }
+  
+  .stat-number {
+    font-size: clamp(2rem, 15vw, 3rem);
+  }
+  
+  .content-section,
+  .content-section-narrow,
+  .contrast-section,
+  .system-section,
+  .vertical-section,
+  .standards-section,
+  .audience-section,
+  .network-brands-section {
+    padding: var(--space-xl) var(--space-sm);
+  }
+  
+  .section-headline {
+    font-size: clamp(1.5rem, 7vw, 1.875rem) !important;
+  }
+  
+  .body-large {
+    font-size: 1rem;
+  }
+  
+  .image-full-bleed {
+    height: 40vh;
+    max-height: 300px;
+  }
+  
+  .image-contained {
+    max-height: 300px;
+    margin: var(--space-lg) var(--space-sm);
+  }
+  
+  /* Audience items stack icon on top on tiny screens */
+  .audience-item {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .audience-item .icon-wrapper {
+    margin-top: 0;
+    margin-bottom: var(--space-xs);
+  }
+  
+  .brand-card {
+    padding: var(--space-md);
+    min-height: 140px;
+  }
+  
+  .brand-logo {
+    max-width: 150px;
+    max-height: 50px;
+  }
+  
+  .site-footer {
+    padding: var(--space-xl) var(--space-sm);
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ========== ACCESSIBILITY ========== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent-green);
+  outline-offset: 4px;
+}
+
+/* ========== SCROLL REVEAL ANIMATIONS ========== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all var(--motion-smooth) var(--ease-premium);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="site-header" id="header">
+    <div class="header-inner">
+        <a href="/" class="site-logo">
+        <img src="https://www.genspark.ai/api/files/s/HpA7UMNB" alt="Simple Media Network" style="height: 48px; width: auto;">
+    </a>
+        <nav class="site-nav">
+            <a href="#how-it-works">
+                <svg class="icon icon-small" viewBox="0 0 48 48">
+                    <circle cx="24" cy="24" r="20"/>
+                    <path d="M24 14 L24 24 L30 30"/>
+                </svg>
+                How It Works
+            </a>
+            <a href="#editorial-standards">
+                <svg class="icon icon-small" viewBox="0 0 48 48">
+                    <path d="M12 22 L12 36 C12 38 14 40 16 40 L32 40 C34 40 36 38 36 36 L36 22"/>
+                    <path d="M8 22 L24 8 L40 22"/>
+                    <path d="M18 24 L18 32"/>
+                    <path d="M30 24 L30 32"/>
+                </svg>
+                Editorial Standards
+            </a>
+            <a href="#network">
+                <svg class="icon icon-small" viewBox="0 0 48 48">
+                    <circle cx="12" cy="12" r="4"/>
+                    <circle cx="36" cy="12" r="4"/>
+                    <circle cx="12" cy="36" r="4"/>
+                    <circle cx="36" cy="36" r="4"/>
+                    <circle cx="24" cy="24" r="4"/>
+                    <path d="M15 14 L21 22"/>
+                    <path d="M33 14 L27 22"/>
+                    <path d="M15 34 L21 26"/>
+                    <path d="M33 34 L27 26"/>
+                </svg>
+                Network
+            </a>
+        </nav>
+    </div>
+</header>
+
+<!-- ========== HERO SECTION - CLEAN CENTERED DESIGN ========== -->
+<section class="hero-section">
+    <div class="hero-content-wrapper">
+        <div class="hero-content">
+            <div class="hero-glass-card">
+                <span class="hero-label">Educational Media Network</span>
+                <h1 class="hero-headline">Clarity for Life's Most Important Decisions</h1>
+                <p class="hero-subhead">An independent publishing network explaining financial systems, retirement pathways, and family decisions — without sales pressure or marketplace incentives.</p>
+                <a href="#how-it-works" class="hero-cta">
+                    How the network works 
+                    <svg class="icon icon-small" viewBox="0 0 48 48" style="width: 16px; height: 16px;">
+                        <path d="M20 12 L32 24 L20 36"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TRUST STATS SECTION ========== -->
+<section class="stats-section">
+    <div class="stats-container">
+        <h2 class="section-headline" style="color: white; text-align: center; margin-bottom: var(--space-xl);">Trusted by Millions for Independent Guidance</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number" data-target="15">0</span>
+                <span class="stat-label">Million+ Readers Annually</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="1500">0</span>
+                <span class="stat-label">Expert-Reviewed Articles</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="9">0</span>
+                <span class="stat-label">Expert Contributors</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== EMOTIVE IMAGE: RETIREMENT SECURITY ========== -->
+<section class="image-section">
+    <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1600&q=80" 
+         alt="Elderly couple enjoying peaceful retirement together" 
+         class="image-full-bleed"
+         loading="lazy">
+</section>
+
+<!-- ========== IDENTITY / PURPOSE ========== -->
+<section class="content-section-narrow">
+    <h2 class="section-headline">Who Are We</h2>
+    <p class="body-large">Simple Media Network is a distributed educational media system designed to explain how major life decisions actually work — from mortgage structures to Medicare enrollment to small business formation.</p>
+    <p>We are not a lender, broker, or service provider. We publish explanations, not offers. Our content is expert-reviewed, lifecycle-based, and intentionally separated from commercial action.</p>
+</section>
+
+<!-- ========== NETWORK BRANDS - PREMIUM LOGO GRID ========== -->
+<section class="network-brands-section" id="network">
+    <div class="network-inner">
+        <h2 class="section-headline">The Network</h2>
+        <p class="body-large">Simple Media Network operates through specialized verticals, each focused on a specific life or business stage.</p>
+        
+        <div class="brands-grid">
+            <a href="https://seniorsimple.org" target="_blank" rel="noopener noreferrer" class="brand-card">
+                <div class="brand-logo-wrapper">
+                    <img src="./images/seniorsimple-logo.png" 
+                         alt="SeniorSimple" 
+                         class="brand-logo"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none; font-family: var(--font-headline); font-size: 1.5rem; font-weight: 500; color: var(--color-ink-black);">SeniorSimple</div>
+                </div>
+                <p class="brand-description">Medicare, retirement, and later-life planning guidance</p>
+            </a>
+            
+            <a href="https://parentsimple.org" target="_blank" rel="noopener noreferrer" class="brand-card">
+                <div class="brand-logo-wrapper">
+                    <img src="./images/parentsimple-logo.png" 
+                         alt="ParentSimple" 
+                         class="brand-logo"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none; font-family: var(--font-headline); font-size: 1.5rem; font-weight: 500; color: var(--color-ink-black);">ParentSimple</div>
+                </div>
+                <p class="brand-description">Family finance, education, and parenting systems</p>
+            </a>
+            
+            <a href="https://rateroots.com" target="_blank" rel="noopener noreferrer" class="brand-card">
+                <div class="brand-logo-wrapper">
+                    <img src="./images/rateroots-logo.png" 
+                         alt="RateRoots" 
+                         class="brand-logo"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none; font-family: var(--font-headline); font-size: 1.5rem; font-weight: 500; color: var(--color-ink-black);">RateRoots</div>
+                </div>
+                <p class="brand-description">Mortgages, credit, and foundational finance</p>
+            </a>
+            
+            <a href="https://smallbizsimple.org" target="_blank" rel="noopener noreferrer" class="brand-card">
+                <div class="brand-logo-wrapper">
+                    <img src="./images/smallbizsimple-logo.png" 
+                         alt="SmallBiz Simple" 
+                         class="brand-logo"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none; font-family: var(--font-headline); font-size: 1.5rem; font-weight: 500; color: var(--color-ink-black);">SmallBiz Simple</div>
+                </div>
+                <p class="brand-description">Business formation, operations, and growth</p>
+            </a>
+            
+            <a href="https://homesimple.org" target="_blank" rel="noopener noreferrer" class="brand-card">
+                <div class="brand-logo-wrapper">
+                    <img src="./images/homesimple-logo.png" 
+                         alt="HomeSimple" 
+                         class="brand-logo"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none; font-family: var(--font-headline); font-size: 1.5rem; font-weight: 500; color: var(--color-ink-black);">HomeSimple</div>
+                </div>
+                <p class="brand-description">Home improvement advice and project guidance</p>
+            </a>
+            
+            <a href="https://legalsimple.org" target="_blank" rel="noopener noreferrer" class="brand-card">
+                <div class="brand-logo-wrapper">
+                    <img src="./images/legalsimple-logo.png" 
+                         alt="LegalSimple" 
+                         class="brand-logo"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none; font-family: var(--font-headline); font-size: 1.5rem; font-weight: 500; color: var(--color-ink-black);">LegalSimple</div>
+                </div>
+                <p class="brand-description">Legal education and informed guidance</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== WHAT WE ARE NOT - DARK CONTRAST ========== -->
+<section class="contrast-section">
+    <div class="contrast-inner">
+        <h2 class="section-headline">What We Are Not</h2>
+        <ul class="contrast-list">
+            <li>We are not a lender, broker, or financial institution</li>
+            <li>We do not sell products or capture leads</li>
+            <li>We are not a marketplace or comparison engine</li>
+            <li>We do not accept payment for placement or rankings</li>
+            <li>Editorial content is independent from any commercial partnerships</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ========== HOW THE NETWORK WORKS ========== -->
+<section class="system-section" id="how-it-works">
+    <h2 class="section-headline">How the Network Works</h2>
+    <p class="body-large">Simple operates on a three-part model that keeps education separate from transaction.</p>
+    
+    <div class="system-grid">
+        <div class="system-block">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <circle cx="24" cy="24" r="20"/>
+                    <path d="M24 16 L24 24"/>
+                    <circle cx="24" cy="30" r="1.5" fill="currentColor"/>
+                </svg>
+            </div>
+            <div class="block-number">01</div>
+            <h3 class="block-title">People Arrive with Questions</h3>
+            <p class="block-description">Readers come to us during research, comparison, or planning phases — often before they know what solution fits their situation.</p>
+        </div>
+        
+        <div class="system-block">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <path d="M12 14 L12 34 L36 34 L36 14 L12 14"/>
+                    <path d="M16 20 L32 20"/>
+                    <path d="M16 24 L28 24"/>
+                    <path d="M16 28 L30 28"/>
+                    <circle cx="24" cy="8" r="3"/>
+                    <path d="M24 11 L24 14"/>
+                </svg>
+            </div>
+            <div class="block-number">02</div>
+            <h3 class="block-title">Simple Explains the System</h3>
+            <p class="block-description">We publish explanations of how options work, what trade-offs exist, and which questions to ask — not which provider to choose.</p>
+        </div>
+        
+        <div class="system-block">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <path d="M8 24 L20 24"/>
+                    <path d="M28 24 L40 24"/>
+                    <path d="M35 19 L40 24 L35 29"/>
+                    <circle cx="24" cy="24" r="4"/>
+                </svg>
+            </div>
+            <div class="block-number">03</div>
+            <h3 class="block-title">Clarity First, Action Second</h3>
+            <p class="block-description">When readers are ready to act, they do so with understanding. Education and action are intentionally separated.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== EMOTIVE IMAGE: TRUSTED EXPERT PORTRAIT ========== -->
+<img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1400&q=80" 
+     alt="Professional expert advisor with warm, confident expression" 
+     class="image-contained"
+     loading="lazy">
+
+<!-- ========== EXPERTS & AVATARS ========== -->
+<section class="content-section">
+    <h2 class="section-headline">Experts, Avatars, and Trust</h2>
+    <p class="body-large">Simple uses expert avatars as educators, not salespeople. Our contributors include licensed advisors, former regulators, and subject-matter specialists who review content for accuracy and neutrality.</p>
+    
+    <div class="principles-grid">
+        <div class="principle-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <circle cx="24" cy="16" r="6"/>
+                    <path d="M12 38 C12 30 16 26 24 26 C32 26 36 30 36 38"/>
+                    <circle cx="24" cy="16" r="3"/>
+                    <path d="M27 19 L30 22"/>
+                </svg>
+            </div>
+            <h3 class="principle-title">Expert Avatars as Educators</h3>
+            <p class="principle-description">Contributors explain systems and patterns, not individual recommendations. Think columnist, not consultant.</p>
+        </div>
+        
+        <div class="principle-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <circle cx="24" cy="24" r="12"/>
+                    <path d="M20 24 L23 27 L29 21"/>
+                    <path d="M24 12 L24 8"/>
+                    <path d="M24 40 L24 36"/>
+                    <path d="M12 24 L8 24"/>
+                    <path d="M40 24 L36 24"/>
+                </svg>
+            </div>
+            <h3 class="principle-title">Content is Reviewed, Not Sold</h3>
+            <p class="principle-description">Every article undergoes expert review for accuracy, neutrality, and lifecycle relevance before publication.</p>
+        </div>
+        
+        <div class="principle-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <circle cx="24" cy="24" r="18"/>
+                    <circle cx="24" cy="20" r="6"/>
+                    <path d="M14 34 C14 28 18 26 24 26 C30 26 34 28 34 34"/>
+                </svg>
+            </div>
+            <h3 class="principle-title">Goal is Understanding</h3>
+            <p class="principle-description">We measure success by comprehension and confidence, not conversions or clicks.</p>
+        </div>
+        
+        <div class="principle-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <path d="M8 24 L24 24 L24 8"/>
+                    <path d="M24 24 L40 24 L40 40"/>
+                    <path d="M12 18 L12 24 L18 24"/>
+                    <path d="M30 30 L30 24 L36 24"/>
+                </svg>
+            </div>
+            <h3 class="principle-title">Independence is Structural</h3>
+            <p class="principle-description">Editorial decisions are made independently of commercial partnerships or revenue outcomes.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== EMOTIVE IMAGE: PARENTING PRIDE ========== -->
+<section class="image-section">
+    <img src="https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=1600&q=80" 
+         alt="Parent and child sharing a tender moment together" 
+         class="image-full-bleed"
+         loading="lazy">
+</section>
+
+<!-- ========== EDITORIAL STANDARDS ========== -->
+<section class="content-section" id="editorial-standards">
+    <h2 class="section-headline">Editorial Standards & Independence</h2>
+    <p class="body-large">Our editorial framework is public, enforced, and designed for long-term trust.</p>
+    
+    <div class="principles-grid">
+        <div class="principle-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <path d="M24 8 L24 32"/>
+                    <circle cx="14" cy="20" r="8"/>
+                    <circle cx="34" cy="20" r="8"/>
+                    <path d="M24 32 L24 36"/>
+                    <path d="M18 40 L30 40"/>
+                </svg>
+            </div>
+            <h3 class="principle-title">Neutral Tone</h3>
+            <p class="principle-description">We explain options and trade-offs without prescribing outcomes or endorsing providers.</p>
+        </div>
+        
+        <div class="principle-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <circle cx="24" cy="24" r="16"/>
+                    <path d="M16 24 L22 30 L32 18"/>
+                    <circle cx="38" cy="12" r="6"/>
+                    <path d="M36 10 L38 12 L40 10"/>
+                </svg>
+            </div>
+            <h3 class="principle-title">Clear Disclosures</h3>
+            <p class="principle-description">Commercial relationships are disclosed transparently and do not influence editorial recommendations.</p>
+        </div>
+        
+        <div class="principle-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <circle cx="24" cy="24" r="14"/>
+                    <circle cx="24" cy="24" r="6"/>
+                    <path d="M24 10 L24 6"/>
+                    <path d="M24 42 L24 38"/>
+                    <path d="M10 24 L6 24"/>
+                    <path d="M42 24 L38 24"/>
+                    <path d="M15 15 L12 12"/>
+                    <path d="M36 36 L33 33"/>
+                </svg>
+            </div>
+            <h3 class="principle-title">Expert Review Process</h3>
+            <p class="principle-description">Content is reviewed by subject-matter experts before publication and updated regularly.</p>
+        </div>
+        
+        <div class="principle-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <path d="M24 8 L24 40"/>
+                    <path d="M8 14 L20 14"/>
+                    <path d="M28 14 L40 14"/>
+                    <path d="M8 24 L20 24"/>
+                    <path d="M28 24 L40 24"/>
+                    <path d="M8 34 L20 34"/>
+                    <path d="M28 34 L40 34"/>
+                </svg>
+            </div>
+            <h3 class="principle-title">Separation of Editorial and Commercial</h3>
+            <p class="principle-description">Editorial decisions are made independently. No payment for placement, prominence, or positive coverage.</p>
+        </div>
+        
+        <div class="principle-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <rect x="10" y="10" width="28" height="28" rx="2"/>
+                    <path d="M10 18 L38 18"/>
+                    <path d="M18 10 L18 18"/>
+                    <path d="M26 10 L26 18"/>
+                    <path d="M34 10 L34 18"/>
+                    <circle cx="18" cy="26" r="1.5" fill="currentColor"/>
+                    <circle cx="26" cy="26" r="1.5" fill="currentColor"/>
+                    <path d="M30 30 L34 34"/>
+                    <circle cx="34" cy="34" r="2"/>
+                </svg>
+            </div>
+            <h3 class="principle-title">Regular Updates</h3>
+            <p class="principle-description">Articles are reviewed and updated to reflect regulatory changes, new options, and reader feedback.</p>
+        </div>
+        
+        <div class="principle-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48">
+                    <circle cx="24" cy="24" r="18"/>
+                    <path d="M24 6 L24 24 L36 18"/>
+                    <circle cx="24" cy="24" r="3" fill="currentColor"/>
+                </svg>
+            </div>
+            <h3 class="principle-title">Lifecycle-Based Structure</h3>
+            <p class="principle-description">Content is organized by decision stage and life phase, not product category or provider.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== HOW DECISIONS FLOW TO ACTION ========== -->
+<section class="content-section-narrow">
+    <h2 class="section-headline">From Understanding to Action</h2>
+    <p class="body-large">Simple's model is learning → clarity → action (often off-platform).</p>
+    <p>We help people understand what they're evaluating, which questions to ask, and what trade-offs exist. When readers are ready to act, we help them understand their options — not push a single outcome.</p>
+    <p>This approach reduces decision regret, improves long-term satisfaction, and builds trust that lasts across multiple life stages.</p>
+</section>
+
+<!-- ========== WHO THIS IS FOR ========== -->
+<section class="audience-section">
+    <h2 class="section-headline">Who This Is For</h2>
+    <p class="body-large">Simple serves multiple audiences across different decision contexts.</p>
+    
+    <ul class="audience-list">
+        <li class="audience-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48" width="48" height="48">
+                    <!-- Family/Home icon -->
+                    <path d="M8 20 L24 8 L40 20 L40 40 L28 40 L28 28 L20 28 L20 40 L8 40 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="16" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="24" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="32" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="audience-content">
+                <strong>Individuals and Families</strong> researching major financial decisions (mortgage, retirement, education funding) and seeking neutral, expert-reviewed explanations.
+            </div>
+        </li>
+        <li class="audience-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48" width="48" height="48">
+                    <!-- Retirement/Rocking chair icon -->
+                    <path d="M12 20 L12 32 C12 34 14 36 16 36 L32 36 C34 36 36 34 36 32 L36 20" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M8 20 L40 20" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M10 20 L10 12 C10 10 12 8 14 8 L34 8 C36 8 38 10 38 12 L38 20" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="12" cy="36" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="36" cy="36" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="audience-content">
+                <strong>Pre-Retirees and Retirees</strong> navigating Medicare, Social Security timing, income sequencing, and long-term care planning.
+            </div>
+        </li>
+        <li class="audience-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48" width="48" height="48">
+                    <!-- Parent & child icon -->
+                    <circle cx="18" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M10 40 L10 28 C10 24 13 21 17 21 L19 21 C23 21 26 24 26 28 L26 40" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="32" cy="18" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M26 40 L26 32 C26 29 28 27 31 27 L33 27 C36 27 38 29 38 32 L38 40" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="audience-content">
+                <strong>Parents and Caregivers</strong> evaluating education options, childcare structures, and family financial planning.
+            </div>
+        </li>
+        <li class="audience-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48" width="48" height="48">
+                    <!-- Business/Storefront icon -->
+                    <path d="M8 16 L8 40 L40 40 L40 16" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M6 16 L12 8 L36 8 L42 16 L6 16" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="18" y="24" width="12" height="16" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <line x1="24" y1="24" x2="24" y2="40" stroke="currentColor" stroke-width="1.5"/>
+                    <line x1="18" y1="32" x2="30" y2="32" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="audience-content">
+                <strong>Small Business Owners</strong> comparing entity structures, business credit options, and operational finance systems.
+            </div>
+        </li>
+        <li class="audience-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48" width="48" height="48">
+                    <!-- Education/Book & Pencil icon -->
+                    <path d="M10 12 L24 8 L38 12 L38 32 L24 36 L10 32 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <line x1="24" y1="8" x2="24" y2="36" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M16 16 L16 28" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M32 16 L32 28" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="audience-content">
+                <strong>Professional Advisors and Educators</strong> seeking trustworthy educational resources for clients and students.
+            </div>
+        </li>
+        <li class="audience-item">
+            <div class="icon-wrapper">
+                <svg class="icon icon-animated" viewBox="0 0 48 48" width="48" height="48">
+                    <!-- Partnership/Handshake icon -->
+                    <path d="M8 24 L16 24 L20 20 L24 24 L28 20 L32 24 L40 24" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M8 24 L8 32 L12 36 L16 36" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M40 24 L40 32 L36 36 L32 36" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="12" cy="16" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="36" cy="16" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="audience-content">
+                <strong>Partners and Institutions</strong> looking for a transparent, values-aligned content and distribution partner.
+            </div>
+        </li>
+    </ul>
+</section>
+
+<!-- ========== FOOTER - EDITORIAL COMMAND CENTER ========== -->
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-primary">
+            <h3>Simple Media Network</h3>
+            <p>An independent publishing network for life's most important decisions.</p>
+            <div class="footer-links">
+                <a href="/editorial-principles">Editorial Principles</a>
+                <a href="/disclosure">Disclosure</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/contact">Contact</a>
+            </div>
+        </div>
+        
+        <div class="footer-secondary">
+            <h4>Network</h4>
+            <ul class="footer-nav">
+                <li><a href="https://seniorsimple.org" target="_blank" rel="noopener noreferrer">SeniorSimple</a></li>
+                <li><a href="https://parentsimple.org" target="_blank" rel="noopener noreferrer">ParentSimple</a></li>
+                <li><a href="https://rateroots.com" target="_blank" rel="noopener noreferrer">RateRoots</a></li>
+                <li><a href="https://smallbizsimple.org" target="_blank" rel="noopener noreferrer">SmallBiz Simple</a></li>
+                <li><a href="https://homesimple.org" target="_blank" rel="noopener noreferrer">HomeSimple</a></li>
+                <li><a href="https://legalsimple.org" target="_blank" rel="noopener noreferrer">LegalSimple</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>© 2025 Simple Media Network. Educational content for informational purposes only.</p>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="./js/main.js"></script>
+
+</body>
+</html>
