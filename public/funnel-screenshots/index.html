@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funnel Step-Through — Mobile Screenshots</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f0f0f; color: #fff; font-family: -apple-system, system-ui, sans-serif; padding: 40px 20px; }
+  h1 { text-align: center; margin-bottom: 8px; font-size: 28px; }
+  .subtitle { text-align: center; color: #888; margin-bottom: 48px; font-size: 14px; }
+  .toc { max-width: 800px; margin: 0 auto 48px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .toc a { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 8px 16px; color: #7dd3fc; text-decoration: none; font-size: 13px; transition: border-color 0.2s; }
+  .toc a:hover { border-color: #7dd3fc; }
+  .funnel { max-width: 1600px; margin: 0 auto 72px; scroll-margin-top: 20px; }
+  .funnel h2 { font-size: 22px; margin-bottom: 2px; }
+  .funnel .brand-tag { display: inline-block; background: #1e3a5f; color: #7dd3fc; font-size: 11px; padding: 2px 10px; border-radius: 4px; margin-right: 8px; vertical-align: middle; }
+  .funnel .meta { color: #888; font-size: 13px; margin-bottom: 20px; }
+  .funnel .meta a { color: #7dd3fc; text-decoration: none; }
+  .steps { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 16px; scroll-snap-type: x mandatory; }
+  .steps::-webkit-scrollbar { height: 6px; }
+  .steps::-webkit-scrollbar-track { background: #1a1a1a; border-radius: 3px; }
+  .steps::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+  .step { flex: 0 0 300px; background: #1a1a1a; border-radius: 12px; overflow: hidden; border: 1px solid #333; scroll-snap-align: start; }
+  .step img { width: 100%; display: block; max-height: 650px; object-fit: cover; object-position: top; cursor: pointer; transition: opacity 0.2s; }
+  .step img:hover { opacity: 0.9; }
+  .step .label { padding: 10px 14px; font-size: 12px; color: #aaa; }
+  .step .label .num { color: #7dd3fc; font-weight: 700; margin-right: 4px; }
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 100; cursor: pointer; align-items: center; justify-content: center; }
+  .overlay.active { display: flex; }
+  .overlay img { max-width: 95vw; max-height: 95vh; object-fit: contain; border-radius: 8px; }
+</style>
+</head>
+<body>
+<h1>Funnel Step-Through</h1>
+<p class="subtitle">Mobile viewport (390 × 844) — captured 4/17/2026</p>
+
+<div class="toc">
+  <a href="#retirementrescue-quiz">Retirement Rescue: RMD Quiz</a>
+  <a href="#retirementrescue-income">Retirement Rescue: Income Quiz</a>
+  <a href="#retirementrescue-iul">Retirement Rescue: IUL Finder</a>
+  <a href="#seniorsimple-reverse-mortgage">SeniorSimple: Reverse Mortgage</a>
+  <a href="#rateroots-auto">RateRoots: Auto Insurance</a>
+  <a href="#rateroots-home-equity">RateRoots: Home Equity</a>
+  <a href="#rateroots-business-loan">RateRoots: Business Loan</a>
+  <a href="#parentsimple-life-insurance">ParentSimple: Life Insurance</a>
+  <a href="#finalexpense-home">Final Expense: Burial Chat</a>
+  <a href="#finalexpense-chat">Final Expense: Chat Funnel</a>
+</div>
+
+<div class="funnel" id="retirementrescue-quiz">
+  <h2><span class="brand-tag">Retirement Rescue</span>RMD Quiz</h2>
+  <div class="meta">8 screens · <a href="https://www.retirementrescue.net/quiz" target="_blank">https://www.retirementrescue.net/quiz</a></div>
+  <div class="steps">
+    <div class="step">
+      <img src="retirementrescue-quiz/00-landing.png" alt="Step 0" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#0</span>00-landing</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-quiz/01-step.png" alt="Step 1" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#1</span>01-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-quiz/02-step.png" alt="Step 2" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#2</span>02-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-quiz/03-step.png" alt="Step 3" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#3</span>03-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-quiz/04-step.png" alt="Step 4" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#4</span>04-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-quiz/05-step.png" alt="Step 5" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#5</span>05-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-quiz/06-step.png" alt="Step 6" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#6</span>06-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-quiz/07-step.png" alt="Step 7" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#7</span>07-step</div>
+    </div>
+  </div>
+</div>
+
+<div class="funnel" id="retirementrescue-income">
+  <h2><span class="brand-tag">Retirement Rescue</span>Income Quiz</h2>
+  <div class="meta">8 screens · <a href="https://www.retirementrescue.net/income-quiz" target="_blank">https://www.retirementrescue.net/income-quiz</a></div>
+  <div class="steps">
+    <div class="step">
+      <img src="retirementrescue-income/00-landing.png" alt="Step 0" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#0</span>00-landing</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-income/01-step.png" alt="Step 1" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#1</span>01-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-income/02-step.png" alt="Step 2" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#2</span>02-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-income/03-step.png" alt="Step 3" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#3</span>03-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-income/04-step.png" alt="Step 4" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#4</span>04-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-income/05-step.png" alt="Step 5" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#5</span>05-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-income/06-step.png" alt="Step 6" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#6</span>06-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-income/07-step.png" alt="Step 7" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#7</span>07-step</div>
+    </div>
+  </div>
+</div>
+
+<div class="funnel" id="retirementrescue-iul">
+  <h2><span class="brand-tag">Retirement Rescue</span>IUL Finder</h2>
+  <div class="meta">7 screens · <a href="https://www.retirementrescue.net/iul-finder" target="_blank">https://www.retirementrescue.net/iul-finder</a></div>
+  <div class="steps">
+    <div class="step">
+      <img src="retirementrescue-iul/00-landing.png" alt="Step 0" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#0</span>00-landing</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-iul/01-step.png" alt="Step 1" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#1</span>01-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-iul/02-step.png" alt="Step 2" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#2</span>02-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-iul/03-step.png" alt="Step 3" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#3</span>03-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-iul/04-step.png" alt="Step 4" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#4</span>04-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-iul/05-step.png" alt="Step 5" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#5</span>05-step</div>
+    </div>
+    <div class="step">
+      <img src="retirementrescue-iul/06-step.png" alt="Step 6" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#6</span>06-step</div>
+    </div>
+  </div>
+</div>
+
+<div class="funnel" id="seniorsimple-reverse-mortgage">
+  <h2><span class="brand-tag">SeniorSimple</span>Reverse Mortgage</h2>
+  <div class="meta">4 screens · <a href="https://www.seniorsimple.org/reverse-mortgage-calculator" target="_blank">https://www.seniorsimple.org/reverse-mortgage-calculator</a></div>
+  <div class="steps">
+    <div class="step">
+      <img src="seniorsimple-reverse-mortgage/00-landing.png" alt="Step 0" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#0</span>00-landing</div>
+    </div>
+    <div class="step">
+      <img src="seniorsimple-reverse-mortgage/01-step.png" alt="Step 1" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#1</span>01-step</div>
+    </div>
+    <div class="step">
+      <img src="seniorsimple-reverse-mortgage/02-step.png" alt="Step 2" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#2</span>02-step</div>
+    </div>
+    <div class="step">
+      <img src="seniorsimple-reverse-mortgage/03-step.png" alt="Step 3" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#3</span>03-step</div>
+    </div>
+  </div>
+</div>
+
+<div class="funnel" id="rateroots-auto">
+  <h2><span class="brand-tag">RateRoots</span>Auto Insurance</h2>
+  <div class="meta">3 screens · <a href="https://www.rateroots.com/insurance/auto/funnel" target="_blank">https://www.rateroots.com/insurance/auto/funnel</a></div>
+  <div class="steps">
+    <div class="step">
+      <img src="rateroots-auto/00-landing.png" alt="Step 0" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#0</span>00-landing</div>
+    </div>
+    <div class="step">
+      <img src="rateroots-auto/01-step.png" alt="Step 1" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#1</span>01-step</div>
+    </div>
+    <div class="step">
+      <img src="rateroots-auto/02-step.png" alt="Step 2" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#2</span>02-step</div>
+    </div>
+  </div>
+</div>
+
+<div class="funnel" id="rateroots-home-equity">
+  <h2><span class="brand-tag">RateRoots</span>Home Equity</h2>
+  <div class="meta">4 screens · <a href="https://www.rateroots.com/quiz/home-equity/funnel" target="_blank">https://www.rateroots.com/quiz/home-equity/funnel</a></div>
+  <div class="steps">
+    <div class="step">
+      <img src="rateroots-home-equity/00-landing.png" alt="Step 0" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#0</span>00-landing</div>
+    </div>
+    <div class="step">
+      <img src="rateroots-home-equity/01-step.png" alt="Step 1" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#1</span>01-step</div>
+    </div>
+    <div class="step">
+      <img src="rateroots-home-equity/02-step.png" alt="Step 2" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#2</span>02-step</div>
+    </div>
+    <div class="step">
+      <img src="rateroots-home-equity/03-step.png" alt="Step 3" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#3</span>03-step</div>
+    </div>
+  </div>
+</div>
+
+<div class="funnel" id="rateroots-business-loan">
+  <h2><span class="brand-tag">RateRoots</span>Business Loan</h2>
+  <div class="meta">8 screens · <a href="https://www.rateroots.com/quiz/business-loan-au/funnel-2" target="_blank">https://www.rateroots.com/quiz/business-loan-au/funnel-2</a></div>
+  <div class="steps">
+    <div class="step">
+      <img src="rateroots-business-loan/00-landing.png" alt="Step 0" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#0</span>00-landing</div>
+    </div>
+    <div class="step">
+      <img src="rateroots-business-loan/01-step.png" alt="Step 1" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#1</span>01-step</div>
+    </div>
+    <div class="step">
+      <img src="rateroots-business-loan/02-step.png" alt="Step 2" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#2</span>02-step</div>
+    </div>
+    <div class="step">
+      <img src="rateroots-business-loan/03-step.png" alt="Step 3" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#3</span>03-step</div>
+    </div>
+    <div class="step">
+      <img src="rateroots-business-loan/04-step.png" alt="Step 4" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#4</span>04-step</div>
+    </div>
+    <div class="step">
+      <img src="rateroots-business-loan/05-step.png" alt="Step 5" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#5</span>05-step</div>
+    </div>
+    <div class="step">
+      <img src="rateroots-business-loan/06-step.png" alt="Step 6" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#6</span>06-step</div>
+    </div>
+    <div class="step">
+      <img src="rateroots-business-loan/07-step.png" alt="Step 7" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#7</span>07-step</div>
+    </div>
+  </div>
+</div>
+
+<div class="funnel" id="parentsimple-life-insurance">
+  <h2><span class="brand-tag">ParentSimple</span>Life Insurance</h2>
+  <div class="meta">8 screens · <a href="https://www.parentsimple.org/quiz/life-insurance-us" target="_blank">https://www.parentsimple.org/quiz/life-insurance-us</a></div>
+  <div class="steps">
+    <div class="step">
+      <img src="parentsimple-life-insurance/00-landing.png" alt="Step 0" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#0</span>00-landing</div>
+    </div>
+    <div class="step">
+      <img src="parentsimple-life-insurance/01-step.png" alt="Step 1" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#1</span>01-step</div>
+    </div>
+    <div class="step">
+      <img src="parentsimple-life-insurance/02-step.png" alt="Step 2" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#2</span>02-step</div>
+    </div>
+    <div class="step">
+      <img src="parentsimple-life-insurance/03-step.png" alt="Step 3" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#3</span>03-step</div>
+    </div>
+    <div class="step">
+      <img src="parentsimple-life-insurance/04-step.png" alt="Step 4" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#4</span>04-step</div>
+    </div>
+    <div class="step">
+      <img src="parentsimple-life-insurance/05-step.png" alt="Step 5" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#5</span>05-step</div>
+    </div>
+    <div class="step">
+      <img src="parentsimple-life-insurance/06-step.png" alt="Step 6" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#6</span>06-step</div>
+    </div>
+    <div class="step">
+      <img src="parentsimple-life-insurance/07-step.png" alt="Step 7" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#7</span>07-step</div>
+    </div>
+  </div>
+</div>
+
+<div class="funnel" id="finalexpense-home">
+  <h2><span class="brand-tag">Final Expense</span>Burial Chat</h2>
+  <div class="meta">7 screens · <a href="https://finalexpense.today" target="_blank">https://finalexpense.today</a></div>
+  <div class="steps">
+    <div class="step">
+      <img src="finalexpense-home/00-landing.png" alt="Step 0" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#0</span>00-landing</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-home/01-step.png" alt="Step 1" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#1</span>01-step</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-home/02-step.png" alt="Step 2" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#2</span>02-step</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-home/03-step.png" alt="Step 3" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#3</span>03-step</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-home/04-step.png" alt="Step 4" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#4</span>04-step</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-home/05-step.png" alt="Step 5" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#5</span>05-step</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-home/06-step.png" alt="Step 6" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#6</span>06-step</div>
+    </div>
+  </div>
+</div>
+
+<div class="funnel" id="finalexpense-chat">
+  <h2><span class="brand-tag">Final Expense</span>Chat Funnel</h2>
+  <div class="meta">8 screens · <a href="https://finalexpense.today/chat" target="_blank">https://finalexpense.today/chat</a></div>
+  <div class="steps">
+    <div class="step">
+      <img src="finalexpense-chat/00-landing.png" alt="Step 0" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#0</span>00-landing</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-chat/01-step.png" alt="Step 1" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#1</span>01-step</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-chat/02-step.png" alt="Step 2" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#2</span>02-step</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-chat/03-step.png" alt="Step 3" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#3</span>03-step</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-chat/04-step.png" alt="Step 4" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#4</span>04-step</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-chat/05-step.png" alt="Step 5" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#5</span>05-step</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-chat/06-step.png" alt="Step 6" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#6</span>06-step</div>
+    </div>
+    <div class="step">
+      <img src="finalexpense-chat/07-step.png" alt="Step 7" loading="lazy" onclick="openLightbox(this.src)" />
+      <div class="label"><span class="num">#7</span>07-step</div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="Full size" />
+</div>
+
+<script>
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('active');
+});
+</script>
+</body>
+</html>
