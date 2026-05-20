@@ -1,0 +1,1862 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CallReady — Media Buying Partner Capabilities</title>
+<link rel="stylesheet" href="design/colors_and_type.css">
+<link rel="stylesheet" href="design/_slide.css">
+<style>
+  /* ─── Deck-level overrides + utility classes for this deck ─── */
+  html, body { background: #1B2233; }
+
+  /* Type scale (canonical, ref'd in slide rules) */
+  :root {
+    --type-cover: 132px;
+    --type-h2: 88px;
+    --type-h3: 60px;
+    --type-h4: 42px;
+    --type-body-lg: 30px;
+    --type-body: 26px;
+    --type-small: 22px;
+    --type-eyebrow: 18px;
+    --pad-x: 120px;
+    --pad-top: 100px;
+    --pad-bottom: 96px;
+  }
+
+  /* Tighten slide-pad to deck-level padding tokens */
+  deck-stage .slide-pad { inset: var(--pad-top) var(--pad-x) var(--pad-bottom); }
+
+  /* Slide title style aliases */
+  .ttl-cover { font: 600 var(--type-cover)/1.02 var(--cr-font-serif); letter-spacing: -0.03em; margin: 0; text-wrap: balance; }
+  .ttl-h2    { font: 500 var(--type-h2)/1.08 var(--cr-font-serif); letter-spacing: -0.025em; margin: 0; text-wrap: balance; }
+  .ttl-h3    { font: 500 var(--type-h3)/1.15 var(--cr-font-serif); letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+  .ttl-h4    { font: 500 var(--type-h4)/1.2 var(--cr-font-serif); letter-spacing: -0.02em; margin: 0; }
+
+  .body-lg   { font: 400 var(--type-body-lg)/1.5 var(--cr-font-sans); color: var(--cr-fg-muted); margin: 0; }
+  .body-md   { font: 400 var(--type-body)/1.55 var(--cr-font-sans); color: var(--cr-fg-muted); margin: 0; }
+  .body-sm   { font: 400 var(--type-small)/1.5 var(--cr-font-sans); color: var(--cr-fg-muted); margin: 0; }
+
+  .slide--ink .body-lg, .slide--ink .body-md, .slide--ink .body-sm { color: rgba(245,247,250,0.72); }
+
+  .eyebrow-lg {
+    font: 500 24px var(--cr-font-sans);
+    text-transform: uppercase; letter-spacing: 0.24em;
+    color: rgba(15,23,42,0.5);
+  }
+  .slide--ink .eyebrow-lg { color: rgba(245,247,250,0.55); }
+
+  .sage-rule { display: block; width: 80px; height: 2px; background: var(--cr-sage); border-radius: 999px; }
+  .sage-rule--lg { width: 120px; height: 3px; }
+
+  /* Editorial wordmark — used in place of missing brand logos */
+  .wordmark {
+    display: inline-flex; align-items: baseline; gap: 0;
+    font: 500 38px/1 var(--cr-font-serif);
+    letter-spacing: -0.02em;
+    color: var(--cr-fg);
+  }
+  .wordmark .wm-accent { color: var(--cr-sage); font-style: italic; }
+  .wordmark--lg { font-size: 46px; }
+  .wordmark--inv { color: #F5F7FA; }
+
+  /* Cards */
+  .card {
+    background: #fff;
+    border: 1px solid var(--cr-border);
+    border-radius: 6px;
+    padding: 36px 32px;
+    display: flex; flex-direction: column;
+  }
+  .card--soft { background: #fff; border-color: rgba(15,23,42,0.08); }
+
+  /* Compliance pill */
+  .pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    background: rgba(74,128,104,0.12);
+    color: var(--cr-sage);
+    border-radius: 999px;
+    font: 600 14px var(--cr-font-sans);
+    text-transform: uppercase; letter-spacing: 0.14em;
+  }
+  .pill--ink {
+    background: rgba(74,128,104,0.22);
+    color: #B6D6C2;
+  }
+
+  /* Checkmark — sage stroke */
+  .check {
+    width: 28px; height: 28px; flex: 0 0 28px;
+    border-radius: 999px;
+    background: var(--cr-sage);
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .check svg { width: 16px; height: 16px; }
+
+  /* Brand-card (used in portfolio + financial detail) */
+  .brand-card {
+    background: #fff;
+    border: 1px solid var(--cr-border);
+    border-radius: 6px;
+    padding: 32px 30px;
+    display: flex; flex-direction: column;
+    gap: 18px;
+    min-height: 220px;
+  }
+  .brand-card .bc-logo {
+    height: 60px; display: flex; align-items: center;
+  }
+  .brand-card .bc-logo img { height: 56px; max-width: 220px; object-fit: contain; object-position: left center; }
+  .brand-card .bc-vertical {
+    font: 500 24px var(--cr-font-sans);
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--cr-sage);
+  }
+  .brand-card .bc-coverage {
+    font: 400 22px/1.45 var(--cr-font-sans);
+    color: var(--cr-fg-muted);
+  }
+  .brand-card .bc-url {
+    margin-top: auto;
+    font: 500 24px var(--cr-font-mono);
+    color: var(--cr-fg-soft);
+    letter-spacing: 0.02em;
+  }
+
+  /* Compare table */
+  .compare {
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr;
+    border: 1px solid var(--cr-border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .compare > div {
+    padding: 26px 32px;
+    border-bottom: 1px solid var(--cr-border);
+    font: 400 22px/1.4 var(--cr-font-sans);
+    color: var(--cr-fg);
+  }
+  .compare > div:nth-last-child(-n+3) { border-bottom: 0; }
+  .compare .cmp-h {
+    font: 500 22px var(--cr-font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--cr-fg-soft);
+    background: #F8FAFC;
+  }
+  .compare .cmp-th-callready { color: var(--cr-sage); }
+  .compare .cmp-row { color: var(--cr-fg-muted); }
+  .compare .cmp-callready { color: var(--cr-fg); font-weight: 500; background: rgba(74,128,104,0.04); }
+  .compare .cmp-other { color: var(--cr-fg-muted); }
+  .compare .cmp-label { font-weight: 500; color: var(--cr-fg); background: #F8FAFC; }
+
+  /* Routing-network watermark scaling */
+  .net-bg { position: absolute; inset: 0; pointer-events: none; }
+
+  /* ─── Showcase phone frames + FPO ad cards ─── */
+  .phone {
+    width: 210px; height: 444px;
+    background: #0F172A;
+    border-radius: 36px;
+    padding: 6px;
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 0 16px 40px rgba(15,23,42,0.18), 0 0 0 1.5px rgba(255,255,255,0.04) inset;
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    background: #F5F7FA;
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    display: flex; flex-direction: column;
+  }
+  .phone-notch {
+    position: absolute;
+    top: 10px; left: 50%; transform: translateX(-50%);
+    width: 70px; height: 16px;
+    background: #0F172A;
+    border-radius: 999px;
+    z-index: 3;
+  }
+  .phone-screen img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top center;
+    display: block;
+  }
+
+  /* FPO ad-card (lives inside .phone-screen) */
+  .ad-card { width: 100%; height: 100%; background: #fff; display: flex; flex-direction: column; font-family: var(--cr-font-sans); }
+  .ad-card-status {
+    height: 30px; flex-shrink: 0;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 0 18px 4px;
+    font: 600 11px var(--cr-font-sans);
+    color: #0F172A;
+  }
+  .ad-card-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px 8px;
+    border-top: 1px solid #EEF1F5;
+  }
+  .ad-card-avatar {
+    width: 32px; height: 32px; border-radius: 999px;
+    background: var(--cr-sage); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font: 600 13px var(--cr-font-sans);
+    flex-shrink: 0;
+  }
+  .ad-card-name { font: 600 12px var(--cr-font-sans); color: #0F172A; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+  .ad-card-sub { font: 400 10px var(--cr-font-sans); color: #8A98AB; line-height: 1.2; margin-top: 2px; }
+  .ad-card-caption {
+    padding: 0 14px 10px;
+    font: 400 11px/1.4 var(--cr-font-sans);
+    color: #0F172A;
+  }
+  .ad-card-img {
+    flex: 1; background: linear-gradient(135deg, #EEF1F5 0%, #DCE3EC 100%);
+    border-top: 1px solid #EEF1F5;
+    border-bottom: 1px solid #EEF1F5;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .ad-card-img .fpo {
+    font: 500 10px var(--cr-font-mono);
+    color: rgba(15,23,42,0.45);
+    text-transform: uppercase; letter-spacing: 0.18em;
+    text-align: center;
+  }
+  /* diagonal grain marks for FPO placeholder only */
+  .ad-card-img.is-fpo::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(135deg, rgba(15,23,42,0.04) 25%, transparent 25%, transparent 50%, rgba(15,23,42,0.04) 50%, rgba(15,23,42,0.04) 75%, transparent 75%);
+    background-size: 12px 12px;
+    opacity: 0.6;
+  }
+  /* Real-creative variant — full-bleed image, cropped to the feed card area */
+  .ad-card-img.is-photo {
+    background: #F5F7FA;
+    border-top: 1px solid #EEF1F5;
+    border-bottom: 1px solid #EEF1F5;
+  }
+  .ad-card-img.is-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    display: block;
+  }
+  /* Video-creative variant — stand-in for UGC video ads */
+  .ad-card-img.is-video {
+    background:
+      radial-gradient(circle at 50% 38%, rgba(74,128,104,0.22) 0%, transparent 55%),
+      linear-gradient(160deg, #1B2233 0%, #0F172A 100%);
+    border-top: 1px solid #EEF1F5;
+    border-bottom: 1px solid #EEF1F5;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .ad-card-img.is-video .video-tag {
+    position: absolute; top: 10px; left: 10px;
+    font: 600 9px var(--cr-font-sans);
+    color: #fff;
+    letter-spacing: 0.18em;
+    background: rgba(74,128,104,0.85);
+    padding: 3px 8px;
+    border-radius: 3px;
+    z-index: 2;
+  }
+  .ad-card-img.is-video .video-play {
+    width: 46px; height: 46px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.16);
+    border: 1.5px solid rgba(255,255,255,0.7);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2;
+  }
+  .ad-card-img.is-video .video-play svg { width: 18px; height: 18px; margin-left: 2px; }
+  .ad-card-img.is-video .video-caption {
+    font: 500 10px/1.35 var(--cr-font-sans);
+    color: rgba(245,247,250,0.78);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 0 12px;
+    z-index: 2;
+  }
+  .ad-card-cta {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px;
+    background: #F8FAFC;
+    border-top: 1px solid #EEF1F5;
+  }
+  .ad-card-cta .url { font: 500 9px var(--cr-font-mono); color: #455064; text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.2; }
+  .ad-card-cta .url-sub { font: 600 11px var(--cr-font-sans); color: #0F172A; line-height: 1.2; margin-top: 1px; }
+  .ad-card-cta .btn { background: #0F172A; color: #fff; padding: 6px 10px; border-radius: 4px; font: 500 10px var(--cr-font-sans); flex-shrink: 0; }
+
+  /* Phone caption (under each phone) */
+  .phone-caption {
+    font: 500 16px var(--cr-font-mono);
+    color: var(--cr-fg-soft);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-top: 12px;
+    text-align: center;
+    width: 210px;
+  }
+
+  /* Showcase column label */
+  .showcase-label {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 24px;
+  }
+  .showcase-label .lbl {
+    font: 500 22px var(--cr-font-sans);
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--cr-fg);
+  }
+  .showcase-label .lbl-sub {
+    font: 400 20px var(--cr-font-mono);
+    color: var(--cr-fg-soft);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  /* Standalone ad-frame — paid-social creative without phone bezel.
+     Image is shown at native 1:1 aspect, no cropping. */
+  .ad-frame {
+    width: 220px;
+    background: #fff;
+    border: 1px solid #DCE3EC;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 14px 32px rgba(15,23,42,0.10), 0 2px 6px rgba(15,23,42,0.04);
+    display: flex; flex-direction: column;
+    flex-shrink: 0;
+    font-family: var(--cr-font-sans);
+  }
+  .ad-frame--lg { width: 280px; }
+  .ad-frame--sm { width: 170px; }
+  .ad-frame .ad-card { width: 100%; background: #fff; display: flex; flex-direction: column; }
+  .ad-frame .ad-card-header { border-top: 0; padding: 12px 14px 10px; }
+  .ad-frame .ad-card-img { flex: none; aspect-ratio: 1 / 1; width: 100%; height: auto; }
+  .ad-frame .ad-card-img.is-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ad-frame .ad-card-img.is-video { display: flex; align-items: center; justify-content: center; gap: 10px; flex-direction: column; position: relative; }
+  .ad-frame .ad-card-img.is-video .video-play { width: 56px; height: 56px; }
+  .ad-frame .ad-card-img.is-video .video-play svg { width: 22px; height: 22px; }
+  .ad-frame .ad-card-img.is-video .video-caption { font-size: 11px; }
+
+  /* Live inline video creative — muted autoplay loop, no controls */
+  .ad-card-img.is-video-live {
+    position: relative;
+    background: #0F172A;
+    border-top: 1px solid #EEF1F5;
+    border-bottom: 1px solid #EEF1F5;
+    overflow: hidden;
+  }
+  .ad-frame .ad-card-img.is-video-live { flex: none; aspect-ratio: 1 / 1; }
+  .ad-card-img.is-video-live video {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    display: block;
+  }
+  .ad-card-img.is-video-live::after {
+    content: "VIDEO";
+    position: absolute; top: 10px; left: 10px;
+    font: 600 10px var(--cr-font-sans);
+    color: #fff;
+    letter-spacing: 0.2em;
+    background: rgba(74,128,104,0.92);
+    padding: 4px 9px;
+    border-radius: 3px;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .ad-frame--sm .ad-card-img.is-video-live::after { font-size: 8px; padding: 3px 7px; }
+</style>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080" data-thumbnails="true">
+
+<!-- ─────────── 01  COVER  ─────────── -->
+<section class="slide slide--ink" data-label="01 Cover">
+  <!-- Routing-network watermark -->
+  <svg class="net-bg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:0.4;">
+    <defs>
+      <pattern id="cov-grid" width="80" height="80" patternUnits="userSpaceOnUse">
+        <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#4A8068" stroke-width="0.5" opacity="0.16"/>
+      </pattern>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#cov-grid)"/>
+    <circle cx="1440" cy="540" r="320" stroke="#4A8068" stroke-width="0.8" opacity="0.18" fill="none"/>
+    <circle cx="1440" cy="540" r="500" stroke="#4A8068" stroke-width="0.6" opacity="0.12" fill="none"/>
+    <circle cx="1440" cy="540" r="680" stroke="#4A8068" stroke-width="0.5" opacity="0.07" fill="none"/>
+    <!-- Sparse nodes -->
+    <g opacity="0.55">
+      <line x1="1190" y1="380" x2="1440" y2="540" stroke="#4A8068" stroke-width="1" opacity="0.4"/>
+      <line x1="1230" y1="720" x2="1440" y2="540" stroke="#4A8068" stroke-width="1" opacity="0.4"/>
+      <line x1="1640" y1="320" x2="1440" y2="540" stroke="#4A8068" stroke-width="1" opacity="0.4"/>
+      <line x1="1720" y1="660" x2="1440" y2="540" stroke="#4A8068" stroke-width="1" opacity="0.4"/>
+      <line x1="1520" y1="180" x2="1440" y2="540" stroke="#4A8068" stroke-width="1" opacity="0.4"/>
+      <line x1="1380" y1="900" x2="1440" y2="540" stroke="#4A8068" stroke-width="1" opacity="0.4"/>
+      <circle cx="1190" cy="380" r="5" fill="#4A8068" opacity="0.7"/>
+      <circle cx="1230" cy="720" r="5" fill="#4A8068" opacity="0.7"/>
+      <circle cx="1640" cy="320" r="5" fill="#4A8068" opacity="0.7"/>
+      <circle cx="1720" cy="660" r="5" fill="#4A8068" opacity="0.7"/>
+      <circle cx="1520" cy="180" r="5" fill="#4A8068" opacity="0.7"/>
+      <circle cx="1380" cy="900" r="5" fill="#4A8068" opacity="0.7"/>
+    </g>
+    <circle cx="1440" cy="540" r="22" fill="#4A8068" opacity="0.18"/>
+    <circle cx="1440" cy="540" r="11" fill="#4A8068" opacity="0.85"/>
+  </svg>
+
+  <div class="slide-pad">
+    <!-- Header lockup -->
+    <div style="display:flex;align-items:center;gap:18px;">
+      <img src="assets/logo/callready-mark.png" alt="" style="width:54px;height:54px;">
+      <div style="font:500 26px var(--cr-font-sans);color:#F5F7FA;letter-spacing:-0.005em;">CallReady</div>
+    </div>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;max-width:1280px;">
+      <div class="eyebrow-lg" style="margin-bottom:48px;letter-spacing:0.5em;" id="cover-eyebrow">For media buyers evaluating supply</div>
+      <h1 class="ttl-cover" id="cover-title" style="color:#F5F7FA;margin-bottom:48px;">
+        Seven brands. One source. Owned-and-operated.
+      </h1>
+      <span class="sage-rule sage-rule--lg"></span>
+      <p class="body-lg" id="cover-sub" style="margin-top:48px;max-width:980px;color:rgba(245,247,250,0.72);">
+        Financial services lead supply, run as infrastructure. TrustedForm and Jornaya on every financial property. CPL, ping-post, and CPA available across the portfolio.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:48px;color:rgba(245,247,250,0.6);font:500 24px var(--cr-font-sans);text-transform:uppercase;letter-spacing:0.22em;">
+      <div>Prepared for media buyers · 2026</div>
+      <div>Keenan Shaw · keenan@callready.io</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 02  THE OPPORTUNITY  ─────────── -->
+<section class="slide slide--paper" data-label="02 The opportunity">
+  <div class="slide-pad">
+    <div class="eyebrow-lg" style="margin-bottom:40px;">The opportunity</div>
+    <h2 class="ttl-h2" style="margin-bottom:32px;max-width:1500px;">
+      Financial services lead supply is broken three ways.
+    </h2>
+    <p class="body-lg" style="max-width:1100px;margin-bottom:80px;">
+      Buyers tell us the same story across every vertical we operate in. The supply side is fragmented, the compliance posture is shaky, and the quality is wildly inconsistent. CallReady was built to solve all three at once.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;flex:1;">
+      <div class="card">
+        <div style="font:500 24px var(--cr-font-mono);color:var(--cr-fg-soft);margin-bottom:24px;letter-spacing:0.08em;">01 · FRAGMENTED</div>
+        <div class="ttl-h4" style="margin-bottom:18px;">A dozen publishers per vertical.</div>
+        <div class="body-md">Buyers manage a sprawl of supplier relationships, IOs, and integrations. Quality varies by source. No one is accountable for the whole funnel.</div>
+      </div>
+      <div class="card">
+        <div style="font:500 24px var(--cr-font-mono);color:var(--cr-fg-soft);margin-bottom:24px;letter-spacing:0.08em;">02 · NON-COMPLIANT</div>
+        <div class="ttl-h4" style="margin-bottom:18px;">Consent trails are thin.</div>
+        <div class="body-md">Affiliate networks pass leads with missing TrustedForm certs, missing LeadiD, or consent language that won't survive a TCPA challenge. Buyers absorb the risk.</div>
+      </div>
+      <div class="card">
+        <div style="font:500 24px var(--cr-font-mono);color:var(--cr-fg-soft);margin-bottom:24px;letter-spacing:0.08em;">03 · UNQUALIFIED</div>
+        <div class="ttl-h4" style="margin-bottom:18px;">Volume without intent.</div>
+        <div class="body-md">Incentivized traffic, co-reg, and email drops produce leads that don't pick up the phone. Contact rates collapse and CPA balloons.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;display:flex;align-items:center;gap:28px;">
+      <span class="sage-rule sage-rule--lg"></span>
+      <div style="font:500 26px var(--cr-font-sans);color:var(--cr-fg);">CallReady solves all three. Owned. Compliant. Qualified.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 03  WHO WE ARE  ─────────── -->
+<section class="slide slide--soft" data-label="03 Who we are">
+  <div class="slide-pad">
+    <div class="eyebrow-lg" style="margin-bottom:40px;">Who we are</div>
+    <h2 class="ttl-h2" style="margin-bottom:36px;max-width:1500px;">
+      CallReady operates the Simple Media Network.
+    </h2>
+    <p class="body-lg" style="max-width:1100px;">
+      Seven owned-and-operated consumer publications, built around the financial decisions most worth getting right. Audiences arrive through editorial and social content. They are qualified through proprietary quiz funnels. They are activated as ready-to-contact leads or live transfers.
+    </p>
+
+    <div style="flex:1;display:flex;align-items:center;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:60px;width:100%;max-width:1500px;">
+        <div>
+          <div style="font:600 200px/1 var(--cr-font-serif);letter-spacing:-0.04em;color:var(--cr-fg);">7</div>
+          <div style="font:500 24px var(--cr-font-sans);text-transform:uppercase;letter-spacing:0.18em;color:var(--cr-fg-muted);margin-top:20px;">Brands across<br>5 financial verticals</div>
+        </div>
+        <div>
+          <div style="font:600 200px/1 var(--cr-font-serif);letter-spacing:-0.04em;color:var(--cr-fg);">100<span style="font-size:120px;color:rgba(15,23,42,0.4);">%</span></div>
+          <div style="font:500 24px var(--cr-font-sans);text-transform:uppercase;letter-spacing:0.18em;color:var(--cr-fg-muted);margin-top:20px;">Owned and operated<br>traffic and funnels</div>
+        </div>
+        <div>
+          <div style="font:600 200px/1 var(--cr-font-serif);letter-spacing:-0.04em;color:var(--cr-sage);">1</div>
+          <div style="font:500 24px var(--cr-font-sans);text-transform:uppercase;letter-spacing:0.18em;color:var(--cr-fg-muted);margin-top:20px;">MSA covering<br>every vertical</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:24px;margin-top:24px;">
+      <span class="sage-rule"></span>
+      <div style="font:400 24px var(--cr-font-sans);color:var(--cr-fg-muted);font-style:italic;">Conversation is the KPI. Everything else is upstream.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 04  PORTFOLIO AT A GLANCE  ─────────── -->
+<section class="slide slide--paper" data-label="04 Portfolio at a glance">
+  <div class="slide-pad">
+    <div class="eyebrow-lg" style="margin-bottom:32px;">Portfolio at a glance</div>
+    <h2 class="ttl-h2" style="margin-bottom:24px;max-width:1500px;">Seven brands. One source of truth.</h2>
+    <p class="body-lg" style="margin-bottom:48px;max-width:1100px;">
+      Five financial-services properties. Two adjacent verticals. Every brand built, owned, and operated by CallReady.
+    </p>
+
+    <div style="display:flex;flex-direction:column;gap:32px;flex:1;">
+      <!-- FINANCIAL ROW (5 across) -->
+      <div>
+        <div style="display:flex;align-items:center;gap:18px;margin-bottom:18px;">
+          <span class="sage-rule"></span>
+          <div class="eyebrow-lg" style="color:var(--cr-sage);letter-spacing:0.28em;">Financial services · 5 brands</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;">
+          <div class="brand-card" style="min-height:200px;">
+            <div class="bc-logo"><span class="wordmark">Retirement<span class="wm-accent">Rescue</span></span></div>
+            <div class="bc-vertical">Retirement</div>
+            <div class="bc-url">retirementrescue.net</div>
+          </div>
+          <div class="brand-card" style="min-height:200px;">
+            <div class="bc-logo"><img src="assets/network/seniorsimple-logo.png" alt="SeniorSimple"></div>
+            <div class="bc-vertical">Senior lifestyle</div>
+            <div class="bc-url">seniorsimple.org</div>
+          </div>
+          <div class="brand-card" style="min-height:200px;">
+            <div class="bc-logo"><img src="assets/network/rateroots-logo.png" alt="RateRoots"></div>
+            <div class="bc-vertical">Mortgage · auto</div>
+            <div class="bc-url">rateroots.com</div>
+          </div>
+          <div class="brand-card" style="min-height:200px;">
+            <div class="bc-logo"><span class="wordmark">Money<span class="wm-accent">Simple</span></span></div>
+            <div class="bc-vertical">Consumer debt</div>
+            <div class="bc-url">moneysimple.org</div>
+          </div>
+          <div class="brand-card" style="min-height:200px;">
+            <div class="bc-logo"><img src="assets/network/parentsimple-logo.png" alt="ParentSimple"></div>
+            <div class="bc-vertical">Life · education</div>
+            <div class="bc-url">parentsimple.org</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADJACENT ROW (2 across, centered) -->
+      <div>
+        <div style="display:flex;align-items:center;gap:18px;margin-bottom:18px;">
+          <span class="sage-rule"></span>
+          <div class="eyebrow-lg" style="letter-spacing:0.28em;">Adjacent verticals · 2 brands</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;">
+          <div class="brand-card" style="min-height:200px;">
+            <div class="bc-logo"><img src="assets/network/legalsimple-logo.png" alt="LegalSimple"></div>
+            <div class="bc-vertical">Legal</div>
+            <div class="bc-url">legalsimple.org</div>
+          </div>
+          <div class="brand-card" style="min-height:200px;">
+            <div class="bc-logo"><img src="assets/network/homesimple-logo.png" alt="HomeSimple"></div>
+            <div class="bc-vertical">Home services</div>
+            <div class="bc-url">homesimple.org</div>
+          </div>
+          <div style="grid-column:span 3;align-self:center;padding:0 28px;">
+            <div class="body-md" style="font-size:24px;">
+              Reference funnel screenshots for every brand at
+              <span style="font-family:var(--cr-font-mono);font-size:24px;color:var(--cr-fg);">simplemedianetwork.com/funnel-screenshots</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 05  RETIREMENTRESCUE SHOWCASE  ─────────── -->
+<section class="slide slide--paper" data-label="05 RetirementRescue">
+  <div class="slide-pad">
+    <!-- Header row: hook on left, brand mark on right -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:48px;margin-bottom:40px;">
+      <div style="flex:1;max-width:1180px;">
+        <div class="eyebrow-lg" style="margin-bottom:20px;color:var(--cr-sage);">Brand 01 · Retirement &amp; investment</div>
+        <h2 class="ttl-h2" style="font-size:68px;line-height:1.05;margin-bottom:20px;">Retirement decisions, qualified at the funnel.</h2>
+        <p class="body-md" style="font-size:24px;color:var(--cr-fg-muted);max-width:1100px;">Three live funnels — RMD Quiz, Income Quiz, IUL Finder. Meta and TikTok traffic converted into pre-qualified retirement income, annuity, and IRA rollover leads.</p>
+      </div>
+      <div style="flex-shrink:0;text-align:right;padding-top:10px;display:flex;flex-direction:column;align-items:flex-end;gap:14px;">
+        <span class="wordmark" style="font-size:52px;">Retirement<span class="wm-accent">Rescue</span></span>
+        <div style="font:500 24px var(--cr-font-mono);color:var(--cr-fg-soft);">retirementrescue.net</div>
+      </div>
+    </div>
+
+    <!-- Main row: ads left, funnel right -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;flex:1;align-items:start;">
+      <!-- Ads column -->
+      <div>
+        <div class="showcase-label">
+          <span class="sage-rule"></span>
+          <div class="lbl">Paid social creative</div>
+          <div class="lbl-sub">Meta · TikTok</div>
+        </div>
+        <div style="display:flex;gap:18px;justify-content:flex-start;">
+          <div class="ad-frame">
+            <div class="ad-card">
+                <div class="ad-card-header">
+                  <div class="ad-card-avatar">R</div>
+                  <div>
+                    <div class="ad-card-name">Retirement Rescue</div>
+                    <div class="ad-card-sub">Sponsored · Meta</div>
+                  </div>
+                </div>
+                <div class="ad-card-img is-photo"><img src="assets/ads/rr-worried-savings.jpeg" alt=""></div>
+                <div class="ad-card-cta">
+                  <div>
+                    <div class="url">RETIREMENTRESCUE.NET</div>
+                    <div class="url-sub">Take the quiz</div>
+                  </div>
+                  <div class="btn">Learn More</div>
+                </div>
+            </div>
+          </div>
+          <div class="ad-frame">
+            <div class="ad-card">
+                <div class="ad-card-header">
+                  <div class="ad-card-avatar">R</div>
+                  <div>
+                    <div class="ad-card-name">Retirement Rescue</div>
+                    <div class="ad-card-sub">Sponsored · Meta</div>
+                  </div>
+                </div>
+                <div class="ad-card-img is-photo"><img src="assets/ads/rr-55-women.jpeg" alt=""></div>
+                <div class="ad-card-cta">
+                  <div>
+                    <div class="url">RETIREMENTRESCUE.NET</div>
+                    <div class="url-sub">See if you qualify</div>
+                  </div>
+                  <div class="btn">Learn More</div>
+                </div>
+            </div>
+          </div>
+          <div class="ad-frame">
+            <div class="ad-card">
+                <div class="ad-card-header">
+                  <div class="ad-card-avatar">R</div>
+                  <div>
+                    <div class="ad-card-name">Retirement Rescue</div>
+                    <div class="ad-card-sub">Sponsored · Meta</div>
+                  </div>
+                </div>
+                <div class="ad-card-img is-photo"><img src="assets/ads/rr-turn-savings.jpeg" alt=""></div>
+                <div class="ad-card-cta">
+                  <div>
+                    <div class="url">RETIREMENTRESCUE.NET</div>
+                    <div class="url-sub">Tap your age</div>
+                  </div>
+                  <div class="btn">Learn More</div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-caption" style="text-align:left;width:auto;margin-top:18px;font-size:20px;">Static · carousel · UGC video · selects from the production library</div>
+      </div>
+
+      <!-- Funnel column -->
+      <div>
+        <div class="showcase-label">
+          <span class="sage-rule"></span>
+          <div class="lbl">Funnel</div>
+          <div class="lbl-sub">RMD Quiz · 8 steps</div>
+        </div>
+        <div style="display:flex;gap:18px;justify-content:flex-start;">
+          <div>
+              <div class="phone">
+                <span class="phone-notch"></span>
+                <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/retirementrescue-quiz/00-landing.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+              </div>
+              <div class="phone-caption">Landing</div>
+            </div>
+          <div>
+              <div class="phone">
+                <span class="phone-notch"></span>
+                <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/retirementrescue-quiz/03-step.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+              </div>
+              <div class="phone-caption">Step 03</div>
+            </div>
+          <div>
+              <div class="phone">
+                <span class="phone-notch"></span>
+                <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/retirementrescue-quiz/07-step.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+              </div>
+              <div class="phone-caption">Step 07</div>
+            </div>
+        </div>
+        <div class="phone-caption" style="text-align:left;width:auto;margin-top:18px;font-size:20px;">3 funnels live · RMD Quiz · Income Quiz · IUL Finder</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 06  SENIORSIMPLE SHOWCASE  ─────────── -->
+<section class="slide slide--paper" data-label="06 SeniorSimple">
+  <div class="slide-pad">
+    <!-- Header row: hook on left, brand mark on right -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:48px;margin-bottom:40px;">
+      <div style="flex:1;max-width:1180px;">
+        <div class="eyebrow-lg" style="margin-bottom:20px;color:var(--cr-sage);">Brand 02 · Senior lifestyle</div>
+        <h2 class="ttl-h2" style="font-size:68px;line-height:1.05;margin-bottom:20px;">Reverse mortgage and Final Expense, one senior brand.</h2>
+        <p class="body-md" style="font-size:24px;color:var(--cr-fg-muted);max-width:1100px;">Reverse mortgage calculator + Final Expense burial and chat funnels. Audiences arrive through senior-focused editorial and paid social — Meta dominates.</p>
+      </div>
+      <div style="flex-shrink:0;text-align:right;padding-top:10px;display:flex;flex-direction:column;align-items:flex-end;gap:14px;">
+        <img src="assets/network/seniorsimple-logo.png" alt="SeniorSimple" style="height:64px;max-width:380px;object-fit:contain;object-position:right center;">
+        <div style="font:500 24px var(--cr-font-mono);color:var(--cr-fg-soft);">seniorsimple.org</div>
+      </div>
+    </div>
+
+    <!-- Main row: ads left, funnel right -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;flex:1;align-items:start;">
+      <!-- Ads column -->
+      <div>
+        <div class="showcase-label">
+          <span class="sage-rule"></span>
+          <div class="lbl">Paid social creative</div>
+          <div class="lbl-sub">Meta · TikTok</div>
+        </div>
+        <div style="display:flex;gap:18px;justify-content:flex-start;">
+          <div class="ad-frame">
+            <div class="ad-card">
+                <div class="ad-card-header">
+                  <div class="ad-card-avatar">S</div>
+                  <div>
+                    <div class="ad-card-name">Senior Simple</div>
+                    <div class="ad-card-sub">Sponsored · Meta</div>
+                  </div>
+                </div>
+                <div class="ad-card-img is-photo"><img src="assets/ads/ss-rm-special.png" alt=""></div>
+                <div class="ad-card-cta">
+                  <div>
+                    <div class="url">SENIORSIMPLE.ORG</div>
+                    <div class="url-sub">See your quote</div>
+                  </div>
+                  <div class="btn">Learn More</div>
+                </div>
+            </div>
+          </div>
+          <div class="ad-frame">
+            <div class="ad-card">
+                <div class="ad-card-header">
+                  <div class="ad-card-avatar">S</div>
+                  <div>
+                    <div class="ad-card-name">Senior Simple</div>
+                    <div class="ad-card-sub">Sponsored · Meta</div>
+                  </div>
+                </div>
+                <div class="ad-card-img is-photo"><img src="assets/ads/ss-rm-04.png" alt=""></div>
+                <div class="ad-card-cta">
+                  <div>
+                    <div class="url">SENIORSIMPLE.ORG</div>
+                    <div class="url-sub">See my quote</div>
+                  </div>
+                  <div class="btn">Learn More</div>
+                </div>
+            </div>
+          </div>
+          <div class="ad-frame">
+            <div class="ad-card">
+                <div class="ad-card-header">
+                  <div class="ad-card-avatar">S</div>
+                  <div>
+                    <div class="ad-card-name">Senior Simple</div>
+                    <div class="ad-card-sub">Sponsored · Meta</div>
+                  </div>
+                </div>
+                <div class="ad-card-img is-photo"><img src="assets/ads/ss-rm-02.png" alt=""></div>
+                <div class="ad-card-cta">
+                  <div>
+                    <div class="url">SENIORSIMPLE.ORG</div>
+                    <div class="url-sub">See if you qualify</div>
+                  </div>
+                  <div class="btn">Learn More</div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-caption" style="text-align:left;width:auto;margin-top:18px;font-size:20px;">News-frame · high-contrast static · portrait · selects from the production library</div>
+      </div>
+
+      <!-- Funnel column -->
+      <div>
+        <div class="showcase-label">
+          <span class="sage-rule"></span>
+          <div class="lbl">Funnel</div>
+          <div class="lbl-sub">Reverse Mortgage Calculator · 4 steps</div>
+        </div>
+        <div style="display:flex;gap:18px;justify-content:flex-start;">
+          <div>
+              <div class="phone">
+                <span class="phone-notch"></span>
+                <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/seniorsimple-reverse-mortgage/00-landing.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+              </div>
+              <div class="phone-caption">Landing</div>
+            </div>
+          <div>
+              <div class="phone">
+                <span class="phone-notch"></span>
+                <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/seniorsimple-reverse-mortgage/01-step.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+              </div>
+              <div class="phone-caption">Step 01</div>
+            </div>
+          <div>
+              <div class="phone">
+                <span class="phone-notch"></span>
+                <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/seniorsimple-reverse-mortgage/03-step.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+              </div>
+              <div class="phone-caption">Step 03</div>
+            </div>
+        </div>
+        <div class="phone-caption" style="text-align:left;width:auto;margin-top:18px;font-size:20px;">+ Final Expense burial &amp; chat funnels at finalexpense.today</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 07  RATEROOTS SHOWCASE  ─────────── -->
+<section class="slide slide--paper" data-label="07 RateRoots Mortgage">
+  <div class="slide-pad">
+    <!-- Header row: hook on left, brand mark on right -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:48px;margin-bottom:40px;">
+      <div style="flex:1;max-width:1180px;">
+        <div class="eyebrow-lg" style="margin-bottom:20px;color:var(--cr-sage);">Brand 03 · Mortgage &amp; home equity</div>
+        <h2 class="ttl-h2" style="font-size:68px;line-height:1.05;margin-bottom:20px;">Home equity. Qualified at the funnel.</h2>
+        <p class="body-md" style="font-size:24px;color:var(--cr-fg-muted);max-width:1100px;">HEL and HELOC funnels for credit-qualified homeowners — from premium-tier $500K programs to mass-market refi. The quiz captures property type, available equity, and intent before submission.</p>
+      </div>
+      <div style="flex-shrink:0;text-align:right;padding-top:10px;display:flex;flex-direction:column;align-items:flex-end;gap:14px;">
+        <img src="assets/network/rateroots-logo.png" alt="RateRoots" style="height:64px;max-width:380px;object-fit:contain;object-position:right center;">
+        <div style="font:500 24px var(--cr-font-mono);color:var(--cr-fg-soft);">rateroots.com / mortgage</div>
+      </div>
+    </div>
+
+    <!-- Main row: ads left, funnel right -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;flex:1;align-items:start;">
+      <!-- Ads column -->
+      <div>
+        <div class="showcase-label">
+          <span class="sage-rule"></span>
+          <div class="lbl">Paid social creative</div>
+          <div class="lbl-sub">Meta · TikTok</div>
+        </div>
+        <div style="display:flex;gap:14px;justify-content:flex-start;flex-wrap:nowrap;">
+          <div class="ad-frame ad-frame--sm">
+            <div class="ad-card">
+              <div class="ad-card-header">
+                <div class="ad-card-avatar">R</div>
+                <div>
+                  <div class="ad-card-name">RateRoots</div>
+                  <div class="ad-card-sub">Sponsored · Meta</div>
+                </div>
+              </div>
+              <div class="ad-card-img is-photo"><img src="assets/ads/rr-mortgage-black-card.jpeg" alt=""></div>
+              <div class="ad-card-cta">
+                <div>
+                  <div class="url">RATEROOTS.COM</div>
+                  <div class="url-sub">See your options</div>
+                </div>
+                <div class="btn">Learn More</div>
+              </div>
+            </div>
+          </div>
+          <div class="ad-frame ad-frame--sm">
+            <div class="ad-card">
+              <div class="ad-card-header">
+                <div class="ad-card-avatar">R</div>
+                <div>
+                  <div class="ad-card-name">RateRoots</div>
+                  <div class="ad-card-sub">Sponsored · Meta</div>
+                </div>
+              </div>
+              <div class="ad-card-img is-photo"><img src="assets/ads/rr-mortgage-family-space.png" alt=""></div>
+              <div class="ad-card-cta">
+                <div>
+                  <div class="url">RATEROOTS.COM</div>
+                  <div class="url-sub">See your options</div>
+                </div>
+                <div class="btn">Learn More</div>
+              </div>
+            </div>
+          </div>
+          <div class="ad-frame ad-frame--sm">
+            <div class="ad-card">
+              <div class="ad-card-header">
+                <div class="ad-card-avatar">R</div>
+                <div>
+                  <div class="ad-card-name">RateRoots</div>
+                  <div class="ad-card-sub">Sponsored · Meta</div>
+                </div>
+              </div>
+              <div class="ad-card-img is-photo"><img src="assets/ads/rr-mortgage-premium-heloc.jpeg" alt=""></div>
+              <div class="ad-card-cta">
+                <div>
+                  <div class="url">RATEROOTS.COM</div>
+                  <div class="url-sub">Check your eligibility</div>
+                </div>
+                <div class="btn">Learn More</div>
+              </div>
+            </div>
+          </div>
+          <div class="ad-frame ad-frame--sm">
+            <div class="ad-card">
+              <div class="ad-card-header">
+                <div class="ad-card-avatar">R</div>
+                <div>
+                  <div class="ad-card-name">RateRoots</div>
+                  <div class="ad-card-sub">Sponsored · Meta</div>
+                </div>
+              </div>
+              <div class="ad-card-img is-video-live"><video src="https://vpysqshhafthuxvokwqj.supabase.co/storage/v1/object/public/video-assets/rateroots/home-equity/brian-heloc-like-cash.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+              <div class="ad-card-cta">
+                <div>
+                  <div class="url">RATEROOTS.COM</div>
+                  <div class="url-sub">See your options</div>
+                </div>
+                <div class="btn">Learn More</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-caption" style="text-align:left;width:auto;margin-top:18px;font-size:20px;">Premium editorial · family lifestyle · luxury portrait · creator-led UGC video · selects from the production library</div>
+      </div>
+
+      <!-- Funnel column -->
+      <div>
+        <div class="showcase-label">
+          <span class="sage-rule"></span>
+          <div class="lbl">Funnel</div>
+          <div class="lbl-sub">Home Equity · 4 steps</div>
+        </div>
+        <div style="display:flex;gap:18px;justify-content:flex-start;">
+          <div>
+              <div class="phone">
+                <span class="phone-notch"></span>
+                <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/rateroots-home-equity/00-landing.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+              </div>
+              <div class="phone-caption">Landing</div>
+            </div>
+          <div>
+              <div class="phone">
+                <span class="phone-notch"></span>
+                <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/rateroots-home-equity/01-step.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+              </div>
+              <div class="phone-caption">Step 01</div>
+            </div>
+          <div>
+              <div class="phone">
+                <span class="phone-notch"></span>
+                <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/rateroots-home-equity/03-step.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+              </div>
+              <div class="phone-caption">Step 03</div>
+            </div>
+        </div>
+        <div class="phone-caption" style="text-align:left;width:auto;margin-top:18px;font-size:20px;">Home Equity Quiz · 4 qualifying steps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 08  RATEROOTS · AUTO  ─────────── -->
+<section class="slide slide--paper" data-label="08 RateRoots Auto">
+  <div class="slide-pad">
+    <!-- Header row: hook on left, brand mark on right -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:48px;margin-bottom:40px;">
+      <div style="flex:1;max-width:1180px;">
+        <div class="eyebrow-lg" style="margin-bottom:20px;color:var(--cr-sage);">Brand 03 · Auto insurance</div>
+        <h2 class="ttl-h2" style="font-size:68px;line-height:1.05;margin-bottom:20px;">Auto insurance. Rate-shopper intent.</h2>
+        <p class="body-md" style="font-size:24px;color:var(--cr-fg-muted);max-width:1100px;">Rate-comparison funnels for drivers actively shopping their policy. The quiz qualifies coverage type, current carrier, and household drivers before submission — TrustedForm and Jornaya on every lead.</p>
+      </div>
+      <div style="flex-shrink:0;text-align:right;padding-top:10px;display:flex;flex-direction:column;align-items:flex-end;gap:14px;">
+        <img src="assets/network/rateroots-logo.png" alt="RateRoots" style="height:64px;max-width:380px;object-fit:contain;object-position:right center;">
+        <div style="font:500 24px var(--cr-font-mono);color:var(--cr-fg-soft);">rateroots.com / auto</div>
+      </div>
+    </div>
+
+    <!-- Main row: ads left, funnel right -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;flex:1;align-items:start;">
+      <!-- Ads column -->
+      <div>
+        <div class="showcase-label">
+          <span class="sage-rule"></span>
+          <div class="lbl">Paid social creative</div>
+          <div class="lbl-sub">Meta · TikTok</div>
+        </div>
+        <div style="display:flex;gap:18px;justify-content:flex-start;">
+          <div class="ad-frame">
+            <div class="ad-card">
+              <div class="ad-card-header">
+                <div class="ad-card-avatar">R</div>
+                <div>
+                  <div class="ad-card-name">RateRoots</div>
+                  <div class="ad-card-sub">Sponsored · Meta</div>
+                </div>
+              </div>
+              <div class="ad-card-img is-photo"><img src="assets/ads/rr-auto-before-after.png" alt=""></div>
+              <div class="ad-card-cta">
+                <div>
+                  <div class="url">RATEROOTS.COM</div>
+                  <div class="url-sub">Compare now</div>
+                </div>
+                <div class="btn">Learn More</div>
+              </div>
+            </div>
+          </div>
+          <div class="ad-frame">
+            <div class="ad-card">
+              <div class="ad-card-header">
+                <div class="ad-card-avatar">R</div>
+                <div>
+                  <div class="ad-card-name">RateRoots</div>
+                  <div class="ad-card-sub">Sponsored · Meta</div>
+                </div>
+              </div>
+              <div class="ad-card-img is-photo"><img src="assets/ads/rr-auto-rate-compare.png" alt=""></div>
+              <div class="ad-card-cta">
+                <div>
+                  <div class="url">RATEROOTS.COM</div>
+                  <div class="url-sub">Compare rates</div>
+                </div>
+                <div class="btn">Learn More</div>
+              </div>
+            </div>
+          </div>
+          <div class="ad-frame">
+            <div class="ad-card">
+              <div class="ad-card-header">
+                <div class="ad-card-avatar">R</div>
+                <div>
+                  <div class="ad-card-name">RateRoots</div>
+                  <div class="ad-card-sub">Sponsored · Meta</div>
+                </div>
+              </div>
+              <div class="ad-card-img is-video-live"><video src="https://vpysqshhafthuxvokwqj.supabase.co/storage/v1/object/public/video-assets/rateroots/auto/AUTO-01-VID-Scam.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+              <div class="ad-card-cta">
+                <div>
+                  <div class="url">RATEROOTS.COM</div>
+                  <div class="url-sub">Compare now</div>
+                </div>
+                <div class="btn">Learn More</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-caption" style="text-align:left;width:auto;margin-top:18px;font-size:20px;">Before/after rate-savings · vehicle hero · creator-led UGC video — selects from the production library</div>
+      </div>
+
+      <!-- Funnel column -->
+      <div>
+        <div class="showcase-label">
+          <span class="sage-rule"></span>
+          <div class="lbl">Funnel</div>
+          <div class="lbl-sub">Auto Insurance · 3 steps</div>
+        </div>
+        <div style="display:flex;gap:18px;justify-content:flex-start;">
+          <div>
+            <div class="phone">
+              <span class="phone-notch"></span>
+              <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/rateroots-auto/00-landing.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+            </div>
+            <div class="phone-caption">Landing</div>
+          </div>
+          <div>
+            <div class="phone">
+              <span class="phone-notch"></span>
+              <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/rateroots-auto/01-step.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+            </div>
+            <div class="phone-caption">Step 01</div>
+          </div>
+          <div>
+            <div class="phone">
+              <span class="phone-notch"></span>
+              <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/rateroots-auto/02-step.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+            </div>
+            <div class="phone-caption">Step 02</div>
+          </div>
+        </div>
+        <div class="phone-caption" style="text-align:left;width:auto;margin-top:18px;font-size:20px;">Live at rateroots.com/insurance/auto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 09  MONEYSIMPLE SHOWCASE  ─────────── -->
+<section class="slide slide--paper" data-label="09 MoneySimple">
+  <div class="slide-pad">
+    <!-- Header row: hook on left, brand mark on right -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:48px;margin-bottom:40px;">
+      <div style="flex:1;max-width:1180px;">
+        <div class="eyebrow-lg" style="margin-bottom:20px;color:var(--cr-sage);">Brand 04 · Subprime consumer debt</div>
+        <h2 class="ttl-h2" style="font-size:68px;line-height:1.05;margin-bottom:20px;">Stressed-balance-sheet households, qualified for relief.</h2>
+        <p class="body-md" style="font-size:24px;color:var(--cr-fg-muted);max-width:1100px;">Debt consolidation, financial-hardship programs, credit repair. Funnels qualify total debt load and household income before the lead is submitted.</p>
+      </div>
+      <div style="flex-shrink:0;text-align:right;padding-top:10px;display:flex;flex-direction:column;align-items:flex-end;gap:14px;">
+        <span class="wordmark" style="font-size:52px;">Money<span class="wm-accent">Simple</span></span>
+        <div style="font:500 24px var(--cr-font-mono);color:var(--cr-fg-soft);">moneysimple.org</div>
+      </div>
+    </div>
+
+    <!-- Main row: ads left, funnel right -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;flex:1;align-items:start;">
+      <!-- Ads column -->
+      <div>
+        <div class="showcase-label">
+          <span class="sage-rule"></span>
+          <div class="lbl">Paid social creative</div>
+          <div class="lbl-sub">Meta · TikTok</div>
+        </div>
+        <div style="display:flex;gap:18px;justify-content:flex-start;">
+          <div class="ad-frame">
+            <div class="ad-card">
+                <div class="ad-card-header">
+                  <div class="ad-card-avatar">M</div>
+                  <div>
+                    <div class="ad-card-name">Money Simple</div>
+                    <div class="ad-card-sub">Sponsored · Meta</div>
+                  </div>
+                </div>
+                <div class="ad-card-img is-photo"><img src="assets/ads/ms-minimum-trap.jpeg" alt=""></div>
+                <div class="ad-card-cta">
+                  <div>
+                    <div class="url">MONEYSIMPLE.ORG</div>
+                    <div class="url-sub">Check your options</div>
+                  </div>
+                  <div class="btn">Learn More</div>
+                </div>
+            </div>
+          </div>
+          <div class="ad-frame">
+            <div class="ad-card">
+                <div class="ad-card-header">
+                  <div class="ad-card-avatar">M</div>
+                  <div>
+                    <div class="ad-card-name">Money Simple</div>
+                    <div class="ad-card-sub">Sponsored · Meta</div>
+                  </div>
+                </div>
+                <div class="ad-card-img is-photo"><img src="assets/ads/ms-latina-options.jpeg" alt=""></div>
+                <div class="ad-card-cta">
+                  <div>
+                    <div class="url">MONEYSIMPLE.ORG</div>
+                    <div class="url-sub">Check your options</div>
+                  </div>
+                  <div class="btn">Learn More</div>
+                </div>
+            </div>
+          </div>
+          <div class="ad-frame">
+            <div class="ad-card">
+                <div class="ad-card-header">
+                  <div class="ad-card-avatar">M</div>
+                  <div>
+                    <div class="ad-card-name">Money Simple</div>
+                    <div class="ad-card-sub">Sponsored · Meta</div>
+                  </div>
+                </div>
+                <div class="ad-card-img is-photo"><img src="assets/ads/ms-1-in-4-stat.jpeg" alt=""></div>
+                <div class="ad-card-cta">
+                  <div>
+                    <div class="url">MONEYSIMPLE.ORG</div>
+                    <div class="url-sub">See your options</div>
+                  </div>
+                  <div class="btn">Learn More</div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-caption" style="text-align:left;width:auto;margin-top:18px;font-size:20px;">Pain-point editorial · testimonial portrait · social-proof stat · selects from the production library</div>
+      </div>
+
+      <!-- Funnel column -->
+      <div>
+        <div class="showcase-label">
+          <span class="sage-rule"></span>
+          <div class="lbl">Funnel</div>
+          <div class="lbl-sub">Debt Relief · 3 steps</div>
+        </div>
+        <div style="display:flex;gap:18px;justify-content:flex-start;">
+          <div>
+            <div class="phone">
+              <span class="phone-notch"></span>
+              <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/moneysimple-debt-relief/00-landing.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+            </div>
+            <div class="phone-caption">Landing</div>
+          </div>
+          <div>
+            <div class="phone">
+              <span class="phone-notch"></span>
+              <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/moneysimple-debt-relief/01-step.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+            </div>
+            <div class="phone-caption">Step 01</div>
+          </div>
+          <div>
+            <div class="phone">
+              <span class="phone-notch"></span>
+              <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/moneysimple-debt-relief/02-step.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+            </div>
+            <div class="phone-caption">Step 02</div>
+          </div>
+        </div>
+        <div class="phone-caption" style="text-align:left;width:auto;margin-top:18px;font-size:20px;">Live at moneysimple.org/get-financial-help</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 10  PARENTSIMPLE SHOWCASE  ─────────── -->
+<section class="slide slide--paper" data-label="10 ParentSimple">
+  <div class="slide-pad">
+    <!-- Header row: hook on left, brand mark on right -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:48px;margin-bottom:40px;">
+      <div style="flex:1;max-width:1180px;">
+        <div class="eyebrow-lg" style="margin-bottom:20px;color:var(--cr-sage);">Brand 05 · Life insurance &amp; education</div>
+        <h2 class="ttl-h2" style="font-size:68px;line-height:1.05;margin-bottom:20px;">Life insurance for households with dependents.</h2>
+        <p class="body-md" style="font-size:24px;color:var(--cr-fg-muted);max-width:1100px;">Term and whole life, family financial products, education funding. The funnel qualifies dependents, household income, and existing coverage before submission.</p>
+      </div>
+      <div style="flex-shrink:0;text-align:right;padding-top:10px;display:flex;flex-direction:column;align-items:flex-end;gap:14px;">
+        <img src="assets/network/parentsimple-logo.png" alt="ParentSimple" style="height:64px;max-width:380px;object-fit:contain;object-position:right center;">
+        <div style="font:500 24px var(--cr-font-mono);color:var(--cr-fg-soft);">parentsimple.org</div>
+      </div>
+    </div>
+
+    <!-- Main row: ads left, funnel right -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;flex:1;align-items:start;">
+      <!-- Ads column -->
+      <div>
+        <div class="showcase-label">
+          <span class="sage-rule"></span>
+          <div class="lbl">Paid social creative</div>
+          <div class="lbl-sub">Meta · TikTok</div>
+        </div>
+        <div style="display:flex;gap:18px;justify-content:flex-start;">
+          <div class="ad-frame">
+            <div class="ad-card">
+                <div class="ad-card-header">
+                  <div class="ad-card-avatar">P</div>
+                  <div>
+                    <div class="ad-card-name">Parent Simple</div>
+                    <div class="ad-card-sub">Sponsored · Meta</div>
+                  </div>
+                </div>
+                <div class="ad-card-img is-photo"><img src="assets/ads/ps-500k-family.avif" alt=""></div>
+                <div class="ad-card-cta">
+                  <div>
+                    <div class="url">PARENTSIMPLE.ORG</div>
+                    <div class="url-sub">Apply now</div>
+                  </div>
+                  <div class="btn">Learn More</div>
+                </div>
+            </div>
+          </div>
+          <div class="ad-frame">
+            <div class="ad-card">
+                <div class="ad-card-header">
+                  <div class="ad-card-avatar">P</div>
+                  <div>
+                    <div class="ad-card-name">Parent Simple</div>
+                    <div class="ad-card-sub">Sponsored · Meta</div>
+                  </div>
+                </div>
+                <div class="ad-card-img is-photo"><img src="assets/ads/ps-weekly-quote.jpeg" alt=""></div>
+                <div class="ad-card-cta">
+                  <div>
+                    <div class="url">PARENTSIMPLE.ORG</div>
+                    <div class="url-sub">Get instant quote</div>
+                  </div>
+                  <div class="btn">Learn More</div>
+                </div>
+            </div>
+          </div>
+          <div class="ad-frame">
+            <div class="ad-card">
+                <div class="ad-card-header">
+                  <div class="ad-card-avatar">P</div>
+                  <div>
+                    <div class="ad-card-name">Parent Simple</div>
+                    <div class="ad-card-sub">Sponsored · Meta</div>
+                  </div>
+                </div>
+                <div class="ad-card-img is-video-live"><video src="https://vpysqshhafthuxvokwqj.supabase.co/storage/v1/object/public/video-assets/parentsimple/life-insurance/LIFE-04-VID.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+                <div class="ad-card-cta">
+                  <div>
+                    <div class="url">PARENTSIMPLE.ORG</div>
+                    <div class="url-sub">Watch now</div>
+                  </div>
+                  <div class="btn">Learn More</div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-caption" style="text-align:left;width:auto;margin-top:18px;font-size:20px;">Coverage tiers · family-focused static · UGC creator video · selects from the production library</div>
+      </div>
+
+      <!-- Funnel column -->
+      <div>
+        <div class="showcase-label">
+          <span class="sage-rule"></span>
+          <div class="lbl">Funnel</div>
+          <div class="lbl-sub">Life Insurance · 8 steps</div>
+        </div>
+        <div style="display:flex;gap:18px;justify-content:flex-start;">
+          <div>
+              <div class="phone">
+                <span class="phone-notch"></span>
+                <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/parentsimple-life-insurance/00-landing.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+              </div>
+              <div class="phone-caption">Landing</div>
+            </div>
+          <div>
+              <div class="phone">
+                <span class="phone-notch"></span>
+                <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/parentsimple-life-insurance/03-step.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+              </div>
+              <div class="phone-caption">Step 03</div>
+            </div>
+          <div>
+              <div class="phone">
+                <span class="phone-notch"></span>
+                <div class="phone-screen"><img src="https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/parentsimple-life-insurance/07-step.png" alt="" loading="lazy" crossorigin="anonymous"></div>
+              </div>
+              <div class="phone-caption">Step 07</div>
+            </div>
+        </div>
+        <div class="phone-caption" style="text-align:left;width:auto;margin-top:18px;font-size:20px;">Production funnel · 8 qualifying steps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 11  ADJACENT VERTICALS  ─────────── -->
+<section class="slide slide--paper" data-label="11 Adjacent verticals">
+  <div class="slide-pad">
+    <div class="eyebrow-lg" style="margin-bottom:32px;">Adjacent verticals</div>
+    <h2 class="ttl-h2" style="margin-bottom:24px;max-width:1500px;">Two non-financial brands, same operating discipline.</h2>
+    <p class="body-lg" style="margin-bottom:56px;max-width:1100px;">
+      For buyers with cross-vertical mandates — legal demand desks, performance arms of holding companies, multi-product brokers.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;flex:1;">
+      <!-- LegalSimple -->
+      <div class="card" style="padding:40px;">
+        <div style="height:64px;display:flex;align-items:center;margin-bottom:24px;">
+          <img src="assets/network/legalsimple-logo.png" alt="LegalSimple" style="height:72px;max-width:340px;object-fit:contain;object-position:left center;">
+        </div>
+        <div style="font:500 22px var(--cr-font-sans);color:var(--cr-sage);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:12px;">Legal · legalsimple.org</div>
+        <div class="ttl-h4" style="margin-bottom:24px;">MVA and Mass Tort.</div>
+        <div class="body-md" style="margin-bottom:24px;">Motor vehicle accident and mass tort lead generation for law firms and aggregators. Quiz-driven intake to qualify case fit before submission.</div>
+        <div style="margin-top:auto;padding-top:24px;border-top:1px solid var(--cr-border);">
+          <div style="font:500 22px var(--cr-font-sans);color:var(--cr-fg-soft);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:10px;">Compliance regime</div>
+          <div class="body-md" style="font-size:22px;color:var(--cr-fg);">Legal lead-gen carries a separate regulatory profile. LegalSimple does not use TrustedForm or Jornaya; consent and intake are handled appropriate to the vertical.</div>
+        </div>
+      </div>
+
+      <!-- HomeSimple -->
+      <div class="card" style="padding:40px;">
+        <div style="height:64px;display:flex;align-items:center;margin-bottom:24px;">
+          <img src="assets/network/homesimple-logo.png" alt="HomeSimple" style="height:72px;max-width:340px;object-fit:contain;object-position:left center;">
+        </div>
+        <div style="font:500 22px var(--cr-font-sans);color:var(--cr-sage);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:12px;">Home services · homesimple.org</div>
+        <div class="ttl-h4" style="margin-bottom:24px;">Bath remodel and windows.</div>
+        <div class="body-md" style="margin-bottom:24px;">Project-grade home improvement leads for franchise networks and regional contractors. Geo-filtered and budget-qualified at the funnel.</div>
+        <div style="margin-top:auto;padding-top:24px;border-top:1px solid var(--cr-border);">
+          <div style="font:500 22px var(--cr-font-sans);color:var(--cr-fg-soft);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:10px;">Coverage notes</div>
+          <div class="body-md" style="font-size:22px;color:var(--cr-fg);">Categories expanding through 2026. New verticals onboarded with the same compliance and funnel discipline as financial properties.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 12  HOW WE GENERATE DEMAND  ─────────── -->
+<section class="slide slide--paper" data-label="12 How we generate demand">
+  <div class="slide-pad">
+    <div class="eyebrow-lg" style="margin-bottom:32px;">How we generate demand</div>
+    <h2 class="ttl-h2" style="margin-bottom:24px;max-width:1500px;">Owned media, paid social, quiz-qualified.</h2>
+    <p class="body-lg" style="margin-bottom:36px;max-width:1100px;">
+      Every lead in the network was acquired through a CallReady-owned funnel, on traffic CallReady paid for, against editorial content CallReady controls.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;flex:1;">
+      <!-- Pillar 1 -->
+      <div class="card" style="padding:36px 32px;">
+        <div style="font:500 22px var(--cr-font-mono);color:var(--cr-fg-soft);margin-bottom:32px;letter-spacing:0.1em;">PILLAR 01</div>
+        <div class="ttl-h4" style="margin-bottom:20px;">Owned funnels.</div>
+        <div class="body-md" style="margin-bottom:auto;">No affiliate arbitrage. No third-party publisher quality risk. Every funnel, asset, and pixel sits on CallReady infrastructure.</div>
+        <div style="margin-top:36px;padding-top:24px;border-top:1px solid var(--cr-border);font:500 22px var(--cr-font-sans);color:var(--cr-fg);">
+          100% owned and operated
+        </div>
+      </div>
+
+      <!-- Pillar 2 -->
+      <div class="card" style="padding:36px 32px;">
+        <div style="font:500 22px var(--cr-font-mono);color:var(--cr-fg-soft);margin-bottom:32px;letter-spacing:0.1em;">PILLAR 02</div>
+        <div class="ttl-h4" style="margin-bottom:20px;">Paid social, then native.</div>
+        <div class="body-md" style="margin-bottom:auto;">Meta and TikTok dominate the current mix. Native (Taboola, Outbrain, Yahoo) is actively expanding to broaden the demographic and de-risk platform concentration.</div>
+        <div style="margin-top:36px;padding-top:24px;border-top:1px solid var(--cr-border);font:500 22px var(--cr-font-sans);color:var(--cr-fg);">
+          Meta · TikTok · Taboola · Outbrain · Yahoo
+        </div>
+      </div>
+
+      <!-- Pillar 3 -->
+      <div class="card" style="padding:36px 32px;">
+        <div style="font:500 22px var(--cr-font-mono);color:var(--cr-fg-soft);margin-bottom:32px;letter-spacing:0.1em;">PILLAR 03</div>
+        <div class="ttl-h4" style="margin-bottom:20px;">Quiz-driven qualification.</div>
+        <div class="body-md" style="margin-bottom:auto;">Multi-step quizzes pre-qualify intent before the lead is generated. Buyers receive submissions with explicit decision context — not raw clicks dressed as leads.</div>
+        <div style="margin-top:36px;padding-top:24px;border-top:1px solid var(--cr-border);font:500 22px var(--cr-font-sans);color:var(--cr-fg);">
+          Intent captured at the funnel level
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;display:flex;align-items:center;gap:24px;">
+      <span class="sage-rule"></span>
+      <div style="font:500 24px var(--cr-font-sans);color:var(--cr-fg-muted);">
+        No incentivized traffic. No co-reg. No email drops.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 13  COMPLIANCE STACK  ─────────── -->
+<section class="slide slide--ink" data-label="13 Compliance stack">
+  <!-- subtle network watermark -->
+  <svg class="net-bg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:0.25;">
+    <defs>
+      <pattern id="cmp-grid" width="100" height="100" patternUnits="userSpaceOnUse">
+        <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#4A8068" stroke-width="0.5" opacity="0.18"/>
+      </pattern>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#cmp-grid)"/>
+  </svg>
+
+  <div class="slide-pad">
+    <div class="eyebrow-lg" style="margin-bottom:28px;">Compliance stack</div>
+    <h2 class="ttl-h2" style="margin-bottom:28px;max-width:1500px;color:#F5F7FA;font-size:78px;">
+      Compliance is structural, not a footnote.
+    </h2>
+    <p class="body-lg" style="margin-bottom:48px;max-width:1100px;font-size:26px;">
+      Every financial property in the network is instrumented for the certifications and consent trails enterprise buyers require. The stack is identical across brands.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;flex:1;">
+
+      <!-- TrustedForm -->
+      <div style="background:rgba(245,247,250,0.04);border:1px solid rgba(245,247,250,0.14);border-radius:8px;padding:36px 32px;display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div style="font:500 22px var(--cr-font-sans);color:#B6D6C2;text-transform:uppercase;letter-spacing:0.18em;">Vendor 01</div>
+        </div>
+        <div style="font:500 44px/1.05 var(--cr-font-serif);color:#F5F7FA;letter-spacing:-0.02em;margin-bottom:16px;">TrustedForm</div>
+        <div class="body-md" style="font-size:24px;">ActiveProspect TrustedForm certificate URL passed with every financial-property submission.</div>
+      </div>
+
+      <!-- Jornaya -->
+      <div style="background:rgba(245,247,250,0.04);border:1px solid rgba(245,247,250,0.14);border-radius:8px;padding:36px 32px;display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div style="font:500 22px var(--cr-font-sans);color:#B6D6C2;text-transform:uppercase;letter-spacing:0.18em;">Vendor 02</div>
+        </div>
+        <div style="font:500 44px/1.05 var(--cr-font-serif);color:#F5F7FA;letter-spacing:-0.02em;margin-bottom:16px;">Jornaya LeadiD</div>
+        <div class="body-md" style="font-size:24px;">Jornaya LeadiD token captured on every financial-property submission. Dual-vendor stack by design.</div>
+      </div>
+
+      <!-- TCPA -->
+      <div style="background:rgba(245,247,250,0.04);border:1px solid rgba(245,247,250,0.14);border-radius:8px;padding:36px 32px;display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div style="font:500 22px var(--cr-font-sans);color:#B6D6C2;text-transform:uppercase;letter-spacing:0.18em;">Consent</div>
+        </div>
+        <div style="font:500 44px/1.05 var(--cr-font-serif);color:#F5F7FA;letter-spacing:-0.02em;margin-bottom:16px;">TCPA consent.</div>
+        <div class="body-md" style="font-size:24px;">Express written consent on every funnel. Disclosure above the CTA. Buyer-specific language on request.</div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- ─────────── 14  REAL-TIME DELIVERY  ─────────── -->
+<section class="slide slide--paper" data-label="14 Real-time delivery">
+  <div class="slide-pad">
+    <div class="eyebrow-lg" style="margin-bottom:32px;">Lead delivery</div>
+    <h2 class="ttl-h2" style="margin-bottom:24px;max-width:1500px;">Real-time delivery. Buyer's choice of pipe.</h2>
+    <p class="body-lg" style="margin-bottom:56px;max-width:1100px;">
+      Leads delivered within seconds of submission. Integration matched to the buyer's existing stack — no forced migration to a CallReady portal, no dashboard you'll forget to log into.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;flex:1;">
+      <div class="card" style="padding:36px 32px;border-color:rgba(74,128,104,0.45);">
+        <div style="display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;border:1.5px solid var(--cr-sage);background:var(--cr-sage);color:#fff;margin-bottom:28px;font:500 22px var(--cr-font-mono);">01</div>
+        <div class="ttl-h4" style="margin-bottom:14px;font-size:34px;color:var(--cr-sage);">REST API</div>
+        <div class="body-md" style="font-size:22px;">JSON POST to your endpoint. Schema mapped per buyer.</div>
+        <div style="margin-top:auto;padding-top:24px;border-top:1px solid rgba(74,128,104,0.25);font:500 22px var(--cr-font-mono);color:var(--cr-sage);letter-spacing:0.05em;text-transform:uppercase;">Preferred · default</div>
+      </div>
+
+      <div class="card" style="padding:36px 32px;">
+        <div style="display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;border:1.5px solid var(--cr-fg);margin-bottom:28px;font:500 22px var(--cr-font-mono);color:var(--cr-fg);">02</div>
+        <div class="ttl-h4" style="margin-bottom:14px;font-size:34px;">Ping-Post</div>
+        <div class="body-md" style="font-size:22px;">Ping with metadata, post on the win. Network-style buyer fit and exclusivity logic.</div>
+        <div style="margin-top:auto;padding-top:24px;border-top:1px solid var(--cr-border);font:500 22px var(--cr-font-mono);color:var(--cr-fg-soft);letter-spacing:0.05em;text-transform:uppercase;">Networks · on request</div>
+      </div>
+
+      <div class="card" style="padding:36px 32px;">
+        <div style="display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;border:1.5px solid var(--cr-fg);margin-bottom:28px;font:500 22px var(--cr-font-mono);color:var(--cr-fg);">03</div>
+        <div class="ttl-h4" style="margin-bottom:14px;font-size:34px;">Webhook</div>
+        <div class="body-md" style="font-size:22px;">Event-style delivery to whatever endpoint your stack already supports.</div>
+        <div style="margin-top:auto;padding-top:24px;border-top:1px solid var(--cr-border);font:500 22px var(--cr-font-mono);color:var(--cr-fg-soft);letter-spacing:0.05em;text-transform:uppercase;">CRM-integrated buyers</div>
+      </div>
+
+      <div class="card" style="padding:36px 32px;">
+        <div style="display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;border:1.5px solid var(--cr-fg);margin-bottom:28px;font:500 22px var(--cr-font-mono);color:var(--cr-fg);">04</div>
+        <div class="ttl-h4" style="margin-bottom:14px;font-size:34px;">Batch CSV</div>
+        <div class="body-md" style="font-size:22px;">Scheduled drop to SFTP for buyers without real-time infrastructure.</div>
+        <div style="margin-top:auto;padding-top:24px;border-top:1px solid var(--cr-border);font:500 22px var(--cr-font-mono);color:var(--cr-fg-soft);letter-spacing:0.05em;text-transform:uppercase;">Legacy stacks</div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;display:flex;align-items:center;gap:32px;">
+      <span class="sage-rule"></span>
+      <div style="font:500 22px var(--cr-font-sans);color:var(--cr-fg-muted);">
+        Field schema, consent format, and exclusivity rules all configured per buyer.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 15  OWNED, NOT AGGREGATED  ─────────── -->
+<section class="slide slide--soft" data-label="15 Owned not aggregated">
+  <div class="slide-pad">
+    <div class="eyebrow-lg" style="margin-bottom:32px;">Why CallReady</div>
+    <h2 class="ttl-h2" style="margin-bottom:24px;max-width:1500px;">Owned and operated, not aggregated.</h2>
+    <p class="body-lg" style="margin-bottom:48px;max-width:1100px;">
+      The structural difference between buying from CallReady and buying from a lead aggregator — across the five dimensions buyers actually care about.
+    </p>
+
+    <div class="compare" style="flex:1;">
+      <div class="cmp-h"></div>
+      <div class="cmp-h">Typical aggregator</div>
+      <div class="cmp-h cmp-th-callready">CallReady</div>
+
+      <div class="cmp-label">Source of traffic</div>
+      <div class="cmp-other">A network of affiliate publishers, varying quality, opaque.</div>
+      <div class="cmp-callready">100% owned-and-operated CallReady funnels.</div>
+
+      <div class="cmp-label">Compliance posture</div>
+      <div class="cmp-other">Depends on the publisher in the chain. Risk pushed to the buyer.</div>
+      <div class="cmp-callready">TrustedForm + Jornaya on every financial submission. Single audit.</div>
+
+      <div class="cmp-label">Quality control</div>
+      <div class="cmp-other">Filter at delivery. Bad submissions are returned, not prevented.</div>
+      <div class="cmp-callready">Quiz qualification at the funnel. Intent is captured before submission.</div>
+
+      <div class="cmp-label">Scale levers</div>
+      <div class="cmp-other">Buy more from existing publishers. Diminishing returns.</div>
+      <div class="cmp-callready">Adjust paid-media spend directly. Volume responds.</div>
+
+      <div class="cmp-label">Data ownership</div>
+      <div class="cmp-other">The aggregator owns the customer relationship. You rent the lead.</div>
+      <div class="cmp-callready">First-party data, governed under one MSA.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 16  ONE CONTRACT, SEVEN VERTICALS  ─────────── -->
+<section class="slide slide--paper" data-label="16 One contract seven verticals">
+  <div class="slide-pad">
+    <div class="eyebrow-lg" style="margin-bottom:32px;">Multi-vertical under one MSA</div>
+    <h2 class="ttl-h2" style="margin-bottom:24px;max-width:1500px;">One contract. Seven verticals.</h2>
+    <p class="body-lg" style="margin-bottom:64px;max-width:1100px;">
+      Consolidate financial-services spend across the full portfolio without managing seven supplier relationships. Add adjacent verticals when you're ready.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:64px;flex:1;align-items:center;">
+      <!-- Left: big stats -->
+      <div style="display:grid;grid-template-columns:repeat(3,auto);gap:60px 80px;">
+        <div>
+          <div style="font:600 160px/1 var(--cr-font-serif);letter-spacing:-0.04em;color:var(--cr-sage);">1</div>
+          <div style="font:500 22px var(--cr-font-sans);text-transform:uppercase;letter-spacing:0.16em;color:var(--cr-fg-muted);margin-top:18px;">Master<br>agreement</div>
+        </div>
+        <div>
+          <div style="font:600 160px/1 var(--cr-font-serif);letter-spacing:-0.04em;color:var(--cr-fg);">1</div>
+          <div style="font:500 22px var(--cr-font-sans);text-transform:uppercase;letter-spacing:0.16em;color:var(--cr-fg-muted);margin-top:18px;">Billing<br>relationship</div>
+        </div>
+        <div>
+          <div style="font:600 160px/1 var(--cr-font-serif);letter-spacing:-0.04em;color:var(--cr-fg);">1</div>
+          <div style="font:500 22px var(--cr-font-sans);text-transform:uppercase;letter-spacing:0.16em;color:var(--cr-fg-muted);margin-top:18px;">Point of<br>contact</div>
+        </div>
+
+        <div style="grid-column:span 3;height:1px;background:var(--cr-border);"></div>
+
+        <div>
+          <div style="font:600 160px/1 var(--cr-font-serif);letter-spacing:-0.04em;color:var(--cr-fg);">7</div>
+          <div style="font:500 22px var(--cr-font-sans);text-transform:uppercase;letter-spacing:0.16em;color:var(--cr-fg-muted);margin-top:18px;">Brand<br>properties</div>
+        </div>
+        <div>
+          <div style="font:600 160px/1 var(--cr-font-serif);letter-spacing:-0.04em;color:var(--cr-fg);">6</div>
+          <div style="font:500 22px var(--cr-font-sans);text-transform:uppercase;letter-spacing:0.16em;color:var(--cr-fg-muted);margin-top:18px;">Distinct<br>verticals</div>
+        </div>
+        <div>
+          <div style="font:600 160px/1 var(--cr-font-serif);letter-spacing:-0.04em;color:var(--cr-fg);">∞</div>
+          <div style="font:500 22px var(--cr-font-sans);text-transform:uppercase;letter-spacing:0.16em;color:var(--cr-fg-muted);margin-top:18px;">Delivery<br>configurations</div>
+        </div>
+      </div>
+
+      <!-- Right: the benefit unpacked -->
+      <div>
+        <h3 class="ttl-h3" style="margin-bottom:36px;font-size:48px;">Less surface area.<br>More leverage.</h3>
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div style="display:flex;gap:18px;align-items:flex-start;">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div class="body-md" style="font-size:23px;color:var(--cr-fg);">Negotiate one MSA. Move volume between verticals as performance shifts.</div>
+          </div>
+          <div style="display:flex;gap:18px;align-items:flex-start;">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div class="body-md" style="font-size:23px;color:var(--cr-fg);">One procurement and compliance review covers every brand in the network.</div>
+          </div>
+          <div style="display:flex;gap:18px;align-items:flex-start;">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div class="body-md" style="font-size:23px;color:var(--cr-fg);">One Slack channel, one rep, one weekly review across the whole spend.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 17  WHAT WE'RE LOOKING FOR  ─────────── -->
+<section class="slide slide--paper" data-label="17 What we're looking for">
+  <div class="slide-pad">
+    <div class="eyebrow-lg" style="margin-bottom:32px;">The ask</div>
+    <h2 class="ttl-h2" style="margin-bottom:24px;max-width:1500px;">What we're looking for in a buyer.</h2>
+    <p class="body-lg" style="margin-bottom:56px;max-width:1100px;">
+      We're opening the buyer roster across financial services and adjacent verticals. The fit profile is specific.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;flex:1;">
+      <!-- Buyer profile -->
+      <div class="card" style="padding:48px 44px;">
+        <div style="font:500 22px var(--cr-font-mono);color:var(--cr-fg-soft);margin-bottom:24px;letter-spacing:0.1em;">PROFILE</div>
+        <div class="ttl-h4" style="margin-bottom:32px;">Ideal buyer.</div>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div style="display:flex;gap:16px;align-items:flex-start;"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div class="body-md" style="font-size:22px;color:var(--cr-fg);">Enterprise advertiser, carrier, lender, or law firm — or the performance arm of one.</div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start;"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div class="body-md" style="font-size:22px;color:var(--cr-fg);">Live contact-center, dialer, or response infrastructure already in place.</div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start;"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div class="body-md" style="font-size:22px;color:var(--cr-fg);">Compliance posture that asks for TrustedForm and Jornaya by name.</div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start;"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div class="body-md" style="font-size:22px;color:var(--cr-fg);">Recurring weekly demand. Willingness to commit to a baseline.</div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start;"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div class="body-md" style="font-size:22px;color:var(--cr-fg);">Interest in multi-vertical expansion over time.</div></div>
+        </div>
+      </div>
+
+      <!-- Pricing & terms -->
+      <div class="card" style="padding:48px 44px;background:#0F172A;border:0;color:#F5F7FA;">
+        <div style="font:500 22px var(--cr-font-mono);color:rgba(245,247,250,0.5);margin-bottom:24px;letter-spacing:0.1em;">PRICING &amp; TERMS</div>
+        <div class="ttl-h4" style="margin-bottom:32px;color:#F5F7FA;">How we transact.</div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;">
+
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:18px;border-bottom:1px solid rgba(245,247,250,0.12);">
+            <div>
+              <div style="font:500 22px var(--cr-font-sans);color:#F5F7FA;">CPL</div>
+              <div style="font:400 22px var(--cr-font-sans);color:rgba(245,247,250,0.6);margin-top:4px;">Per-lead pricing, vertical-specific.</div>
+            </div>
+            <span class="pill pill--ink">Default</span>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:18px;border-bottom:1px solid rgba(245,247,250,0.12);">
+            <div>
+              <div style="font:500 22px var(--cr-font-sans);color:#F5F7FA;">Ping-post</div>
+              <div style="font:400 22px var(--cr-font-sans);color:rgba(245,247,250,0.6);margin-top:4px;">Network-style fit and exclusivity logic.</div>
+            </div>
+            <span class="pill pill--ink">Default</span>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:18px;border-bottom:1px solid rgba(245,247,250,0.12);">
+            <div>
+              <div style="font:500 22px var(--cr-font-sans);color:#F5F7FA;">CPA · pay-per-call</div>
+              <div style="font:400 22px var(--cr-font-sans);color:rgba(245,247,250,0.6);margin-top:4px;">Available on a vertical-by-vertical basis.</div>
+            </div>
+            <div style="font:500 22px var(--cr-font-sans);color:rgba(245,247,250,0.55);text-transform:uppercase;letter-spacing:0.14em;">On request</div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="font:500 22px var(--cr-font-sans);color:#F5F7FA;">Exclusivity</div>
+              <div style="font:400 22px var(--cr-font-sans);color:rgba(245,247,250,0.6);margin-top:4px;">Shared or exclusive — priced accordingly.</div>
+            </div>
+            <div style="font:500 22px var(--cr-font-sans);color:rgba(245,247,250,0.55);text-transform:uppercase;letter-spacing:0.14em;">Negotiated</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 18  PROPOSED PILOT  ─────────── -->
+<section class="slide slide--paper" data-label="18 Proposed pilot">
+  <div class="slide-pad">
+    <div class="eyebrow-lg" style="margin-bottom:32px;">Path forward</div>
+    <h2 class="ttl-h2" style="margin-bottom:24px;max-width:1500px;">Pilot. Optimize. Scale.</h2>
+    <p class="body-lg" style="margin-bottom:64px;max-width:1100px;">
+      A standard onboarding cadence that gets your team to the data fast without committing either side prematurely.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;flex:1;">
+      <!-- Phase 1 -->
+      <div class="card" style="padding:44px 40px;">
+        <div style="font:500 22px var(--cr-font-mono);color:var(--cr-sage);margin-bottom:28px;letter-spacing:0.1em;">PHASE 01 · WEEKS 1–2</div>
+        <div class="ttl-h4" style="margin-bottom:18px;">Pilot.</div>
+        <div class="body-md" style="margin-bottom:24px;">Single vertical, capped daily volume, CPL or ping-post. Live integration in 10 business days from MSA execution.</div>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li class="body-sm" style="color:var(--cr-fg);font-size:22px;">— Schema alignment</li>
+          <li class="body-sm" style="color:var(--cr-fg);font-size:22px;">— Capped daily volume</li>
+          <li class="body-sm" style="color:var(--cr-fg);font-size:22px;">— Baseline return-rate set</li>
+        </ul>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="card" style="padding:44px 40px;">
+        <div style="font:500 22px var(--cr-font-mono);color:var(--cr-sage);margin-bottom:28px;letter-spacing:0.1em;">PHASE 02 · WEEKS 3–4</div>
+        <div class="ttl-h4" style="margin-bottom:18px;">Optimize.</div>
+        <div class="body-md" style="margin-bottom:24px;">Tune filters against your contact and conversion data. Expand to a second vertical if the unit economics support it.</div>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li class="body-sm" style="color:var(--cr-fg);font-size:22px;">— Filter tuning</li>
+          <li class="body-sm" style="color:var(--cr-fg);font-size:22px;">— Return-rate review</li>
+          <li class="body-sm" style="color:var(--cr-fg);font-size:22px;">— Second-vertical activation</li>
+        </ul>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="card" style="padding:44px 40px;background:#0F172A;border:0;color:#F5F7FA;">
+        <div style="font:500 22px var(--cr-font-mono);color:#B6D6C2;margin-bottom:28px;letter-spacing:0.1em;">PHASE 03 · MONTH 2+</div>
+        <div class="ttl-h4" style="margin-bottom:18px;color:#F5F7FA;">Scale.</div>
+        <div class="body-md" style="margin-bottom:24px;color:rgba(245,247,250,0.72);">Multi-vertical IO. Exclusivity tier if you want it. Weekly review against your downstream P&L.</div>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li class="body-sm" style="color:#F5F7FA;font-size:22px;">— Multi-vertical IO</li>
+          <li class="body-sm" style="color:#F5F7FA;font-size:22px;">— Exclusivity options</li>
+          <li class="body-sm" style="color:#F5F7FA;font-size:22px;">— Weekly performance review</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;display:flex;align-items:center;gap:24px;">
+      <span class="sage-rule"></span>
+      <div style="font:500 22px var(--cr-font-sans);color:var(--cr-fg-muted);">
+        From signed MSA to first lead delivered: ten business days.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 19  CONTACT  ─────────── -->
+<section class="slide slide--ink" data-label="19 Open the conversation">
+  <svg class="net-bg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:0.4;">
+    <defs>
+      <pattern id="cta-grid" width="100" height="100" patternUnits="userSpaceOnUse">
+        <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#4A8068" stroke-width="0.5" opacity="0.18"/>
+      </pattern>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#cta-grid)"/>
+    <circle cx="1500" cy="540" r="320" stroke="#4A8068" stroke-width="0.8" opacity="0.18" fill="none"/>
+    <circle cx="1500" cy="540" r="500" stroke="#4A8068" stroke-width="0.6" opacity="0.12" fill="none"/>
+    <circle cx="1500" cy="540" r="22" fill="#4A8068" opacity="0.2"/>
+    <circle cx="1500" cy="540" r="11" fill="#4A8068" opacity="0.9"/>
+  </svg>
+
+  <div class="slide-pad">
+    <div style="display:flex;align-items:center;gap:18px;">
+      <img src="assets/logo/callready-mark.png" alt="" style="width:48px;height:48px;">
+      <div style="font:500 26px var(--cr-font-sans);color:#F5F7FA;letter-spacing:-0.005em;">CallReady</div>
+    </div>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;max-width:1300px;">
+      <div class="eyebrow-lg" style="margin-bottom:40px;color:rgba(245,247,250,0.6);">Next step</div>
+      <h2 class="ttl-cover" style="font-size:120px;color:#F5F7FA;margin-bottom:48px;">
+        Let's build a media plan.
+      </h2>
+      <span class="sage-rule sage-rule--lg"></span>
+      <p class="body-lg" style="margin-top:48px;max-width:980px;color:rgba(245,247,250,0.72);">
+        Pick the verticals. We'll scope volume, schema, and exclusivity around your weekly demand. Initial scoping call — thirty minutes.
+      </p>
+
+      <div style="margin-top:72px;display:grid;grid-template-columns:auto 1fr;gap:64px;align-items:center;">
+        <div style="background:#F5F7FA;color:#0F172A;padding:26px 40px;border-radius:6px;font:500 28px var(--cr-font-sans);display:inline-flex;align-items:center;gap:20px;white-space:nowrap;">
+          Book a media plan call
+          <span style="display:inline-block;font-family:var(--cr-font-mono);">→</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="font:500 30px var(--cr-font-serif);color:#F5F7FA;letter-spacing:-0.01em;">Keenan Shaw</div>
+          <div style="font:500 22px var(--cr-font-mono);color:#B6D6C2;letter-spacing:0.02em;">keenan@callready.io</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:48px;color:rgba(245,247,250,0.55);font:500 24px var(--cr-font-sans);text-transform:uppercase;letter-spacing:0.22em;">
+      <div>Conversation infrastructure™</div>
+      <div>Simple Media Network · 2026</div>
+    </div>
+  </div>
+</section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+
+
+<script>
+  // Play each <video> in the active slide; pause off-screen ones to keep memory sane.
+  function syncVideosToActiveSlide() {
+    const slides = document.querySelectorAll('deck-stage > .slide, deck-stage > section.slide');
+    if (!slides.length) return;
+    // The deck-stage marks the active slide. Try a few signals; fall back to checking inline display.
+    const isActive = (s) => {
+      const cs = getComputedStyle(s);
+      if (cs.display === 'none') return false;
+      if (cs.visibility === 'hidden') return false;
+      const r = s.getBoundingClientRect();
+      return r.width > 100 && r.height > 100;
+    };
+    slides.forEach(s => {
+      const videos = s.querySelectorAll('video');
+      const active = isActive(s);
+      videos.forEach(v => {
+        if (active) {
+          v.muted = true;
+          const p = v.play();
+          if (p && p.catch) p.catch(()=>{});
+        } else {
+          try { v.pause(); v.currentTime = 0; } catch(e) {}
+        }
+      });
+    });
+  }
+  // Run on slide changes from deck-stage's own messaging
+  window.addEventListener('message', (e) => {
+    if (e.data && typeof e.data.slideIndexChanged === 'number') {
+      setTimeout(syncVideosToActiveSlide, 60);
+    }
+  });
+  // Run on keyboard / hash nav too
+  window.addEventListener('hashchange', () => setTimeout(syncVideosToActiveSlide, 80));
+  window.addEventListener('keydown', () => setTimeout(syncVideosToActiveSlide, 200));
+  // Initial pass once everything's mounted
+  if (document.readyState === 'complete') {
+    setTimeout(syncVideosToActiveSlide, 250);
+  } else {
+    window.addEventListener('load', () => setTimeout(syncVideosToActiveSlide, 250));
+  }
+</script>
+</body>
+</html>

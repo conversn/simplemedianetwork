@@ -1,0 +1,186 @@
+/* ──────────────────────────────────────────────────────────────────
+   CallReady — Foundation tokens
+   Conversation Infrastructure™ visual system.
+   Tone: institutional, editorial, restrained. Strategy memo, not SaaS LP.
+   ────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ─── BRAND CORE ──────────────────────────────────────────────── */
+  --cr-slate-ink:        #0F172A;   /* The brand. Dark navy from the logo. Use for headlines, body, dark canvases. */
+  --cr-sage:             #4A8068;   /* Approx hsl(150 24% 38%). The 10% accent. */
+  --cr-sage-bright:      #2EBE6B;   /* Logo checkmark green. Use sparingly — checkmarks, success states. */
+  --cr-bg-paper:         #F5F7FA;   /* The main editorial background — hsl(210 40% 98%). */
+  --cr-bg-paper-soft:    #F8FAFC;   /* Slightly cooler section break (hsl(210 20% 98%)). */
+  --cr-card:             #FFFFFF;   /* Card surfaces. */
+
+  /* ─── NEUTRAL SCALE (slate, cool) ─────────────────────────────── */
+  --cr-slate-50:         #F5F7FA;
+  --cr-slate-100:        #EEF1F5;   /* muted bg ~hsl(214 20% 94%) */
+  --cr-slate-200:        #DCE3EC;   /* borders ~hsl(214 32% 91%) */
+  --cr-slate-300:        #C0CAD7;
+  --cr-slate-400:        #8A98AB;
+  --cr-slate-500:        #5F6E83;
+  --cr-slate-600:        #455064;   /* muted-foreground ~hsl(215 25% 34%) */
+  --cr-slate-700:        #2F3849;
+  --cr-slate-800:        #1B2233;
+  --cr-slate-900:        #0F172A;   /* = slate-ink */
+
+  /* ─── SAGE TINTS (accent — use sparingly) ─────────────────────── */
+  --cr-sage-50:          #EEF5F1;
+  --cr-sage-100:         #DCEBE3;
+  --cr-sage-200:         #B6D6C2;
+  --cr-sage-400:         #6FA188;
+  --cr-sage-500:         #4A8068;   /* = sage */
+  --cr-sage-600:         #3A6753;
+  --cr-sage-700:         #2C4F3F;
+
+  /* ─── SEMANTIC FG / BG ────────────────────────────────────────── */
+  --cr-fg:               var(--cr-slate-900);   /* primary text */
+  --cr-fg-muted:         var(--cr-slate-600);   /* secondary text */
+  --cr-fg-soft:          var(--cr-slate-400);   /* tertiary / micro labels */
+  --cr-fg-on-dark:       #F5F7FA;
+  --cr-fg-on-accent:     #FFFFFF;
+
+  --cr-bg:               var(--cr-bg-paper);
+  --cr-bg-card:          var(--cr-card);
+  --cr-bg-dark:          var(--cr-slate-900);   /* title slides / cover panels */
+  --cr-bg-section-soft:  var(--cr-bg-paper-soft);
+
+  --cr-border:           var(--cr-slate-200);
+  --cr-border-soft:      rgba(15, 23, 42, 0.06);
+  --cr-border-strong:    var(--cr-slate-300);
+
+  /* ─── SEMANTIC STATUS ─────────────────────────────────────────── */
+  --cr-accent:           var(--cr-sage);
+  --cr-accent-foreground:#FFFFFF;
+  --cr-success:          #2EBE6B;
+  --cr-danger:           #D14343;
+  --cr-warning:          #B58A2D;
+
+  /* ─── TYPOGRAPHY — FAMILIES ───────────────────────────────────── */
+  --cr-font-serif:       'Playfair Display', Georgia, 'Times New Roman', serif;
+  --cr-font-sans:        'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --cr-font-mono:        'JetBrains Mono', ui-monospace, Menlo, Monaco, monospace;
+
+  /* ─── TYPE SCALE ──────────────────────────────────────────────── */
+  --cr-text-hero:        4.5rem;    /* 72px — h1, deck title */
+  --cr-text-display:     3.5rem;    /* 56px — pull quotes, stat callouts */
+  --cr-text-h2:          2.5rem;    /* 40px — section heading */
+  --cr-text-h3:          1.875rem;  /* 30px */
+  --cr-text-h4:          1.5rem;    /* 24px */
+  --cr-text-lg:          1.125rem;  /* 18px — body large */
+  --cr-text-base:        1rem;      /* 16px — body */
+  --cr-text-sm:          0.875rem;  /* 14px — body small */
+  --cr-text-xs:          0.75rem;   /* 12px */
+  --cr-text-micro:       0.6875rem; /* 11px — micro labels, system tags */
+
+  /* ─── SEMANTIC TYPE ROLES ─────────────────────────────────────── */
+  /* Used like:  <h1 style="font: var(--cr-h1)">  or class hooks below.  */
+  --cr-h1: 600 var(--cr-text-hero)/1.05 var(--cr-font-serif);
+  --cr-h2: 500 var(--cr-text-h2)/1.15  var(--cr-font-serif);
+  --cr-h3: 500 var(--cr-text-h3)/1.2   var(--cr-font-serif);
+  --cr-h4: 500 var(--cr-text-h4)/1.25  var(--cr-font-serif);
+  --cr-pull: 500 var(--cr-text-display)/1.15 var(--cr-font-serif);
+  --cr-stat: 600 4.5rem/1 var(--cr-font-serif);
+
+  --cr-body-lg:    400 var(--cr-text-lg)/1.6   var(--cr-font-sans);
+  --cr-body:       400 var(--cr-text-base)/1.7 var(--cr-font-sans);
+  --cr-body-sm:    400 var(--cr-text-sm)/1.5   var(--cr-font-sans);
+  --cr-eyebrow:    500 var(--cr-text-micro)/1.4 var(--cr-font-sans);
+  --cr-mono:       400 var(--cr-text-xs)/1.4 var(--cr-font-mono);
+
+  /* Letter spacing tokens */
+  --cr-track-tight:   -0.02em;   /* serif display */
+  --cr-track-normal:   0;
+  --cr-track-wide:     0.08em;   /* eyebrow / micro labels */
+  --cr-track-widest:   0.5em;    /* spaced uppercase divider labels */
+
+  /* ─── SPACING / RADII / SHADOWS ───────────────────────────────── */
+  --cr-radius-xs:        2px;
+  --cr-radius-sm:        4px;     /* default button + chip */
+  --cr-radius-md:        6px;     /* card */
+  --cr-radius-lg:        12px;
+  --cr-radius-pill:      999px;
+
+  --cr-shadow-sm:        0 1px 2px rgba(15, 23, 42, 0.04);
+  --cr-shadow-md:        0 4px 14px rgba(15, 23, 42, 0.06);
+  --cr-shadow-lg:        0 12px 30px rgba(15, 23, 42, 0.08);
+  --cr-shadow-quote:     0 24px 60px -20px rgba(15, 23, 42, 0.18);
+
+  --cr-section-gap:      120px;
+  --cr-section-gap-sm:   80px;
+  --cr-content-max:      1100px;
+  --cr-text-max:         680px;
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   SEMANTIC ELEMENT DEFAULTS
+   Pull these into any HTML artifact — they handle 80% of styling.
+   ────────────────────────────────────────────────────────────────── */
+
+html, body {
+  background: var(--cr-bg);
+  color: var(--cr-fg);
+  font: var(--cr-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--cr-font-serif);
+  letter-spacing: var(--cr-track-tight);
+  color: var(--cr-fg);
+  font-weight: 500;
+  margin: 0;
+}
+h1 { font-size: var(--cr-text-hero);    line-height: 1.05; font-weight: 600; }
+h2 { font-size: var(--cr-text-h2);      line-height: 1.15; }
+h3 { font-size: var(--cr-text-h3);      line-height: 1.2;  }
+h4 { font-size: var(--cr-text-h4);      line-height: 1.25; }
+
+p { margin: 0; font: var(--cr-body); color: var(--cr-fg-muted); }
+
+/* Editorial micro-label (eyebrow / system tag / divider label) */
+.cr-eyebrow {
+  font: var(--cr-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--cr-track-wide);
+  color: var(--cr-fg-soft);
+}
+
+.cr-eyebrow--spaced {
+  letter-spacing: var(--cr-track-widest);
+}
+
+/* Stat callout — large Playfair number with small Inter caption */
+.cr-stat-number {
+  font: var(--cr-stat);
+  letter-spacing: var(--cr-track-tight);
+  color: var(--cr-fg);
+}
+.cr-stat-label {
+  font: var(--cr-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--cr-track-wide);
+  color: var(--cr-fg-muted);
+}
+
+/* Pull quote — large serif, two-line form is the brand signature */
+.cr-pullquote {
+  font: var(--cr-pull);
+  letter-spacing: var(--cr-track-tight);
+  color: var(--cr-fg);
+}
+.cr-pullquote--soft {
+  color: rgba(15, 23, 42, 0.4);
+}
+
+/* Section divider rule (60px sage hairline — the brand's signature accent stroke) */
+.cr-rule {
+  display: inline-block;
+  width: 60px;
+  height: 1px;
+  background: var(--cr-accent);
+}
