@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { PageViewTracker } from "./PageViewTracker";
-import { PartnerInquiryForm } from "./PartnerInquiryForm";
 import { partnerLanderStyles } from "./styles";
 
 export const metadata: Metadata = {
@@ -62,6 +61,8 @@ export default async function PartnerDebtReliefPage({ searchParams }: PageProps)
   const resolved = (await searchParams) ?? {};
   const heroVariant = resolveHeroVariant(resolved);
   const hero = heroContent[heroVariant];
+  const applyHref =
+    heroVariant === "A" ? "/partners/debt-relief/apply?hero=A" : "/partners/debt-relief/apply";
 
   return (
     <>
@@ -88,7 +89,7 @@ export default async function PartnerDebtReliefPage({ searchParams }: PageProps)
               Simple Media Network
               <small>Partner Program</small>
             </div>
-            <a className="pill" href="#apply">
+            <a className="pill" href={applyHref}>
               Check availability →
             </a>
           </div>
@@ -101,7 +102,7 @@ export default async function PartnerDebtReliefPage({ searchParams }: PageProps)
               <h1>{hero.headline}</h1>
               <p className="lede">{hero.lede}</p>
               <div className="controls">{hero.controls}</div>
-              <a className="pill" href="#apply">
+              <a className="pill" href={applyHref}>
                 Check availability →
               </a>
               <div className="micro">
@@ -332,7 +333,7 @@ export default async function PartnerDebtReliefPage({ searchParams }: PageProps)
               <li>Capacity for ongoing daily volume</li>
             </ul>
             <div style={{ marginTop: "34px" }}>
-              <a className="pill" href="#apply">
+              <a className="pill" href={applyHref}>
                 See if there&rsquo;s availability →
               </a>
             </div>
@@ -365,16 +366,21 @@ export default async function PartnerDebtReliefPage({ searchParams }: PageProps)
         </section>
 
         <div className="band-wrap" id="apply">
-          <div className="band">
+          <div className="band cta-band">
             <div className="eyebrow">Request current availability</div>
-            <h2 style={{ margin: "12px 0 16px", maxWidth: "28ch" }}>
+            <h2 style={{ margin: "12px 0 14px", maxWidth: "28ch" }}>
               Your criteria. Your markets. Your volume.
             </h2>
-            <p className="muted" style={{ maxWidth: "60ch", marginBottom: "34px" }}>
-              Tell us where you buy, what qualifies, and how much your team can handle. We&rsquo;ll
-              tell you whether we currently have a program that fits.
+            <p className="muted cta-lede">
+              A short qualifier — company, capacity, states, contact. Takes about a minute.
+              We&rsquo;ll reply within one business day with current debt-relief availability.
             </p>
-            <PartnerInquiryForm />
+            <div className="cta-row">
+              <a className="pill" href={applyHref}>
+                Check partner availability →
+              </a>
+              <span className="micro">7 quick steps · ~60 seconds</span>
+            </div>
           </div>
         </div>
 

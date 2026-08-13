@@ -29,7 +29,7 @@ export const partnerLanderStyles = `
 .smn-partner .micro{font-size:13px;color:var(--muted);margin-top:14px}
 .smn-partner .goldrule{width:72px;height:2px;background:var(--gold);border:0;margin:18px 0 0}
 .smn-partner nav{border-bottom:1px solid var(--hairline)}
-.smn-partner nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:22px;padding-bottom:22px}
+.smn-partner nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:22px;padding-bottom:22px;flex-wrap:wrap;gap:14px}
 .smn-partner .brand{font-family:var(--serif);font-size:20px;letter-spacing:-.01em}
 .smn-partner .brand small{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:block;margin-top:2px}
 .smn-partner .hero{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center}
@@ -79,7 +79,23 @@ export const partnerLanderStyles = `
 .smn-partner footer .wrap{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px}
 .smn-partner .powered{font-size:13px;color:var(--muted)}
 .smn-partner .disc{font-size:12px;color:var(--muted);max-width:60ch;margin-top:10px}
+.smn-partner .cta-band{text-align:left}
+.smn-partner .cta-lede{max-width:60ch;margin-bottom:28px}
+.smn-partner .cta-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.smn-partner .cta-row .micro{margin-top:0;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* Tablet */
+@media(max-width:1024px){
+  .smn-partner .wrap,.smn-partner .band-wrap{padding:0 28px}
+  .smn-partner .band,.smn-partner .band-soft{padding:56px 44px}
+  .smn-partner section{padding:80px 0}
+  .smn-partner h1{font-size:44px}
+  .smn-partner .hero{gap:40px}
+}
+
+/* Phone landscape / small tablet */
 @media(max-width:860px){
+  .smn-partner .wrap,.smn-partner .band-wrap{padding:0 20px}
   .smn-partner .hero,.smn-partner .g2{grid-template-columns:1fr}
   .smn-partner .g4{grid-template-columns:1fr 1fr}
   .smn-partner .g3{grid-template-columns:1fr}
@@ -87,10 +103,62 @@ export const partnerLanderStyles = `
   .smn-partner .qual{columns:1}
   .smn-partner h1{font-size:38px}
   .smn-partner h2{font-size:28px}
-  .smn-partner .band,.smn-partner .band-soft{padding:40px 28px}
-  .smn-partner section{padding:64px 0}
+  .smn-partner .band,.smn-partner .band-soft{padding:44px 28px;border-radius:20px}
+  .smn-partner section{padding:56px 0}
   .smn-partner form .row{grid-template-columns:1fr}
-  .smn-partner .phone-shot .device{width:200px}
+  .smn-partner .phone-shot{padding:32px 20px}
+  .smn-partner .phone-shot .device{width:220px}
   .smn-partner .phone-strip{grid-template-columns:repeat(3,1fr);gap:10px;padding:20px 12px}
+  .smn-partner .lede{font-size:17px}
+  .smn-partner .hero .controls{font-size:17px}
+  .smn-partner .hero h1{margin:14px 0 18px}
+  .smn-partner nav .wrap{padding-top:16px;padding-bottom:16px}
+  .smn-partner .brand{font-size:17px}
+  .smn-partner .brand small{font-size:10px}
+  .smn-partner .pill{padding:12px 22px;font-size:14px}
+}
+
+/* Phone */
+@media(max-width:640px){
+  .smn-partner .wrap,.smn-partner .band-wrap{padding:0 16px}
+  .smn-partner section{padding:44px 0}
+  .smn-partner .band,.smn-partner .band-soft{padding:32px 22px;border-radius:18px}
+  .smn-partner h1{font-size:32px;line-height:1.15}
+  .smn-partner h2{font-size:24px}
+  .smn-partner h3{font-size:18px}
+  .smn-partner p{font-size:16px}
+  .smn-partner .lede{font-size:16px}
+  .smn-partner .hero .controls{font-size:16px}
+  .smn-partner .hero{gap:32px}
+  .smn-partner .g4{grid-template-columns:1fr;gap:12px}
+  .smn-partner .steps{grid-template-columns:1fr;gap:22px}
+  .smn-partner .tile{padding:22px}
+  .smn-partner .tile h3{font-size:16px}
+  .smn-partner .tile p{font-size:14px}
+  .smn-partner .phone-shot{padding:24px 14px}
+  .smn-partner .phone-shot .device{width:200px;border-radius:26px;padding:6px}
+  .smn-partner .phone-shot .device img{border-radius:20px}
+  .smn-partner .phone-strip{padding:16px 10px;gap:8px}
+  .smn-partner .phone-strip .device{border-radius:18px;padding:4px}
+  .smn-partner .phone-strip .device img{border-radius:14px}
+  .smn-partner .phone-strip .cap{font-size:10px;margin-top:6px;letter-spacing:.1em}
+  .smn-partner .pill{width:100%;justify-content:center;padding:14px 22px;font-size:15px;min-height:52px;text-align:center}
+  .smn-partner nav .wrap .pill{width:auto;padding:10px 18px;font-size:13px;min-height:44px}
+  .smn-partner nav .wrap{gap:12px}
+  .smn-partner .brand small{display:block}
+  .smn-partner .cta-row{gap:14px}
+  .smn-partner .cta-row .pill{width:100%}
+  .smn-partner footer .wrap{flex-direction:column;align-items:flex-start;gap:14px}
+  .smn-partner .powered{font-size:12px}
+  .smn-partner .goldrule{margin-top:14px}
+}
+
+/* Small phone */
+@media(max-width:380px){
+  .smn-partner h1{font-size:28px}
+  .smn-partner h2{font-size:22px}
+  .smn-partner .band,.smn-partner .band-soft{padding:26px 18px}
+  .smn-partner .phone-strip{grid-template-columns:1fr;gap:14px}
+  .smn-partner .phone-strip .device{max-width:180px;margin:0 auto}
 }
 `;
