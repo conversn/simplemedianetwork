@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+const MONEYSIMPLE_CDN =
+  "https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/moneysimple-debt-relief";
+
 type HeroVariant = "A" | "B";
 
 function resolveHeroVariant(searchParams?: {
@@ -105,26 +108,15 @@ export default async function PartnerDebtReliefPage({ searchParams }: PageProps)
                 For established debt-relief companies with active sales teams.
               </div>
             </div>
-            <div className="shot" aria-label="MoneySimple screenshot">
-              <div className="bar">
-                <i />
-                <i />
-                <i />
-              </div>
-              <div className="ph">
-                <span className="ph-tag">Proof asset</span>
-                <strong
-                  style={{
-                    fontFamily: "var(--serif)",
-                    fontSize: "20px",
-                    color: "var(--ink)",
-                  }}
-                >
-                  MoneySimple — real screenshot
-                </strong>
-                <span style={{ fontSize: "13px" }}>
-                  A live capture of the owned property that generates the demand goes here.
-                </span>
+            <div className="phone-shot" aria-label="MoneySimple debt-relief landing screenshot">
+              <div className="device">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`${MONEYSIMPLE_CDN}/00-landing.png`}
+                  alt="MoneySimple debt-relief landing page — the owned property that generates consumer demand"
+                  loading="eager"
+                  crossOrigin="anonymous"
+                />
               </div>
             </div>
           </div>
@@ -173,26 +165,42 @@ export default async function PartnerDebtReliefPage({ searchParams }: PageProps)
                 Ad → Consumer experience → Qualification → Delivery
               </p>
             </div>
-            <div className="shot" aria-label="MoneySimple funnel screenshot">
-              <div className="bar">
-                <i />
-                <i />
-                <i />
+            <div className="phone-strip" aria-label="MoneySimple debt-relief consumer funnel — landing, qualification step, criteria step">
+              <div>
+                <div className="device">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`${MONEYSIMPLE_CDN}/00-landing.png`}
+                    alt="MoneySimple debt-relief landing"
+                    loading="lazy"
+                    crossOrigin="anonymous"
+                  />
+                </div>
+                <div className="cap">Landing</div>
               </div>
-              <div className="ph">
-                <span className="ph-tag">Proof asset</span>
-                <strong
-                  style={{
-                    fontFamily: "var(--serif)",
-                    fontSize: "20px",
-                    color: "var(--ink)",
-                  }}
-                >
-                  MoneySimple funnel — real capture
-                </strong>
-                <span style={{ fontSize: "13px" }}>
-                  Show the actual consumer experience, not stock imagery.
-                </span>
+              <div>
+                <div className="device">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`${MONEYSIMPLE_CDN}/01-step.png`}
+                    alt="MoneySimple debt-relief qualification"
+                    loading="lazy"
+                    crossOrigin="anonymous"
+                  />
+                </div>
+                <div className="cap">Qualify</div>
+              </div>
+              <div>
+                <div className="device">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`${MONEYSIMPLE_CDN}/02-step.png`}
+                    alt="MoneySimple debt-relief criteria"
+                    loading="lazy"
+                    crossOrigin="anonymous"
+                  />
+                </div>
+                <div className="cap">Criteria</div>
               </div>
             </div>
           </div>

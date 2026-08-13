@@ -41,6 +41,13 @@ export const partnerLanderStyles = `
 .smn-partner .shot .ph{aspect-ratio:16/10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:repeating-linear-gradient(135deg,#faf9f5,#faf9f5 14px,#f4f1ea 14px,#f4f1ea 28px);color:var(--muted);text-align:center;padding:24px}
 .smn-partner .shot .ph-tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--evergreen);font-weight:600}
 .smn-partner .shot img{display:block;width:100%;height:auto}
+.smn-partner .phone-shot{display:flex;justify-content:center;align-items:center;background:linear-gradient(180deg,#faf9f5 0%,#f4f1ea 100%);padding:40px 24px;border-radius:var(--r-img);border:1px solid var(--hairline);box-shadow:0 24px 60px -28px rgba(21,33,28,.35)}
+.smn-partner .phone-shot .device{width:260px;max-width:100%;background:#0a0a0a;border-radius:32px;padding:8px;box-shadow:0 30px 60px -30px rgba(21,33,28,.55)}
+.smn-partner .phone-shot .device img{display:block;width:100%;height:auto;border-radius:24px}
+.smn-partner .phone-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;background:linear-gradient(180deg,#faf9f5 0%,#f4f1ea 100%);padding:32px 20px;border-radius:var(--r-img);border:1px solid var(--hairline);box-shadow:0 24px 60px -28px rgba(21,33,28,.35)}
+.smn-partner .phone-strip .device{background:#0a0a0a;border-radius:22px;padding:5px;box-shadow:0 18px 40px -24px rgba(21,33,28,.5)}
+.smn-partner .phone-strip .device img{display:block;width:100%;height:auto;border-radius:17px}
+.smn-partner .phone-strip .cap{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--evergreen);font-weight:600;text-align:center;margin-top:8px}
 .smn-partner .grid{display:grid;gap:16px}
 .smn-partner .g4{grid-template-columns:repeat(4,1fr)}
 .smn-partner .g3{grid-template-columns:repeat(3,1fr)}
@@ -83,5 +90,7 @@ export const partnerLanderStyles = `
   .smn-partner .band,.smn-partner .band-soft{padding:40px 28px}
   .smn-partner section{padding:64px 0}
   .smn-partner form .row{grid-template-columns:1fr}
+  .smn-partner .phone-shot .device{width:200px}
+  .smn-partner .phone-strip{grid-template-columns:repeat(3,1fr);gap:10px;padding:20px 12px}
 }
 `;
