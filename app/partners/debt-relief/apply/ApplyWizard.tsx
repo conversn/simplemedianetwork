@@ -187,8 +187,11 @@ export function ApplyWizard({ heroVariant }: { heroVariant: "A" | "B" }) {
 
   function goNext() {
     if (!stepValid) return;
+    advance();
+  }
+  function advance() {
     if (stepIndex < totalSteps - 1) {
-      setStepIndex((i) => i + 1);
+      setStepIndex((i) => Math.min(i + 1, totalSteps - 1));
     } else {
       submit();
     }
@@ -263,7 +266,7 @@ export function ApplyWizard({ heroVariant }: { heroVariant: "A" | "B" }) {
                   className={`pill-choice${answers.company_type === opt ? " is-active" : ""}`}
                   onClick={() => {
                     updateAnswer("company_type", opt);
-                    setTimeout(goNext, 140);
+                    setTimeout(advance, 140);
                   }}
                 >
                   {opt}
@@ -281,7 +284,7 @@ export function ApplyWizard({ heroVariant }: { heroVariant: "A" | "B" }) {
                   className={`pill-choice${answers.currently_buying === opt ? " is-active" : ""}`}
                   onClick={() => {
                     updateAnswer("currently_buying", opt);
-                    setTimeout(goNext, 140);
+                    setTimeout(advance, 140);
                   }}
                 >
                   {opt}
@@ -299,7 +302,7 @@ export function ApplyWizard({ heroVariant }: { heroVariant: "A" | "B" }) {
                   className={`pill-choice${answers.reps === opt ? " is-active" : ""}`}
                   onClick={() => {
                     updateAnswer("reps", opt);
-                    setTimeout(goNext, 140);
+                    setTimeout(advance, 140);
                   }}
                 >
                   {opt}
@@ -317,7 +320,7 @@ export function ApplyWizard({ heroVariant }: { heroVariant: "A" | "B" }) {
                   className={`pill-choice${answers.daily_capacity === opt ? " is-active" : ""}`}
                   onClick={() => {
                     updateAnswer("daily_capacity", opt);
-                    setTimeout(goNext, 140);
+                    setTimeout(advance, 140);
                   }}
                 >
                   {opt}
@@ -335,7 +338,7 @@ export function ApplyWizard({ heroVariant }: { heroVariant: "A" | "B" }) {
                   className={`pill-choice${answers.min_debt === opt ? " is-active" : ""}`}
                   onClick={() => {
                     updateAnswer("min_debt", opt);
-                    setTimeout(goNext, 140);
+                    setTimeout(advance, 140);
                   }}
                 >
                   {opt}
