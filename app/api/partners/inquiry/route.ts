@@ -7,20 +7,26 @@ type InquiryPayload = {
   event_only?: boolean;
   event_name?: string;
   program?: string;
+  vertical?: string;
+  vertical_label?: string;
   site_key?: string;
   page?: string;
   hero_variant?: string;
   referrer?: string;
+  // Debt-lander-specific fields (kept for back-compat)
   company_type?: string;
   reps?: string;
+  min_debt?: string;
+  // Universal / vertical fields
+  buying_format?: string;
   daily_capacity?: string;
   currently_buying?: string;
-  min_debt?: string;
   states?: string;
   name?: string;
   company?: string;
   email?: string;
   phone?: string;
+  notes?: string;
 };
 
 const SUPABASE_URL = process.env.SUPABASE_URL ?? "https://jqjftrlnyysqcwbbigpw.supabase.co";
@@ -53,6 +59,19 @@ function splitName(full: string | undefined): { first: string; last: string } {
   return { first: parts[0], last: parts.slice(1).join(" ") };
 }
 
+// Vertical/program resolution — the debt-relief lander predates the multi-vertical
+// hub, so it sends `program: "debt-relief"` and no `vertical`. Treat that as
+// vertical=debt-relief.
+function resolveVertical(payload: InquiryPayload): string {
+  const raw = payload.vertical ?? payload.program ?? "unknown";
+  return raw.toLowerCase();
+}
+
+function verticalTag(vertical: string): string {
+  // Namespaced tag safe for CRM filtering.
+  return `vertical-${vertical}`;
+}
+
 async function postToSupabase(table: string, row: Record<string, unknown>) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
     return { ok: false, skipped: true as const, reason: "supabase-not-configured" };
@@ -75,11 +94,17 @@ async function postToSupabase(table: string, row: Record<string, unknown>) {
   return { ok: true as const, body };
 }
 
-async function createGhlContact(payload: InquiryPayload) {
+async function createGhlContact(payload: InquiryPayload, vertical: string, source: string) {
   if (!GHL_JWT || !GHL_LOCATION_ID) {
     return { ok: false, skipped: true as const, reason: "ghl-not-configured" };
   }
   const { first, last } = splitName(payload.name);
+  const tags = [
+    "smn-partners",
+    verticalTag(vertical),
+    `hero-${(payload.hero_variant ?? "B").toLowerCase()}`,
+    payload.currently_buying === "Yes" ? "currently-buying" : "not-currently-buying",
+  ];
   const body = {
     locationId: GHL_LOCATION_ID,
     firstName: first,
@@ -87,13 +112,8 @@ async function createGhlContact(payload: InquiryPayload) {
     email: payload.email,
     phone: payload.phone,
     companyName: payload.company,
-    source: "smn-partners-debt-relief",
-    tags: [
-      "smn-partners",
-      "debt-relief",
-      `hero-${(payload.hero_variant ?? "B").toLowerCase()}`,
-      payload.currently_buying === "Yes" ? "currently-buying" : "not-currently-buying",
-    ],
+    source,
+    tags,
     customFields: [] as Array<Record<string, unknown>>,
   };
   const res = await fetch("https://services.leadconnectorhq.com/contacts/", {
@@ -114,23 +134,28 @@ async function createGhlContact(payload: InquiryPayload) {
   return { ok: true as const, contactId: data.contact?.id };
 }
 
-async function attachGhlNote(contactId: string, payload: InquiryPayload) {
+async function attachGhlNote(contactId: string, payload: InquiryPayload, vertical: string) {
   if (!GHL_JWT) return;
-  const note = [
-    "SMN Partner Program — Debt Relief inquiry",
+  const lines = [
+    `SMN Partner Program — ${payload.vertical_label ?? vertical} inquiry`,
     "",
+    `Vertical: ${payload.vertical_label ?? vertical}`,
     `Company: ${payload.company ?? "?"}`,
-    `Company type: ${payload.company_type ?? "?"}`,
-    `Reps working leads: ${payload.reps ?? "?"}`,
-    `Daily capacity: ${payload.daily_capacity ?? "?"}`,
-    `Currently buying debt leads: ${payload.currently_buying ?? "?"}`,
-    `Minimum unsecured debt: ${payload.min_debt ?? "?"}`,
-    `States: ${payload.states ?? "?"}`,
-    "",
-    `Hero variant: ${payload.hero_variant ?? "?"}`,
-    `Referrer: ${payload.referrer ?? "-"}`,
-    `Page: ${payload.page ?? "-"}`,
-  ].join("\n");
+  ];
+  if (payload.company_type) lines.push(`Company type: ${payload.company_type}`);
+  if (payload.buying_format) lines.push(`Buying format: ${payload.buying_format}`);
+  if (payload.reps) lines.push(`Reps working leads: ${payload.reps}`);
+  if (payload.daily_capacity) lines.push(`Daily capacity: ${payload.daily_capacity}`);
+  if (payload.currently_buying)
+    lines.push(`Currently buying leads: ${payload.currently_buying}`);
+  if (payload.min_debt) lines.push(`Minimum unsecured debt: ${payload.min_debt}`);
+  if (payload.states) lines.push(`States: ${payload.states}`);
+  if (payload.notes) lines.push(`Notes: ${payload.notes}`);
+  lines.push("");
+  if (payload.hero_variant) lines.push(`Hero variant: ${payload.hero_variant}`);
+  if (payload.referrer) lines.push(`Referrer: ${payload.referrer}`);
+  if (payload.page) lines.push(`Page: ${payload.page}`);
+  const note = lines.join("\n");
   await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/notes`, {
     method: "POST",
     headers: {
@@ -143,14 +168,18 @@ async function attachGhlNote(contactId: string, payload: InquiryPayload) {
   }).catch(() => undefined);
 }
 
-async function sendNotification(payload: InquiryPayload, contactId: string | undefined) {
+async function sendNotification(
+  payload: InquiryPayload,
+  vertical: string,
+  contactId: string | undefined,
+) {
   if (!NOTIFY_WEBHOOK) return { skipped: true as const };
   try {
     const res = await fetch(NOTIFY_WEBHOOK, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
-        text: `New SMN Partner Program inquiry (debt-relief) — ${payload.company ?? "?"} · ${payload.name ?? "?"} · ${payload.email ?? "?"}${contactId ? ` · GHL ${contactId}` : ""}`,
+        text: `New SMN Partner Program inquiry (${payload.vertical_label ?? vertical}) — ${payload.company ?? "?"} · ${payload.name ?? "?"} · ${payload.email ?? "?"}${contactId ? ` · GHL ${contactId}` : ""}`,
         payload,
       }),
     });
@@ -169,8 +198,11 @@ export async function POST(request: Request) {
   }
 
   const siteKey = payload.site_key ?? "simplemedianetwork.com";
-  const program = payload.program ?? "debt-relief";
+  const vertical = resolveVertical(payload);
+  const program = payload.program ?? vertical;
   const heroVariant = payload.hero_variant ?? undefined;
+  const source = `smn-partners-${vertical}`;
+  const pageUrl = payload.page ?? `/partners/${vertical === "partners-hub" ? "" : vertical}`;
 
   // Analytics event (page view or form submit).
   const eventName = payload.event_only
@@ -178,10 +210,11 @@ export async function POST(request: Request) {
     : "partner_lander_submit";
   await postToSupabase(ANALYTICS_TABLE, {
     event_name: eventName,
-    page_url: payload.page ?? "/partners/debt-relief",
+    page_url: pageUrl,
     properties: {
       site_key: siteKey,
       program,
+      vertical,
       hero_variant: heroVariant,
       referrer: payload.referrer ?? undefined,
       source: "smn-partners",
@@ -212,14 +245,14 @@ export async function POST(request: Request) {
     role: payload.company_type ?? null,
     licensed_states: stateCodes,
     delivery_states: stateCodes,
-    lead_types: ["debt-relief"],
-    lead_format: ["consumer-inbound"],
+    lead_types: [vertical],
+    lead_format: payload.buying_format ? [payload.buying_format] : ["consumer-inbound"],
     delivery_method: [],
     leads_per_month: payload.daily_capacity ?? null,
     buying_from_vendor: payload.currently_buying ?? null,
-    source: "smn-partners-debt-relief",
-    funnel_type: "debt-relief",
-    page_url: payload.page ?? "/partners/debt-relief",
+    source,
+    funnel_type: vertical,
+    page_url: pageUrl,
     raw_payload: payload,
   };
 
@@ -238,7 +271,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const ghl = await createGhlContact(payload).catch((err) => ({
+  const ghl = await createGhlContact(payload, vertical, source).catch((err) => ({
     ok: false as const,
     skipped: false as const,
     status: 0,
@@ -246,18 +279,20 @@ export async function POST(request: Request) {
   }));
 
   if ("ok" in ghl && ghl.ok && ghl.contactId) {
-    attachGhlNote(ghl.contactId, payload).catch(() => undefined);
+    attachGhlNote(ghl.contactId, payload, vertical).catch(() => undefined);
   } else if (!("skipped" in ghl && ghl.skipped)) {
     console.error("[smn-partners] GHL contact create failed", ghl);
   }
 
   const notify = await sendNotification(
     payload,
+    vertical,
     "contactId" in ghl ? ghl.contactId : undefined,
   );
 
   return NextResponse.json({
     ok: true,
+    vertical,
     stored: intakeWrite.ok ? "supabase.partner_intakes" : "supabase-not-configured",
     ghl:
       "ok" in ghl && ghl.ok
