@@ -1,42 +1,52 @@
-import fs from "node:fs";
-import path from "node:path";
-import Script from "next/script";
-
-const HOMEPAGE_PATH = path.join(
-  process.cwd(),
-  "simple-media-network-source",
-  "index.html",
-);
-
-function getHomepageParts() {
-  const html = fs.readFileSync(HOMEPAGE_PATH, "utf8");
-  const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/);
-  const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/);
-
-  if (!styleMatch || !bodyMatch) {
-    throw new Error("Could not parse homepage source HTML.");
-  }
-
-  const styles = styleMatch[1]
-    .replaceAll("'Source Serif 4', Georgia, serif", "var(--font-serif), Georgia, serif")
-    .replaceAll(
-      "'Inter', system-ui, -apple-system, sans-serif",
-      "var(--font-sans), system-ui, -apple-system, sans-serif",
-    );
-
-  const body = bodyMatch[1].replaceAll("./images/", "/images/");
-
-  return { body, styles };
-}
+import { HomeHero } from "./_ds/kits/smn/HomeHero";
+import { Brands } from "./_ds/kits/smn/Brands";
+import { Model } from "./_ds/kits/smn/Model";
+import { Products } from "./_ds/kits/smn/Products";
+import { Partners } from "./_ds/kits/smn/Partners";
+import { Footer } from "./_ds/components/navigation/Footer";
 
 export default function HomePage() {
-  const { body, styles } = getHomepageParts();
-
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
-      <div dangerouslySetInnerHTML={{ __html: body }} />
-      <Script src="/js/main.js" strategy="afterInteractive" />
+      <HomeHero />
+      <Brands />
+      <Model />
+      <Products />
+      <Partners />
+      <Footer
+        note="Building consumer brands and practical products across money, retirement, family, legal, and business decisions."
+        poweredBy="Powered by CallReady"
+        columns={[
+          {
+            title: "Network",
+            links: [
+              { label: "SeniorSimple", href: "https://seniorsimple.org" },
+              { label: "MoneySimple", href: "https://moneysimple.org" },
+              { label: "ParentSimple", href: "https://parentsimple.org" },
+              { label: "LegalSimple", href: "https://legalsimple.org" },
+              { label: "RateRoots", href: "https://rateroots.com" },
+              { label: "HomeSimple", href: "https://homesimple.org" },
+              { label: "SmallBizSimple", href: "https://smallbizsimple.org" },
+              { label: "RetirementRescue", href: "https://retirementrescue.net" },
+            ],
+          },
+          {
+            title: "Company",
+            links: [
+              { label: "Partners", href: "/partners" },
+              { label: "Editorial principles", href: "/editorial-principles" },
+              { label: "Disclosure", href: "/disclosure" },
+              { label: "Contact", href: "/contact" },
+            ],
+          },
+          {
+            title: "Legal",
+            links: [
+              { label: "Privacy", href: "/privacy" },
+            ],
+          },
+        ]}
+      />
     </>
   );
 }

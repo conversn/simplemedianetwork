@@ -1,21 +1,34 @@
 import type { Metadata } from "next";
-import { Inter, Source_Serif_4 } from "next/font/google";
+import { Playfair_Display, Geist, IBM_Plex_Mono } from "next/font/google";
+import "./_ds/styles.css";
 import "./globals.css";
 
-const inter = Inter({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-sans",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
+  display: "swap",
 });
 
-const sourceSerif = Source_Serif_4({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-serif",
+  weight: ["400", "500", "600"],
+  variable: "--font-geist",
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono-plex",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Simple Media Network",
   description:
-    "Distributed educational media network for real life decisions with independent, expert-reviewed guidance.",
+    "Simple Media Network builds consumer brands and practical products across money, retirement, family, legal, and business decisions.",
 };
 
 export default function RootLayout({
@@ -24,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${sourceSerif.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${geist.variable} ${plexMono.variable}`}>
       <body>{children}</body>
     </html>
   );
