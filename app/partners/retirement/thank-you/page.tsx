@@ -8,6 +8,9 @@ export const metadata: Metadata = {
 };
 
 const config: ThankYouConfig = {
+  program: "retirement",
+  vertical: "retirement",
+  page: "/partners/retirement/thank-you",
   backHref: "/partners/retirement",
   backLabel: "Back to retirement program",
   lede: "We'll review your criteria and reply within one business day with the current retirement & annuity availability for your markets and capacity.",

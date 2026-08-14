@@ -8,6 +8,9 @@ export const metadata: Metadata = {
 };
 
 const config: ThankYouConfig = {
+  program: "life-insurance",
+  vertical: "life-insurance",
+  page: "/partners/life-insurance/thank-you",
   backHref: "/partners/life-insurance",
   backLabel: "Back to life-insurance program",
   lede: "We'll review your criteria and reply within one business day with the current family life-insurance availability for your markets and capacity.",

@@ -1,8 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
+import {
+  emit,
+  ensureTracking,
+  getSessionId,
+  log,
+  markMount,
+  newEventId,
+  type EmitContext,
+} from "../analytics";
+import { trackMetaPixel } from "../metaPixel";
 import {
   EMAIL_RE,
   US_STATES,
@@ -61,21 +71,72 @@ export function PartnerApplyWizard({ config }: { config: WizardConfig }) {
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  const ctx: EmitContext = useMemo(
+    () => ({
+      program: config.program,
+      vertical: config.vertical,
+      page: config.page,
+      leadType: config.vertical,
+      funnelType: `${config.vertical}-partner`,
+    }),
+    [config.program, config.vertical, config.page],
+  );
+
+  const startedRef = useRef(false);
+  const stepViewedRef = useRef<Set<number>>(new Set());
+
   useEffect(() => {
-    fetch("/api/partners/inquiry", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        event_only: true,
-        event_name: "partner_apply_start",
-        program: config.program,
-        vertical: config.vertical,
-        site_key: "simplemedianetwork.com",
-        page: config.page,
-        referrer: typeof document !== "undefined" ? document.referrer : "",
-      }),
-    }).catch(() => undefined);
-  }, [config.program, config.vertical, config.page]);
+    if (startedRef.current) return;
+    startedRef.current = true;
+    markMount();
+    ensureTracking();
+    const sessionId = getSessionId();
+
+    log("entry", "wizard_start", { sessionId, vertical: config.vertical });
+    const startId = newEventId();
+    void emit(ctx, {
+      event_name: "wizard_start",
+      event_id: startId,
+      step_index: 0,
+      step_name: config.steps[0]?.key ?? "step_0",
+    });
+    trackMetaPixel("InitiateCheckout", startId, {
+      content_name: `smn-partner-${config.vertical}`,
+    });
+
+    if (!stepViewedRef.current.has(0)) {
+      stepViewedRef.current.add(0);
+      const name0 = config.steps[0]?.key ?? "step_0";
+      log("entry", "wizard_step_viewed", { step: 0, name: name0 });
+      void emit(ctx, {
+        event_name: "wizard_step_viewed",
+        step_index: 0,
+        step_name: name0,
+      });
+    }
+  }, [ctx, config.vertical, config.steps]);
+
+  useEffect(() => {
+    if (!startedRef.current) return;
+    if (stepIndex === 0) return;
+    if (stepViewedRef.current.has(stepIndex)) return;
+    stepViewedRef.current.add(stepIndex);
+    const step = config.steps[stepIndex];
+    log("advance", "wizard_step_viewed", { step: stepIndex, name: step?.key });
+    void emit(ctx, {
+      event_name: "wizard_step_viewed",
+      step_index: stepIndex,
+      step_name: step?.key,
+    });
+    if (step?.kind === "contact") {
+      log("entry", "contact_step_view");
+      void emit(ctx, {
+        event_name: "contact_step_view",
+        step_index: stepIndex,
+        step_name: step.key,
+      });
+    }
+  }, [stepIndex, ctx, config.steps]);
 
   const totalSteps = config.steps.length;
   const currentStep = config.steps[stepIndex];
@@ -88,27 +149,50 @@ export function PartnerApplyWizard({ config }: { config: WizardConfig }) {
 
   function setValue(key: string, value: AnswerValue) {
     setAnswers((prev) => ({ ...prev, [key]: value }));
+    if (!key.startsWith("__")) {
+      log("field", "question_answer", { step: stepIndex, key, value });
+      void emit(ctx, {
+        event_name: "question_answer",
+        step_index: stepIndex,
+        step_name: currentStep.key,
+        properties: { key, value },
+      });
+    }
   }
 
   function toggleMulti(key: string, option: string) {
     setAnswers((prev) => {
       const cur = Array.isArray(prev[key]) ? (prev[key] as string[]) : [];
-      return {
-        ...prev,
-        [key]: cur.includes(option)
-          ? cur.filter((x) => x !== option)
-          : [...cur, option],
-      };
+      const next = cur.includes(option)
+        ? cur.filter((x) => x !== option)
+        : [...cur, option];
+      log("field", "question_answer", { step: stepIndex, key, value: next });
+      void emit(ctx, {
+        event_name: "question_answer",
+        step_index: stepIndex,
+        step_name: currentStep.key,
+        properties: { key, value: next },
+      });
+      return { ...prev, [key]: next };
     });
   }
 
   function goNext() {
-    if (!valid) return;
+    if (!valid) {
+      log("block", "wizard_step_blocked", { step: stepIndex, name: currentStep.key });
+      return;
+    }
     advance();
   }
 
   function advance() {
     if (stepIndex < totalSteps - 1) {
+      log("advance", "wizard_step_advance", { from: stepIndex, to: stepIndex + 1 });
+      void emit(ctx, {
+        event_name: "wizard_step_advance",
+        step_index: stepIndex,
+        step_name: currentStep.key,
+      });
       setStepIndex((i) => Math.min(i + 1, totalSteps - 1));
     } else {
       submit();
@@ -116,12 +200,55 @@ export function PartnerApplyWizard({ config }: { config: WizardConfig }) {
   }
 
   function goBack() {
-    if (stepIndex > 0) setStepIndex((i) => i - 1);
+    if (stepIndex > 0) {
+      log("back", "wizard_step_back", { from: stepIndex, to: stepIndex - 1 });
+      void emit(ctx, {
+        event_name: "wizard_step_back",
+        step_index: stepIndex,
+        step_name: currentStep.key,
+      });
+      setStepIndex((i) => i - 1);
+    }
   }
 
   async function submit() {
     setErrorMessage(null);
     setSubmitting(true);
+    const submitId = newEventId();
+
+    log("apiOut", "contact_submit_attempted", { submitId });
+    void emit(ctx, {
+      event_name: "contact_submit_attempted",
+      event_id: submitId,
+      step_index: stepIndex,
+      step_name: currentStep.key,
+    });
+
+    if (!isContactValid(answers)) {
+      log("block", "contact_submit_blocked", { reason: "client-validation" });
+      void emit(ctx, {
+        event_name: "contact_submit_blocked",
+        properties: { reason: "client-validation" },
+      });
+      setErrorMessage("Please fill in every field before continuing.");
+      setSubmitting(false);
+      return;
+    }
+
+    log("qualify", "qualified_partner", { submitId });
+    void emit(ctx, {
+      event_name: "qualified_partner",
+      event_id: submitId,
+      properties: { reason: "no-disqualifier" },
+    });
+    trackMetaPixel("Lead", submitId, {
+      content_name: `smn-partner-${config.vertical}`,
+      content_category: "partner-inquiry",
+    });
+
+    log("apiOut", "lead_submit", { submitId });
+    void emit(ctx, { event_name: "lead_submit", event_id: submitId });
+
     try {
       const answerFields: Record<string, string> = {};
       for (const step of config.steps) {
@@ -139,11 +266,14 @@ export function PartnerApplyWizard({ config }: { config: WizardConfig }) {
           vertical: config.vertical,
           site_key: "simplemedianetwork.com",
           page: config.page,
+          session_id: getSessionId(),
+          lead_type: config.vertical,
+          funnel_type: `${config.vertical}-partner`,
+          event_id: submitId,
           name: answers.__name.trim(),
           company: answers.__company.trim(),
           email: answers.__email.trim(),
           phone: answers.__phone,
-          // Well-known fields the API already understands:
           company_type: answerFields.company_type,
           buying_format: answerFields.buying_format,
           daily_capacity: answerFields.daily_capacity,
@@ -156,9 +286,26 @@ export function PartnerApplyWizard({ config }: { config: WizardConfig }) {
         const body = await res.json().catch(() => ({}));
         throw new Error(body.error ?? `Submission failed (${res.status})`);
       }
+      const data = (await res.json().catch(() => ({}))) as {
+        ghl?: { ok?: boolean; contactId?: string; tags?: string[]; reason?: string };
+      };
+      if (data.ghl?.ok) {
+        log("success", "ghl_delivery_success", {
+          contactId: data.ghl.contactId,
+          tags: data.ghl.tags,
+        });
+      } else {
+        log("failure", "ghl_delivery_failure", { reason: data.ghl?.reason });
+      }
       router.push(config.thankYouHref);
     } catch (err) {
-      setErrorMessage(err instanceof Error ? err.message : "Something went wrong.");
+      const msg = err instanceof Error ? err.message : "Something went wrong.";
+      log("failure", "lead_submit_error", { error: msg });
+      void emit(ctx, {
+        event_name: "ghl_delivery_failure",
+        properties: { error: msg, source: "client-catch" },
+      });
+      setErrorMessage(msg);
       setSubmitting(false);
     }
   }

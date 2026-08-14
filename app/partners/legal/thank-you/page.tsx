@@ -8,6 +8,9 @@ export const metadata: Metadata = {
 };
 
 const config: ThankYouConfig = {
+  program: "legal",
+  vertical: "legal",
+  page: "/partners/legal/thank-you",
   backHref: "/partners/legal",
   backLabel: "Back to legal program",
   lede: "We'll review your criteria and reply within one business day with the current MVA and premises-injury availability for your markets and intake capacity. Mass tort is not part of this program.",

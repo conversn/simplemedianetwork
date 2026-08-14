@@ -1,4 +1,5 @@
 import { partnerLanderStyles } from "../styles";
+import { ThankYouTracker } from "./ThankYouTracker";
 
 const FONTS_HREF =
   "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap";
@@ -40,6 +41,9 @@ export type ThankYouConfig = {
   backLabel?: string;
   lede: string;
   steps: ThankYouStep[];
+  program?: string;
+  vertical?: string;
+  page?: string;
 };
 
 export function ThankYouShell({ config }: { config: ThankYouConfig }) {
@@ -52,6 +56,11 @@ export function ThankYouShell({ config }: { config: ThankYouConfig }) {
       <style dangerouslySetInnerHTML={{ __html: thankYouStyles }} />
 
       <div className="smn-partner">
+        <ThankYouTracker
+          program={config.program ?? config.vertical ?? "unknown"}
+          vertical={config.vertical ?? config.program ?? "unknown"}
+          page={config.page ?? "/partners/thank-you"}
+        />
         <div className="ty-shell">
           <header className="ty-topbar">
             <a

@@ -8,6 +8,9 @@ export const metadata: Metadata = {
 };
 
 const config: ThankYouConfig = {
+  program: "home-equity",
+  vertical: "home-equity",
+  page: "/partners/home-equity/thank-you",
   backHref: "/partners/home-equity",
   backLabel: "Back to mortgage program",
   lede: "We'll review your criteria and reply within one business day with the current mortgage & home-equity availability for your markets and LO capacity.",

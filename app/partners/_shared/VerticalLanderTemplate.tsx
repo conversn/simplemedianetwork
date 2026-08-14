@@ -57,7 +57,7 @@ export function VerticalLanderTemplate({ config }: { config: VerticalLanderConfi
 
   return (
     <PartnerShell>
-      <PartnerPageView program={program} page={page} heroVariant="B" />
+      <PartnerPageView program={program} page={page} heroVariant="B" vertical={slug} />
 
       <PartnerNav ctaHref={applyHref} ctaLabel="Check availability →" />
 

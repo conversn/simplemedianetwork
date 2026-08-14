@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { ThankYouTracker } from "../../_shared/apply/ThankYouTracker";
 import { partnerLanderStyles } from "../styles";
 
 export const metadata: Metadata = {
@@ -48,6 +49,11 @@ export default function ThankYouPage() {
       <style dangerouslySetInnerHTML={{ __html: extraStyles }} />
 
       <div className="smn-partner">
+        <ThankYouTracker
+          program="debt-relief"
+          vertical="debt-relief"
+          page="/partners/debt-relief/thank-you"
+        />
         <div className="ty-shell">
           <header className="ty-topbar">
             <div className="brand">

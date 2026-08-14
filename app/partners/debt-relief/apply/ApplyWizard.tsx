@@ -1,7 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+
+import {
+  emit,
+  ensureTracking,
+  getSessionId,
+  log,
+  markMount,
+  newEventId,
+  type EmitContext,
+} from "../../_shared/analytics";
+import { trackMetaPixel } from "../../_shared/metaPixel";
 
 type CompanyType = "Debt settlement" | "Debt relief" | "Debt consolidation" | "Other";
 type CurrentlyBuying = "Yes" | "No";
@@ -131,22 +142,74 @@ export function ApplyWizard({ heroVariant }: { heroVariant: "A" | "B" }) {
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  const ctx: EmitContext = useMemo(
+    () => ({
+      program: "debt-relief",
+      vertical: "debt-relief",
+      page: "/partners/debt-relief/apply",
+      heroVariant,
+      leadType: "debt-relief",
+      funnelType: "debt-relief-partner",
+    }),
+    [heroVariant],
+  );
+
+  // Guard StrictMode double-invocation for entry events
+  const startedRef = useRef(false);
+  const stepViewedRef = useRef<Set<number>>(new Set());
+
   useEffect(() => {
-    // Fire an entry-tracking event once.
-    fetch("/api/partners/inquiry", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        event_only: true,
-        event_name: "partner_apply_start",
-        program: "debt-relief",
-        site_key: "simplemedianetwork.com",
-        page: "/partners/debt-relief/apply",
-        hero_variant: heroVariant,
-        referrer: typeof document !== "undefined" ? document.referrer : "",
-      }),
-    }).catch(() => undefined);
-  }, [heroVariant]);
+    if (startedRef.current) return;
+    startedRef.current = true;
+    markMount();
+    ensureTracking();
+    const sessionId = getSessionId();
+
+    log("entry", "wizard_start", { sessionId, heroVariant });
+    const startId = newEventId();
+    void emit(ctx, {
+      event_name: "wizard_start",
+      event_id: startId,
+      step_index: 0,
+      step_name: STEP_KEYS[0],
+    });
+    trackMetaPixel("InitiateCheckout", startId, {
+      content_name: "smn-partner-debt-relief",
+    });
+
+    // First step view fires right after mount
+    if (!stepViewedRef.current.has(0)) {
+      stepViewedRef.current.add(0);
+      log("entry", "wizard_step_viewed", { step: 0, name: STEP_KEYS[0] });
+      void emit(ctx, {
+        event_name: "wizard_step_viewed",
+        step_index: 0,
+        step_name: STEP_KEYS[0],
+      });
+    }
+  }, [ctx, heroVariant]);
+
+  useEffect(() => {
+    if (!startedRef.current) return;
+    if (stepIndex === 0) return; // handled in mount effect
+    if (stepViewedRef.current.has(stepIndex)) return;
+    stepViewedRef.current.add(stepIndex);
+    const name = STEP_KEYS[stepIndex];
+    log("advance", "wizard_step_viewed", { step: stepIndex, name });
+    void emit(ctx, {
+      event_name: "wizard_step_viewed",
+      step_index: stepIndex,
+      step_name: name,
+    });
+    if (name === "contact") {
+      log("entry", "contact_step_view");
+      void emit(ctx, {
+        event_name: "contact_step_view",
+        step_index: stepIndex,
+        step_name: name,
+      });
+    }
+  }, [stepIndex, ctx]);
 
   const totalSteps = STEP_KEYS.length;
   const currentKey = STEP_KEYS[stepIndex];
@@ -175,43 +238,128 @@ export function ApplyWizard({ heroVariant }: { heroVariant: "A" | "B" }) {
 
   function updateAnswer<K extends keyof Answers>(key: K, value: Answers[K]) {
     setAnswers((prev) => ({ ...prev, [key]: value }));
+    if (currentKey !== "contact") {
+      log("field", "question_answer", { step: stepIndex, key: currentKey, value });
+      void emit(ctx, {
+        event_name: "question_answer",
+        step_index: stepIndex,
+        step_name: currentKey,
+        properties: { key: currentKey, value: value as unknown },
+      });
+    }
   }
 
   function toggleState(abbr: string) {
-    setAnswers((prev) =>
-      prev.states.includes(abbr)
-        ? { ...prev, states: prev.states.filter((s) => s !== abbr) }
-        : { ...prev, states: [...prev.states, abbr] },
-    );
+    setAnswers((prev) => {
+      const next = prev.states.includes(abbr)
+        ? prev.states.filter((s) => s !== abbr)
+        : [...prev.states, abbr];
+      log("field", "question_answer", { step: stepIndex, key: "states", value: next });
+      void emit(ctx, {
+        event_name: "question_answer",
+        step_index: stepIndex,
+        step_name: "states",
+        properties: { key: "states", value: next },
+      });
+      return { ...prev, states: next };
+    });
   }
 
   function goNext() {
-    if (!stepValid) return;
+    if (!stepValid) {
+      log("block", "wizard_step_blocked", { step: stepIndex, name: currentKey });
+      return;
+    }
     advance();
   }
   function advance() {
     if (stepIndex < totalSteps - 1) {
+      log("advance", "wizard_step_advance", { from: stepIndex, to: stepIndex + 1 });
+      void emit(ctx, {
+        event_name: "wizard_step_advance",
+        step_index: stepIndex,
+        step_name: currentKey,
+      });
       setStepIndex((i) => Math.min(i + 1, totalSteps - 1));
     } else {
       submit();
     }
   }
   function goBack() {
-    if (stepIndex > 0) setStepIndex((i) => i - 1);
+    if (stepIndex > 0) {
+      log("back", "wizard_step_back", { from: stepIndex, to: stepIndex - 1 });
+      void emit(ctx, {
+        event_name: "wizard_step_back",
+        step_index: stepIndex,
+        step_name: currentKey,
+      });
+      setStepIndex((i) => i - 1);
+    }
   }
 
   async function submit() {
     setErrorMessage(null);
     setSubmitting(true);
+    const submitId = newEventId();
+
+    log("apiOut", "contact_submit_attempted", { submitId });
+    void emit(ctx, {
+      event_name: "contact_submit_attempted",
+      event_id: submitId,
+      step_index: stepIndex,
+      step_name: currentKey,
+    });
+
+    // Basic client-side validation (defensive)
+    if (
+      !answers.name.trim() ||
+      !answers.company.trim() ||
+      !EMAIL_RE.test(answers.email.trim()) ||
+      extractDigits(answers.phone).length !== 10
+    ) {
+      log("block", "contact_submit_blocked", { reason: "client-validation" });
+      void emit(ctx, {
+        event_name: "contact_submit_blocked",
+        properties: { reason: "client-validation" },
+      });
+      setErrorMessage("Please fill in every field before continuing.");
+      setSubmitting(false);
+      return;
+    }
+
+    // Everyone who completes the funnel is qualified in this MVP; disqualification
+    // rules land later — when they do, branch here.
+    log("qualify", "qualified_partner", { submitId });
+    void emit(ctx, {
+      event_name: "qualified_partner",
+      event_id: submitId,
+      properties: { reason: "no-disqualifier" },
+    });
+    trackMetaPixel("Lead", submitId, {
+      content_name: "smn-partner-debt-relief",
+      content_category: "partner-inquiry",
+    });
+
+    log("apiOut", "lead_submit", { submitId });
+    void emit(ctx, {
+      event_name: "lead_submit",
+      event_id: submitId,
+    });
+
     try {
       const res = await fetch("/api/partners/inquiry", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           program: "debt-relief",
+          vertical: "debt-relief",
           site_key: "simplemedianetwork.com",
           page: "/partners/debt-relief/apply",
           hero_variant: heroVariant,
+          session_id: getSessionId(),
+          lead_type: "debt-relief",
+          funnel_type: "debt-relief-partner",
+          event_id: submitId,
           company_type: answers.company_type,
           reps: answers.reps,
           daily_capacity: answers.daily_capacity,
@@ -228,9 +376,26 @@ export function ApplyWizard({ heroVariant }: { heroVariant: "A" | "B" }) {
         const body = await res.json().catch(() => ({}));
         throw new Error(body.error ?? `Submission failed (${res.status})`);
       }
+      const data = (await res.json().catch(() => ({}))) as {
+        ghl?: { ok?: boolean; contactId?: string; tags?: string[]; reason?: string };
+      };
+      if (data.ghl?.ok) {
+        log("success", "ghl_delivery_success", {
+          contactId: data.ghl.contactId,
+          tags: data.ghl.tags,
+        });
+      } else {
+        log("failure", "ghl_delivery_failure", { reason: data.ghl?.reason });
+      }
       router.push("/partners/debt-relief/thank-you");
     } catch (err) {
-      setErrorMessage(err instanceof Error ? err.message : "Something went wrong.");
+      const msg = err instanceof Error ? err.message : "Something went wrong.";
+      log("failure", "lead_submit_error", { error: msg });
+      void emit(ctx, {
+        event_name: "ghl_delivery_failure",
+        properties: { error: msg, source: "client-catch" },
+      });
+      setErrorMessage(msg);
       setSubmitting(false);
     }
   }
