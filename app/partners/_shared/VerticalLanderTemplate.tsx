@@ -1,6 +1,5 @@
 import { PartnerShell, PartnerNav, PartnerFooter } from "./PartnerShell";
 import { PartnerPageView } from "./PartnerPageView";
-import { UniversalPartnerForm } from "./UniversalPartnerForm";
 import { PROPERTIES, type VerticalSlug } from "./properties";
 
 export type VerticalLanderConfig = {
@@ -54,11 +53,13 @@ export function VerticalLanderTemplate({ config }: { config: VerticalLanderConfi
     page,
   } = config;
 
+  const applyHref = `/partners/${slug}/apply`;
+
   return (
     <PartnerShell>
       <PartnerPageView program={program} page={page} heroVariant="B" />
 
-      <PartnerNav ctaHref="#apply" ctaLabel="Check availability →" />
+      <PartnerNav ctaHref={applyHref} ctaLabel="Check availability →" />
 
       {/* Hero */}
       <section>
@@ -71,7 +72,7 @@ export function VerticalLanderTemplate({ config }: { config: VerticalLanderConfi
           </h1>
           <p className="lede">{hero.lede}</p>
           <div style={{ marginTop: "26px" }}>
-            <a className="pill" href="#apply">
+            <a className="pill" href={applyHref}>
               Check availability →
             </a>
           </div>
@@ -269,7 +270,7 @@ export function VerticalLanderTemplate({ config }: { config: VerticalLanderConfi
             ))}
           </ul>
           <div style={{ marginTop: "34px" }}>
-            <a className="pill" href="#apply">
+            <a className="pill" href={applyHref}>
               See if there&rsquo;s availability →
             </a>
           </div>
@@ -290,15 +291,23 @@ export function VerticalLanderTemplate({ config }: { config: VerticalLanderConfi
         </div>
       </section>
 
-      {/* CTA + universal form (vertical pre-selected) */}
+      {/* CTA — routes to per-vertical /apply wizard */}
       <div className="band-wrap" id="apply">
         <div className="band cta-band">
           <div className="eyebrow">Request current availability</div>
           <h2 style={{ margin: "12px 0 14px", maxWidth: "28ch" }}>{formHeading}</h2>
           <p className="muted cta-lede">{formBody}</p>
-          <UniversalPartnerForm defaultVertical={slug} program={program} />
+          <div className="cta-row">
+            <a className="pill" href={applyHref}>
+              Check partner availability →
+            </a>
+            <span className="micro">A few quick steps · about a minute</span>
+          </div>
           {compliance ? (
-            <p className="micro" style={{ marginTop: "18px", maxWidth: "68ch" }}>
+            <p
+              className="micro"
+              style={{ marginTop: "22px", maxWidth: "68ch", display: "block" }}
+            >
               {compliance}
             </p>
           ) : null}
