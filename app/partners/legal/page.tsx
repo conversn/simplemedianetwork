@@ -69,6 +69,26 @@ const config: VerticalLanderConfig = {
     "A short qualifier — firm type, capacity, states, contact. Takes about a minute. We'll reply within one business day with current MVA and premises availability.",
   compliance:
     "Attorney-advertising, state bar, and TCPA compliance apply; consent captured; no outcome or settlement claims. Warm-transfer and exclusive delivery available. Mass tort is explicitly excluded from this program.",
+  funnelSteps: [
+    {
+      src: "/ds/screens/legalsimple/00-landing.png",
+      alt: "LegalSimple vehicle-accident landing",
+      label: "Landing",
+      caption: "A vehicle-accident case-review explainer on a property we own — not an ad.",
+    },
+    {
+      src: "/ds/screens/legalsimple/01-step.png",
+      alt: "LegalSimple vehicle-accident qualification step",
+      label: "Qualify",
+      caption: "Self-reported fault and accident cause.",
+    },
+    {
+      src: "/ds/screens/legalsimple/02-step.png",
+      alt: "LegalSimple vehicle-accident injury step",
+      label: "Delivery",
+      caption: "Claimants handed to your intake team while intent is fresh.",
+    },
+  ],
 };
 
 export default function PartnerLegalPage() {
