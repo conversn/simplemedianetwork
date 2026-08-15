@@ -65,6 +65,26 @@ const config: VerticalLanderConfig = {
     "A short qualifier — lender type, capacity, states, contact. Takes about a minute. We'll reply within one business day with current mortgage & home-equity availability.",
   compliance:
     "Mortgage advertising, state licensing, and TCPA compliance apply; consent captured.",
+  funnelSteps: [
+    {
+      src: "https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/rateroots-home-equity/00-landing.png",
+      alt: "RateRoots Home Equity landing",
+      label: "Landing",
+      caption: "A home-equity explainer on a property we own — not an ad.",
+    },
+    {
+      src: "https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/rateroots-home-equity/01-step.png",
+      alt: "RateRoots Home Equity qualification step",
+      label: "Qualify",
+      caption: "Self-reported loan purpose, equity, and credit band.",
+    },
+    {
+      src: "https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/rateroots-home-equity/03-step.png",
+      alt: "RateRoots Home Equity delivery step",
+      label: "Delivery",
+      caption: "Borrowers handed to your loan officers while intent is fresh.",
+    },
+  ],
 };
 
 export default function PartnerHomeEquityPage() {

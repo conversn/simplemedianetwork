@@ -65,6 +65,26 @@ const config: VerticalLanderConfig = {
     "A short qualifier — organization, capacity, states, contact. Takes about a minute. We'll reply within one business day with current retirement & annuity availability.",
   compliance:
     "Insurance / annuity advertising, state DOI, and TCPA compliance apply; consent captured. Exclusive vs shared available per program.",
+  funnelSteps: [
+    {
+      src: "https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/retirementrescue-quiz/00-landing.png",
+      alt: "RetirementRescue RMD Quiz landing",
+      label: "Landing",
+      caption: "A retirement-planning explainer on a property we own — not an ad.",
+    },
+    {
+      src: "https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/retirementrescue-quiz/03-step.png",
+      alt: "RetirementRescue RMD Quiz qualification step",
+      label: "Qualify",
+      caption: "Self-reported age, assets, and product interest.",
+    },
+    {
+      src: "https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/retirementrescue-quiz/06-step.png",
+      alt: "RetirementRescue RMD Quiz delivery step",
+      label: "Delivery",
+      caption: "Prospects handed to your producing downline while intent is fresh.",
+    },
+  ],
 };
 
 export default function PartnerRetirementPage() {

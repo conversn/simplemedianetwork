@@ -66,6 +66,26 @@ const config: VerticalLanderConfig = {
     "A short qualifier — organization, capacity, states, contact. Takes about a minute. We'll reply within one business day with current life-insurance availability.",
   compliance:
     "Insurance advertising, state DOI, and TCPA compliance apply; consent captured. Exclusive vs shared available per program.",
+  funnelSteps: [
+    {
+      src: "https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/parentsimple-life-insurance/00-landing.png",
+      alt: "ParentSimple Life Insurance landing",
+      label: "Landing",
+      caption: "A family-protection explainer on a property we own — not an ad.",
+    },
+    {
+      src: "https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/parentsimple-life-insurance/03-step.png",
+      alt: "ParentSimple Life Insurance qualification step",
+      label: "Qualify",
+      caption: "Self-reported age, coverage need, health, and dependents.",
+    },
+    {
+      src: "https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/parentsimple-life-insurance/06-step.png",
+      alt: "ParentSimple Life Insurance delivery step",
+      label: "Delivery",
+      caption: "Families handed to your agents while intent is fresh.",
+    },
+  ],
 };
 
 export default function PartnerLifeInsurancePage() {
