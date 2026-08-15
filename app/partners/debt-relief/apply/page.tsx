@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-import { partnerLanderStyles } from "../styles";
+import { PartnerNav } from "../../../_ds/kits/partners/PartnerNav";
 import { ApplyWizard } from "./ApplyWizard";
-import { wizardStyles } from "./wizardStyles";
+import { wizardStyles } from "../../_shared/apply/wizardStyles";
 
 export const metadata: Metadata = {
   title: "Check Partner Program Availability — Simple Media Network",
@@ -32,26 +32,13 @@ export default async function ApplyPage({ searchParams }: PageProps) {
 
   return (
     <>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
-      />
-      <style dangerouslySetInnerHTML={{ __html: partnerLanderStyles }} />
       <style dangerouslySetInnerHTML={{ __html: wizardStyles }} />
-
-      <div className="smn-partner">
-        <div className="wizard-shell">
-          <header className="wizard-topbar">
-            <div className="brand">
-              Simple Media Network
-              <small>Partner Program</small>
-            </div>
-            <a href="/partners/debt-relief">← Back to overview</a>
-          </header>
-          <ApplyWizard heroVariant={heroVariant} />
-        </div>
+      <PartnerNav
+        secondaryHref="/partners/debt-relief"
+        secondaryLabel="← Back to overview"
+      />
+      <div className="wizard-shell">
+        <ApplyWizard heroVariant={heroVariant} />
       </div>
     </>
   );
