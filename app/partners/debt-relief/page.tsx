@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-
-import { PageViewTracker } from "./PageViewTracker";
-import { partnerLanderStyles } from "./styles";
+import {
+  VerticalLanderTemplate,
+  type VerticalLanderConfig,
+} from "../_shared/VerticalLanderTemplate";
 
 export const metadata: Metadata = {
   title: "SMN Partner Program — Debt Relief Consumer Leads",
@@ -13,394 +14,65 @@ export const metadata: Metadata = {
 const MONEYSIMPLE_CDN =
   "https://jqjftrlnyysqcwbbigpw.supabase.co/storage/v1/object/public/funnel-screenshots/moneysimple-debt-relief";
 
-type HeroVariant = "A" | "B";
-
-function resolveHeroVariant(searchParams?: {
-  hero?: string | string[];
-}): HeroVariant {
-  const raw = searchParams?.hero;
-  const query = Array.isArray(raw) ? raw[0] : raw;
-  if (query && query.toUpperCase() === "A") return "A";
-  if (query && query.toUpperCase() === "B") return "B";
-  const env = process.env.SMN_PARTNERS_DEBT_HERO;
-  if (env && env.toUpperCase() === "A") return "A";
-  return "B";
-}
-
-const heroContent: Record<
-  HeroVariant,
-  { headline: React.ReactNode; lede: string; controls: string }
-> = {
-  B: {
-    headline: (
-      <>
-        Buy debt leads <span className="accent">directly from the publisher</span>{" "}
-        generating them.
-      </>
-    ),
-    lede: "MoneySimple generates the consumer demand. Simple Media Network partners with established debt-relief companies to deliver qualified opportunities on your criteria.",
-    controls: "Choose your states. Set your daily volume. Pay a fixed cost per lead.",
+const config: VerticalLanderConfig = {
+  slug: "debt-relief",
+  program: "debt-relief",
+  leadNoun: "debt leads",
+  page: "/partners/debt-relief",
+  heroVariant: "B",
+  hero: {
+    eyebrow: "Simple Media Network Partner Program",
+    headlineLead: "Buy debt leads directly from",
+    headlineItalic: "the publisher",
+    headlineTrail: "generating them.",
+    lede: "MoneySimple generates the consumer demand. Simple Media Network partners with established debt-relief companies to deliver qualified opportunities on your criteria. Choose your states. Set your daily volume. Pay a fixed cost per lead.",
+    micro: "For established debt-relief companies with active sales teams.",
   },
-  A: {
-    headline: (
-      <>
-        Can your team handle another{" "}
-        <span className="accent">25+ debt prospects</span> per day?
-      </>
-    ),
-    lede: "Get direct access to consumer demand generated through MoneySimple, a Simple Media Network property. Choose your states. Set your daily volume. Pay a fixed cost per lead.",
-    controls: "For established debt-relief companies with active sales teams.",
+  sourceProperty: {
+    key: "moneysimple",
+    label: "MoneySimple",
+    consumerLine:
+      "Consumers enter through MoneySimple, our owned personal-finance publication. We control the acquisition experience end to end, so you're working closer to the source — not buying another anonymous file from somewhere upstream.",
+    flowLine: "Ad → Consumer experience → Qualification → Delivery",
+    sourceHeading: "Where the demand comes from — MoneySimple.",
+    sourceBody:
+      "MoneySimple is a consumer personal-finance property from Simple Media Network covering debt, credit, borrowing and other major financial decisions. Rather than acquiring anonymous third-party lists, we generate demand through our own properties — giving partners a direct relationship with the organization responsible for the acquisition source.",
+    sourceFlow: "MoneySimple → Qualification → Your sales team",
   },
+  program_block: {
+    heading: "Debt-relief consumer leads.",
+    body: "Built for debt-settlement and consumer debt-resolution teams looking for additional daily volume.",
+    qualification: [
+      "Consumer-reported unsecured debt amount",
+      "Accepted debt types",
+      "State",
+      "Contact information",
+      "Consent",
+      "Additional buyer-specific criteria",
+    ],
+  },
+  moneyChain:
+    "We own MoneySimple → we control debt, geography, and eligibility qualification → your intake works consumers that match what your team can actually enroll. The outcome: higher enrollment per rep, less wasted dial time, better program retention.",
+  painkiller:
+    "Debt-relief teams need consistent, workable prospects — vendor leads are aged, oversold, and opaque about qualification. Working direct with the property that generated the consumer removes that friction: reps stay in front of qualified debt-relief prospects and enrollment holds.",
+  fit: [
+    "An active intake or sales team",
+    "Fast speed-to-lead",
+    "Consistent follow-up",
+    "Defined enrollment economics",
+    "Existing customer-acquisition activity",
+    "Capacity for ongoing daily volume",
+  ],
+  formHeading: "Your criteria. Your markets. Your volume.",
+  formBody:
+    "A short qualifier — company, capacity, states, contact. Takes about a minute. We'll reply within one business day with current debt-relief availability.",
+  funnelSteps: [
+    { src: `${MONEYSIMPLE_CDN}/00-landing.png`, alt: "MoneySimple debt-relief landing page", label: "Landing", caption: "An editorial explainer on a property we own — not an ad." },
+    { src: `${MONEYSIMPLE_CDN}/01-step.png`, alt: "MoneySimple debt-relief qualification step", label: "Qualify", caption: "Consumer-reported debt amount, type and state." },
+    { src: `${MONEYSIMPLE_CDN}/02-step.png`, alt: "MoneySimple debt-relief criteria step", label: "Criteria", caption: "Screened against the criteria your team can work." },
+  ],
 };
 
-type PageProps = {
-  searchParams?: Promise<{ hero?: string | string[] }>;
-};
-
-export default async function PartnerDebtReliefPage({ searchParams }: PageProps) {
-  const resolved = (await searchParams) ?? {};
-  const heroVariant = resolveHeroVariant(resolved);
-  const hero = heroContent[heroVariant];
-  const applyHref =
-    heroVariant === "A" ? "/partners/debt-relief/apply?hero=A" : "/partners/debt-relief/apply";
-
-  return (
-    <>
-      <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-      />
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossOrigin="anonymous"
-      />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
-      />
-      <style dangerouslySetInnerHTML={{ __html: partnerLanderStyles }} />
-      <div className="smn-partner">
-        <PageViewTracker heroVariant={heroVariant} />
-
-        <nav>
-          <div className="wrap">
-            <div className="brand">
-              Simple Media Network
-              <small>Partner Program</small>
-            </div>
-            <a className="pill" href={applyHref}>
-              Check availability →
-            </a>
-          </div>
-        </nav>
-
-        <section>
-          <div className="wrap hero">
-            <div>
-              <div className="eyebrow">Simple Media Network Partner Program</div>
-              <h1>{hero.headline}</h1>
-              <p className="lede">{hero.lede}</p>
-              <div className="controls">{hero.controls}</div>
-              <a className="pill" href={applyHref}>
-                Check availability →
-              </a>
-              <div className="micro">
-                For established debt-relief companies with active sales teams.
-              </div>
-            </div>
-            <div className="phone-shot" aria-label="MoneySimple debt-relief landing screenshot">
-              <div className="device">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`${MONEYSIMPLE_CDN}/00-landing.png`}
-                  alt="MoneySimple debt-relief landing page — the owned property that generates consumer demand"
-                  loading="eager"
-                  crossOrigin="anonymous"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="band-wrap">
-          <div className="band">
-            <div className="eyebrow">The problem you already know</div>
-            <h2 style={{ margin: "12px 0 10px", maxWidth: "20ch" }}>Stop buying blind.</h2>
-            <p className="muted" style={{ maxWidth: "60ch" }}>
-              If you&rsquo;re already buying debt leads, you can see the CPL. What you often
-              can&rsquo;t see is everything that matters:
-            </p>
-            <div className="grid g4" style={{ marginTop: "34px" }}>
-              <div className="tile">
-                <h3>Who</h3>
-                <p>Who actually generated the consumer.</p>
-              </div>
-              <div className="tile">
-                <h3>What</h3>
-                <p>What they saw before they submitted.</p>
-              </div>
-              <div className="tile">
-                <h3>How many</h3>
-                <p>How many layers the lead passed through.</p>
-              </div>
-              <div className="tile">
-                <h3>Control</h3>
-                <p>Whether the source can change qualification when you need it.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <section>
-          <div className="wrap g2">
-            <div>
-              <div className="eyebrow">Where it comes from</div>
-              <h2 style={{ margin: "12px 0 16px" }}>We generate the demand ourselves.</h2>
-              <p>
-                Consumers enter through MoneySimple, our owned personal-finance publication. We
-                control the acquisition experience end to end, so you&rsquo;re working closer to the
-                source — not buying another anonymous file from somewhere upstream.
-              </p>
-              <p className="flow" style={{ marginTop: "22px" }}>
-                Ad → Consumer experience → Qualification → Delivery
-              </p>
-            </div>
-            <div className="phone-strip" aria-label="MoneySimple debt-relief consumer funnel — landing, qualification step, criteria step">
-              <div>
-                <div className="device">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={`${MONEYSIMPLE_CDN}/00-landing.png`}
-                    alt="MoneySimple debt-relief landing"
-                    loading="lazy"
-                    crossOrigin="anonymous"
-                  />
-                </div>
-                <div className="cap">Landing</div>
-              </div>
-              <div>
-                <div className="device">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={`${MONEYSIMPLE_CDN}/01-step.png`}
-                    alt="MoneySimple debt-relief qualification"
-                    loading="lazy"
-                    crossOrigin="anonymous"
-                  />
-                </div>
-                <div className="cap">Qualify</div>
-              </div>
-              <div>
-                <div className="device">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={`${MONEYSIMPLE_CDN}/02-step.png`}
-                    alt="MoneySimple debt-relief criteria"
-                    loading="lazy"
-                    crossOrigin="anonymous"
-                  />
-                </div>
-                <div className="cap">Criteria</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="band-wrap">
-          <div className="band">
-            <div className="eyebrow">The program</div>
-            <h2 style={{ margin: "12px 0 0" }}>Debt-relief consumer leads.</h2>
-            <hr className="goldrule" />
-            <p className="muted" style={{ marginTop: "20px", maxWidth: "62ch" }}>
-              Built for debt-settlement and consumer debt-resolution teams looking for additional
-              daily volume. Qualification may include consumer-reported unsecured debt amount,
-              accepted debt types, state, contact information, consent, and additional
-              buyer-specific criteria.
-            </p>
-            <div className="klabel" style={{ marginTop: "40px" }}>
-              You control
-            </div>
-            <div className="grid g4">
-              <div className="tile">
-                <h3>States</h3>
-                <p>Choose the markets you serve.</p>
-              </div>
-              <div className="tile">
-                <h3>Criteria</h3>
-                <p>Define what your team can actually work.</p>
-              </div>
-              <div className="tile">
-                <h3>Daily volume</h3>
-                <p>Start at a manageable cap.</p>
-              </div>
-              <div className="tile">
-                <h3>Spend</h3>
-                <p>Pre-funded balance with controlled delivery.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <section>
-          <div className="band-wrap">
-            <div className="band-soft">
-              <div className="eyebrow">The commercial model</div>
-              <h2 style={{ margin: "12px 0 16px", maxWidth: "24ch" }}>
-                We fund the consumer acquisition. <span className="accent">You pay for leads.</span>
-              </h2>
-              <div className="grid g3" style={{ marginTop: "12px" }}>
-                <div>
-                  <p>
-                    <strong>No agency.</strong>{" "}
-                    <span className="muted">You don&rsquo;t hire us to manage anything.</span>
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <strong>No ad budget to manage.</strong>{" "}
-                    <span className="muted">We take the media risk.</span>
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <strong>No monthly retainer.</strong>{" "}
-                    <span className="muted">
-                      You pay the agreed CPL for the agreed lead product.
-                    </span>
-                  </p>
-                </div>
-              </div>
-              <p style={{ marginTop: "26px", fontFamily: "var(--serif)", fontSize: "20px" }}>
-                That is the offer.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <div className="wrap">
-            <div className="eyebrow">The right question</div>
-            <h2 style={{ margin: "12px 0 14px", maxWidth: "26ch" }}>
-              A better question than &ldquo;what&rsquo;s the cheapest lead?&rdquo;
-            </h2>
-            <p>
-              The cheapest lead is expensive if your reps can&rsquo;t reach or enroll it. What
-              matters is whether the channel works against your sales economics. That&rsquo;s why we
-              start controlled.
-            </p>
-            <div className="steps">
-              <div className="step">
-                <div className="n">01</div>
-                <h3>Define the buyer</h3>
-                <p>States, debt criteria, delivery, capacity.</p>
-              </div>
-              <div className="step">
-                <div className="n">02</div>
-                <h3>Fund the account</h3>
-                <p>Start with a prepaid allocation.</p>
-              </div>
-              <div className="step">
-                <div className="n">03</div>
-                <h3>Launch at a daily cap</h3>
-                <p>Enough volume to measure without flooding the floor.</p>
-              </div>
-              <div className="step">
-                <div className="n">04</div>
-                <h3>Scale what works</h3>
-                <p>If your economics hold, increase the allocation.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="band-wrap">
-          <div className="band">
-            <div className="eyebrow">Fit</div>
-            <h2 style={{ margin: "12px 0 4px", maxWidth: "26ch" }}>
-              Built for teams that can actually work the leads.
-            </h2>
-            <p className="muted" style={{ maxWidth: "60ch" }}>
-              This probably isn&rsquo;t a fit if you&rsquo;re looking for five free leads to see
-              what happens. It&rsquo;s designed for operators with:
-            </p>
-            <ul className="qual">
-              <li>An active intake or sales team</li>
-              <li>Fast speed-to-lead</li>
-              <li>Consistent follow-up</li>
-              <li>Defined enrollment economics</li>
-              <li>Existing customer-acquisition activity</li>
-              <li>Capacity for ongoing daily volume</li>
-            </ul>
-            <div style={{ marginTop: "34px" }}>
-              <a className="pill" href={applyHref}>
-                See if there&rsquo;s availability →
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <section>
-          <div className="wrap g2">
-            <div>
-              <div className="eyebrow">The source</div>
-              <h2 style={{ margin: "12px 0 16px" }}>
-                Where the demand comes from — MoneySimple.
-              </h2>
-              <p>
-                MoneySimple is a consumer personal-finance property from Simple Media Network
-                covering debt, credit, borrowing and other major financial decisions. Rather than
-                acquiring anonymous third-party lists, we generate demand through our own
-                properties — giving partners a direct relationship with the organization
-                responsible for the acquisition source.
-              </p>
-              <p className="flow" style={{ marginTop: "22px" }}>
-                MoneySimple → Qualification → Your sales team
-              </p>
-            </div>
-            {/*
-              MetricRow intentionally hidden until real MoneySimple figures are supplied.
-              Per WO Done#3: "Metrics are real or the MetricRow is hidden — no invented figures."
-            */}
-          </div>
-        </section>
-
-        <div className="band-wrap" id="apply">
-          <div className="band cta-band">
-            <div className="eyebrow">Request current availability</div>
-            <h2 style={{ margin: "12px 0 14px", maxWidth: "28ch" }}>
-              Your criteria. Your markets. Your volume.
-            </h2>
-            <p className="muted cta-lede">
-              A short qualifier — company, capacity, states, contact. Takes about a minute.
-              We&rsquo;ll reply within one business day with current debt-relief availability.
-            </p>
-            <div className="cta-row">
-              <a className="pill" href={applyHref}>
-                Check partner availability →
-              </a>
-              <span className="micro">7 quick steps · ~60 seconds</span>
-            </div>
-          </div>
-        </div>
-
-        <footer>
-          <div className="wrap">
-            <div>
-              <div className="brand" style={{ fontSize: "18px" }}>
-                Simple Media Network
-              </div>
-              <div className="disc">
-                Editorial decisions are made independently; commercial relationships are disclosed.
-                Where outside expertise is useful, we may connect consumers with selected partners.
-              </div>
-            </div>
-            <div className="powered">
-              Partner delivery powered by CallReady · Qualify → Route → Activate → Measure
-            </div>
-          </div>
-        </footer>
-      </div>
-    </>
-  );
+export default function PartnerDebtReliefPage() {
+  return <VerticalLanderTemplate config={config} />;
 }
