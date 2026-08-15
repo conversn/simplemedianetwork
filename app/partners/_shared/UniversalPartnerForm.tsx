@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { VERTICALS, type VerticalSlug } from "./properties";
 
 type FormState = {
@@ -29,23 +29,8 @@ const EMPTY: FormState = {
   notes: "",
 };
 
-const BUYING_FORMATS = [
-  "Leads",
-  "Calls",
-  "Appointments",
-  "Applications",
-  "Cases / enrollments / sales",
-  "Open",
-];
-
-const CAPACITY_OPTIONS = [
-  "Under 10",
-  "10–25",
-  "25–50",
-  "50–100",
-  "100+",
-];
-
+const BUYING_FORMATS = ["Leads", "Calls", "Appointments", "Applications", "Cases / enrollments / sales", "Open"];
+const CAPACITY_OPTIONS = ["Under 10", "10–25", "25–50", "50–100", "100+"];
 const VERTICAL_OPTIONS: Array<{ value: FormState["vertical"]; label: string }> = [
   { value: "debt-relief", label: "Debt Relief" },
   { value: "retirement", label: "Retirement & Annuity" },
@@ -54,6 +39,36 @@ const VERTICAL_OPTIONS: Array<{ value: FormState["vertical"]; label: string }> =
   { value: "legal", label: "Legal (MVA + Premises)" },
   { value: "other", label: "Other" },
 ];
+
+const wrap: CSSProperties = {
+  background: "var(--white)",
+  border: "1px solid var(--border-hairline)",
+  borderRadius: "var(--radius-lg)",
+  padding: "var(--sp-10)",
+  boxShadow: "var(--shadow-sm)",
+};
+const rowTwo: CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--sp-5)" };
+const rowOne: CSSProperties = { display: "grid", gridTemplateColumns: "1fr", gap: "var(--sp-5)" };
+const label: CSSProperties = {
+  display: "block", marginBottom: "var(--sp-2)",
+  fontFamily: "var(--font-ui)", fontSize: "var(--fs-caption)",
+  fontWeight: "var(--fw-medium)", color: "var(--text-strong)", letterSpacing: "0.01em",
+};
+const fieldStyle: CSSProperties = {
+  width: "100%", fontFamily: "var(--font-ui)", fontSize: "var(--fs-body-sm)",
+  padding: "12px 14px", borderRadius: "var(--radius-sm)",
+  border: "1px solid var(--border-default)", background: "var(--white)", color: "var(--text-strong)",
+  lineHeight: 1.4, outline: "none",
+  transition: "border-color var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard)",
+};
+const submitBtn: CSSProperties = {
+  display: "inline-flex", alignItems: "center", justifyContent: "center",
+  padding: "16px 30px", fontFamily: "var(--font-ui)", fontSize: "var(--fs-body-sm)",
+  fontWeight: "var(--fw-medium)", background: "var(--evergreen)", color: "#fff",
+  border: "1px solid var(--evergreen)", borderRadius: "var(--radius-pill)",
+  cursor: "pointer", lineHeight: 1.2,
+  transition: "background var(--dur-base) var(--ease-standard)",
+};
 
 export function UniversalPartnerForm({
   defaultVertical = "debt-relief",
@@ -80,8 +95,7 @@ export function UniversalPartnerForm({
     setStatus("submitting");
     setMessage("");
 
-    const verticalMeta =
-      state.vertical !== "other" ? VERTICALS[state.vertical] : null;
+    const verticalMeta = state.vertical !== "other" ? VERTICALS[state.vertical] : null;
 
     try {
       const res = await fetch("/api/partners/inquiry", {
@@ -108,188 +122,138 @@ export function UniversalPartnerForm({
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
         setStatus("error");
-        setMessage(
-          body?.error ??
-            "Something went wrong. Please email hello@simplemedianetwork.com.",
-        );
+        setMessage(body?.error ?? "Something went wrong. Please email hello@simplemedianetwork.com.");
         return;
       }
       setStatus("ok");
-      setMessage(
-        "Got it — we'll reply within one business day with current availability.",
-      );
+      setMessage("Got it — we'll reply within one business day with current availability.");
     } catch {
       setStatus("error");
-      setMessage(
-        "Network error. Please email hello@simplemedianetwork.com.",
-      );
+      setMessage("Network error. Please email hello@simplemedianetwork.com.");
     }
   }
 
   if (status === "ok") {
     return (
-      <div className="uform" role="status" aria-live="polite">
-        <h3>Thanks — request received.</h3>
-        <p className="fh">{message}</p>
+      <div style={wrap} role="status" aria-live="polite">
+        <h3 style={{ margin: "0 0 var(--sp-3)", fontFamily: "var(--font-display)", fontSize: "var(--fs-h3)", fontWeight: "var(--fw-regular)", color: "var(--text-strong)" }}>
+          Thanks — request received.
+        </h3>
+        <p style={{ margin: 0, fontFamily: "var(--font-ui)", fontSize: "var(--fs-body-sm)", color: "var(--text-muted)" }}>{message}</p>
       </div>
     );
   }
 
   return (
-    <form className="uform" onSubmit={onSubmit} noValidate>
-      <h3>Tell us what you buy.</h3>
-      <div className="fh">
+    <form style={wrap} onSubmit={onSubmit} noValidate>
+      <h3 style={{ margin: "0 0 var(--sp-2)", fontFamily: "var(--font-display)", fontSize: "var(--fs-h3)", fontWeight: "var(--fw-regular)", color: "var(--text-strong)" }}>
+        Tell us what you buy.
+      </h3>
+      <div style={{ marginBottom: "var(--sp-8)", fontFamily: "var(--font-ui)", fontSize: "var(--fs-body-sm)", color: "var(--text-muted)" }}>
         A short qualifier — vertical, capacity, states, contact. Takes about a minute.
       </div>
 
-      <div className="row2">
-        <div>
-          <label htmlFor="vertical">What do you buy?</label>
-          <select
-            id="vertical"
-            value={state.vertical}
-            onChange={(e) => update("vertical", e.target.value as FormState["vertical"])}
-          >
-            {VERTICAL_OPTIONS.map((v) => (
-              <option key={v.value} value={v.value}>
-                {v.label}
-              </option>
-            ))}
-          </select>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--sp-5)" }}>
+        <div style={rowTwo}>
+          <div>
+            <label style={label} htmlFor="vertical">What do you buy?</label>
+            <select id="vertical" style={fieldStyle} value={state.vertical} onChange={(e) => update("vertical", e.target.value as FormState["vertical"])}>
+              {VERTICAL_OPTIONS.map((v) => <option key={v.value} value={v.value}>{v.label}</option>)}
+            </select>
+          </div>
+          <div>
+            <label style={label} htmlFor="buying_format">How are you buying?</label>
+            <select id="buying_format" style={fieldStyle} value={state.buying_format} onChange={(e) => update("buying_format", e.target.value)}>
+              {BUYING_FORMATS.map((b) => <option key={b} value={b}>{b}</option>)}
+            </select>
+          </div>
         </div>
-        <div>
-          <label htmlFor="buying_format">How are you buying?</label>
-          <select
-            id="buying_format"
-            value={state.buying_format}
-            onChange={(e) => update("buying_format", e.target.value)}
-          >
-            {BUYING_FORMATS.map((b) => (
-              <option key={b} value={b}>
-                {b}
-              </option>
-            ))}
-          </select>
+
+        <div style={rowTwo}>
+          <div>
+            <label style={label} htmlFor="daily_capacity">Volume your team can handle / day</label>
+            <select id="daily_capacity" style={fieldStyle} value={state.daily_capacity} onChange={(e) => update("daily_capacity", e.target.value)}>
+              {CAPACITY_OPTIONS.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
+          <div>
+            <label style={label} htmlFor="currently_buying">Buying from other vendors?</label>
+            <select id="currently_buying" style={fieldStyle} value={state.currently_buying} onChange={(e) => update("currently_buying", e.target.value)}>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
         </div>
+
+        <div style={rowOne}>
+          <div>
+            <label style={label} htmlFor="states">Markets / states</label>
+            <input id="states" style={fieldStyle} type="text" value={state.states}
+              onChange={(e) => update("states", e.target.value)}
+              placeholder="e.g. CA, TX, FL, NY" autoComplete="off" />
+          </div>
+        </div>
+
+        <div style={rowTwo}>
+          <div>
+            <label style={label} htmlFor="name">Name</label>
+            <input id="name" style={fieldStyle} type="text" value={state.name}
+              onChange={(e) => update("name", e.target.value)} required autoComplete="name" />
+          </div>
+          <div>
+            <label style={label} htmlFor="company">Company</label>
+            <input id="company" style={fieldStyle} type="text" value={state.company}
+              onChange={(e) => update("company", e.target.value)} required autoComplete="organization" />
+          </div>
+        </div>
+
+        <div style={rowTwo}>
+          <div>
+            <label style={label} htmlFor="email">Work email</label>
+            <input id="email" style={fieldStyle} type="email" value={state.email}
+              onChange={(e) => update("email", e.target.value)} required autoComplete="email" />
+          </div>
+          <div>
+            <label style={label} htmlFor="phone">Phone</label>
+            <input id="phone" style={fieldStyle} type="tel" value={state.phone}
+              onChange={(e) => update("phone", e.target.value)} required autoComplete="tel" />
+          </div>
+        </div>
+
+        <div style={rowOne}>
+          <div>
+            <label style={label} htmlFor="notes">Anything else we should know?</label>
+            <textarea id="notes" style={{ ...fieldStyle, minHeight: 96, resize: "vertical" }}
+              value={state.notes}
+              onChange={(e) => update("notes", e.target.value)}
+              placeholder="Specific criteria, current CPL, timing…" />
+          </div>
+        </div>
+
+        <div style={{ marginTop: "var(--sp-2)", display: "flex", alignItems: "center", gap: "var(--sp-4)", flexWrap: "wrap" }}>
+          <button type="submit" style={{ ...submitBtn, opacity: status === "submitting" ? 0.5 : 1, cursor: status === "submitting" ? "not-allowed" : "pointer" }} disabled={status === "submitting"}>
+            {status === "submitting" ? "Sending…" : "See if we're a fit →"}
+          </button>
+          <span style={{ fontFamily: "var(--font-ui)", fontSize: "var(--fs-caption)", color: "var(--text-subtle)" }}>
+            One business day for a reply.
+          </span>
+        </div>
+
+        <p style={{ margin: "var(--sp-3) 0 0", fontFamily: "var(--font-ui)", fontSize: "var(--fs-caption)", color: "var(--text-subtle)", maxWidth: "70ch" }}>
+          By submitting, you agree we may contact you about this inquiry. We don&rsquo;t share your details outside of this partnership discussion.
+        </p>
+
+        {status === "error" && (
+          <div role="alert" style={{
+            marginTop: "var(--sp-2)", padding: "var(--sp-3) var(--sp-4)",
+            background: "var(--danger-soft)", color: "var(--danger)",
+            border: "1px solid #E8CDC8", borderRadius: "var(--radius-sm)",
+            fontFamily: "var(--font-ui)", fontSize: "var(--fs-body-sm)",
+          }}>
+            {message}
+          </div>
+        )}
       </div>
-
-      <div className="row2">
-        <div>
-          <label htmlFor="daily_capacity">Volume your team can handle / day</label>
-          <select
-            id="daily_capacity"
-            value={state.daily_capacity}
-            onChange={(e) => update("daily_capacity", e.target.value)}
-          >
-            {CAPACITY_OPTIONS.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label htmlFor="currently_buying">Buying from other vendors?</label>
-          <select
-            id="currently_buying"
-            value={state.currently_buying}
-            onChange={(e) => update("currently_buying", e.target.value)}
-          >
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="row1">
-        <label htmlFor="states">Markets / states</label>
-        <input
-          id="states"
-          type="text"
-          value={state.states}
-          onChange={(e) => update("states", e.target.value)}
-          placeholder="e.g. CA, TX, FL, NY"
-          autoComplete="off"
-        />
-      </div>
-
-      <div className="row2">
-        <div>
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            type="text"
-            value={state.name}
-            onChange={(e) => update("name", e.target.value)}
-            required
-            autoComplete="name"
-          />
-        </div>
-        <div>
-          <label htmlFor="company">Company</label>
-          <input
-            id="company"
-            type="text"
-            value={state.company}
-            onChange={(e) => update("company", e.target.value)}
-            required
-            autoComplete="organization"
-          />
-        </div>
-      </div>
-
-      <div className="row2">
-        <div>
-          <label htmlFor="email">Work email</label>
-          <input
-            id="email"
-            type="email"
-            value={state.email}
-            onChange={(e) => update("email", e.target.value)}
-            required
-            autoComplete="email"
-          />
-        </div>
-        <div>
-          <label htmlFor="phone">Phone</label>
-          <input
-            id="phone"
-            type="tel"
-            value={state.phone}
-            onChange={(e) => update("phone", e.target.value)}
-            required
-            autoComplete="tel"
-          />
-        </div>
-      </div>
-
-      <div className="row1">
-        <label htmlFor="notes">Anything else we should know?</label>
-        <textarea
-          id="notes"
-          value={state.notes}
-          onChange={(e) => update("notes", e.target.value)}
-          placeholder="Specific criteria, current CPL, timing…"
-        />
-      </div>
-
-      <div className="submit">
-        <button className="pill" type="submit" disabled={status === "submitting"}>
-          {status === "submitting" ? "Sending…" : "See if we're a fit →"}
-        </button>
-        <span className="micro">One business day for a reply.</span>
-      </div>
-
-      <p className="form-consent">
-        By submitting, you agree we may contact you about this inquiry. We don&rsquo;t
-        share your details outside of this partnership discussion.
-      </p>
-
-      {status === "error" ? (
-        <div className="form-status error" role="alert">
-          {message}
-        </div>
-      ) : null}
     </form>
   );
 }
