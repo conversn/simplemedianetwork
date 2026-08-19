@@ -11,9 +11,12 @@ export function Logo({ variant = "full", tone = "dark", size = 30, assetBase = "
   style?: CSSProperties;
 }) {
   const wordColor = tone === "light" ? "#fff" : "var(--text-strong)";
+  // In the full lockup the wordmark beside the mark already carries the name, so
+  // the image is decorative there; on its own the mark has to carry it.
   const mark = (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={`${assetBase}/mark.png`} alt="Simple Media Network" width={size} height={size}
+    <img src={`${assetBase}/mark.png`} alt={variant === "mark" ? "Simple Media Network" : ""}
+      width={size} height={size}
       style={{ display: "block", objectFit: "contain", flex: "0 0 auto" }} />
   );
   if (variant === "mark") return <span style={{ display: "inline-flex", ...style }}>{mark}</span>;

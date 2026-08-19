@@ -1,6 +1,7 @@
 import { Band } from "../../components/core/Band";
 import { SectionHeading } from "../../components/core/SectionHeading";
 import { PropertyTile } from "../../components/marketing/PropertyTile";
+import { spellCount } from "../../lib/spellCount";
 
 const BRANDS = [
   { name: "SeniorSimple", focus: "Senior and retirement decisions", href: "https://seniorsimple.org", logo: "/ds/logos/properties/seniorsimple.png" },
@@ -18,7 +19,7 @@ export function Brands() {
     <div style={{ padding: "0 var(--gutter)" }}>
       <Band id="brands" tone="sand" style={{ maxWidth: "var(--container-max)", margin: "0 auto" }}>
         <SectionHeading eyebrow="The network"
-          title={<>Eight consumer brands. <em>One company.</em></>}
+          title={<>{spellCount(BRANDS.length)} consumer brands. <em>One company.</em></>}
           lede="Each property serves a specific set of decisions, with its own audience relationship and editorial voice." />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: "var(--sp-4)", marginTop: "var(--sp-16)" }}>
           {BRANDS.map((b) => <PropertyTile key={b.name} {...b} />)}

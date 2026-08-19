@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import { PartnerNav } from "./_ds/kits/partners/PartnerNav";
 import { Band } from "./_ds/components/core/Band";
 import { Footer } from "./_ds/components/navigation/Footer";
@@ -8,7 +10,7 @@ type InfoPageProps = {
   intro: string;
   sections: Array<{
     heading: string;
-    body: string[];
+    body: ReactNode[];
   }>;
 };
 
@@ -57,8 +59,8 @@ export function SharedInfoPage({ eyebrow, title, intro, sections }: InfoPageProp
                 }}>
                   {section.heading}
                 </h2>
-                {section.body.map((paragraph) => (
-                  <p key={paragraph} style={{
+                {section.body.map((paragraph, i) => (
+                  <p key={i} style={{
                     margin: "0 0 var(--sp-4)",
                     fontSize: "var(--fs-body)",
                     lineHeight: "var(--lh-body)",

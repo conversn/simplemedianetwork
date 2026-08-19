@@ -3,6 +3,7 @@ import { SectionHeading } from "../../components/core/SectionHeading";
 import { PropertyTile } from "../../components/marketing/PropertyTile";
 import { FeatureCard } from "../../components/marketing/FeatureCard";
 import { ScreenStack, type ScreenStackItem } from "../../components/marketing/ScreenStack";
+import { spellCount } from "../../lib/spellCount";
 
 const SCREENS: ScreenStackItem[] = [
   { src: "/ds/screens/moneysimple-hero.png", label: "MoneySimple — home", property: "moneysimple.org", caption: "The editorial entry point for debt and credit decisions." },
@@ -18,6 +19,8 @@ const BRANDS = [
   { name: "ParentSimple", focus: "Parenting and family decisions", href: "https://parentsimple.org", logo: "/ds/logos/properties/parentsimple.png" },
   { name: "LegalSimple", focus: "Consumer legal decisions", href: "https://legalsimple.org", logo: "/ds/logos/properties/legalsimple-icon.png" },
   { name: "SmallBizSimple", focus: "Small business finance and growth", href: "https://smallbizsimple.org", logo: "/ds/logos/properties/smallbizsimple.png" },
+  { name: "HomeSimple", focus: "Home improvement and project guidance", href: "https://homesimple.org", logo: "/ds/logos/properties/homesimple.png" },
+  { name: "RetirementRescue", focus: "Retirement planning and retirement income", href: "https://retirementrescue.net", logo: "/ds/logos/properties/retirementrescue.png", logoHeight: 34 },
 ];
 
 const QUALITIES: [string, string, string][] = [
@@ -43,7 +46,7 @@ export function DemandSource() {
       <div style={{ padding: "0 var(--gutter)" }}>
         <Band tone="sand" style={{ maxWidth: "var(--container-max)", margin: "0 auto" }}>
           <SectionHeading eyebrow="The network"
-            title={<>Eight properties. <em>One standard.</em></>} />
+            title={<>{spellCount(BRANDS.length)} properties. <em>One standard.</em></>} />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: "var(--sp-4)", marginTop: "var(--sp-12)" }}>
             {BRANDS.map((b) => <PropertyTile key={b.name} {...b} />)}
           </div>

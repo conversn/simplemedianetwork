@@ -4,7 +4,6 @@ import { PartnerNav } from "../_ds/kits/partners/PartnerNav";
 import { PartnerHero } from "../_ds/kits/partners/PartnerHero";
 import { DemandSource } from "../_ds/kits/partners/DemandSource";
 import { BuyCards } from "../_ds/kits/partners/BuyCards";
-import { Proof } from "../_ds/kits/partners/Proof";
 import { Process } from "../_ds/kits/partners/Process";
 import { SectionHeading } from "../_ds/components/core/SectionHeading";
 import { Footer } from "../_ds/components/navigation/Footer";
@@ -26,7 +25,6 @@ export default function PartnersHubPage() {
       <PartnerHero />
       <DemandSource />
       <BuyCards />
-      <Proof />
       <Process />
       <section id="apply" style={{ padding: "var(--section-y) var(--gutter)" }}>
         <div style={{ maxWidth: 820, margin: "0 auto" }}>
