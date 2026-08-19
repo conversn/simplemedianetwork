@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Check Retirement Program Availability — SMN Partner Program",
   description:
     "Tell us your downline, capacity, states, and criteria. We'll reply with current SMN retirement & annuity lead availability.",
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: false },
 };
 
 const config: WizardConfig = {

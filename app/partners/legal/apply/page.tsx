@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Check Legal Program Availability — SMN Partner Program",
   description:
     "Tell us your intake, case types, states, and criteria. We'll reply with current SMN MVA & premises-injury lead availability. Mass tort not offered.",
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: false },
 };
 
 const config: WizardConfig = {

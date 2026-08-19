@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Check Mortgage Program Availability — SMN Partner Program",
   description:
     "Tell us your LOs, capacity, states, and criteria. We'll reply with current SMN mortgage & home-equity lead availability.",
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: false },
 };
 
 const config: WizardConfig = {

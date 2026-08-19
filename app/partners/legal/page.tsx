@@ -4,17 +4,14 @@ import {
   type VerticalLanderConfig,
 } from "../_shared/VerticalLanderTemplate";
 
-// Indexing enabled 2026-08-19 at Keenan's direction, lifting the prior noindex gate.
-// That gate required a documented attorney-advertising / bar / TCPA sign-off; no such
-// sign-off is on record — the decision was made with that stated. Attorney-advertising,
-// state bar, and TCPA obligations still apply to this page and to the LegalSimple
-// captures it republishes (see WO-733 re: the "4.9 / 12,847+ case reviews" and
-// "maximum compensation" claims inside those screenshots).
+// Legal is gated behind noindex until attorney-advertising / bar / TCPA compliance clears.
+// Route ships live but stays out of search. Do not remove noindex without a documented
+// compliance sign-off.
 export const metadata: Metadata = {
   title: "SMN Partner Program — Auto-Accident & Premises-Injury Leads",
   description:
     "Buy MVA and premises-injury leads directly from the publisher generating them. LegalSimple → qualified claimants on your criteria. Mass tort not offered here.",
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: false },
 };
 
 const config: VerticalLanderConfig = {
