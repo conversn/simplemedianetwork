@@ -4,7 +4,7 @@ import { ThankYouShell, type ThankYouConfig } from "../../_shared/apply/ThankYou
 export const metadata: Metadata = {
   title: "Thanks — Partner Program request received",
   description: "Your Simple Media Network Partner Program request has been received.",
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 const config: ThankYouConfig = {

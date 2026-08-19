@@ -4,7 +4,7 @@ import { ThankYouShell, type ThankYouConfig } from "../../_shared/apply/ThankYou
 export const metadata: Metadata = {
   title: "Thanks — Legal Partner request received",
   description: "Your SMN legal partner-program request has been received.",
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 const config: ThankYouConfig = {

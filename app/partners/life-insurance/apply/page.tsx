@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Check Life-Insurance Program Availability — SMN Partner Program",
   description:
     "Tell us your agents, capacity, states, and criteria. We'll reply with current SMN family life-insurance lead availability.",
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 const config: WizardConfig = {

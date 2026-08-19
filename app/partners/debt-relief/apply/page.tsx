@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Check Partner Program Availability — Simple Media Network",
   description:
     "Tell us where you buy, what qualifies, and how much your team can handle. We'll reply with current debt-relief lead availability.",
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 type HeroVariant = "A" | "B";
