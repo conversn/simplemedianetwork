@@ -25,10 +25,16 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+/**
+ * Site-wide defaults only. The homepage sets its own B2B title and description
+ * in app/page.tsx; the company and legal pages that declare no metadata of
+ * their own fall back to this neutral pair, which is why it must stay a
+ * description of the company rather than a pitch.
+ */
 export const metadata: Metadata = {
   title: "Simple Media Network",
   description:
-    "Simple Media Network builds consumer brands and practical products across money, retirement, family, legal, and business decisions.",
+    "Simple Media Network owns and operates consumer brands across money, retirement, family, legal, and business decisions.",
 };
 
 export default function RootLayout({

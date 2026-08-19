@@ -14,13 +14,20 @@ const BRANDS = [
   { name: "RetirementRescue", focus: "Retirement planning and retirement income", href: "https://retirementrescue.net", logo: "/ds/logos/properties/retirementrescue.png", logoHeight: 34 },
 ];
 
+export const PROPERTY_COUNT = BRANDS.length;
+
+/**
+ * On the B2B homepage this grid is evidence, not a reader directory: it is the
+ * answer to "where does your demand actually come from". The tiles still link
+ * out to each property, because a buyer's first instinct is to go look.
+ */
 export function Brands() {
   return (
     <div style={{ padding: "0 var(--gutter)" }}>
-      <Band id="brands" tone="sand" style={{ maxWidth: "var(--container-max)", margin: "0 auto" }}>
+      <Band id="network" tone="sand" style={{ maxWidth: "var(--container-max)", margin: "0 auto" }}>
         <SectionHeading eyebrow="The network"
-          title={<>{spellCount(BRANDS.length)} consumer brands. <em>One company.</em></>}
-          lede="Each property serves a specific set of decisions, with its own audience relationship and editorial voice." />
+          title={<>{spellCount(BRANDS.length)} properties. <em>All owned and operated.</em></>}
+          lede="Every property serves a specific set of decisions, with its own audience relationship and editorial voice. None of it is rented, syndicated, or bought in — which is why we can say where a consumer came from." />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: "var(--sp-4)", marginTop: "var(--sp-16)" }}>
           {BRANDS.map((b) => <PropertyTile key={b.name} {...b} />)}
         </div>

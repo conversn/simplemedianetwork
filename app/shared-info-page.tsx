@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { PartnerNav } from "./_ds/kits/partners/PartnerNav";
+import { SiteNav, SITE_NAV_LINKS } from "./_ds/components/navigation/SiteNav";
 import { Band } from "./_ds/components/core/Band";
 import { Footer } from "./_ds/components/navigation/Footer";
 
@@ -17,7 +17,11 @@ type InfoPageProps = {
 export function SharedInfoPage({ eyebrow, title, intro, sections }: InfoPageProps) {
   return (
     <>
-      <PartnerNav secondaryHref="/" secondaryLabel="← Network overview" />
+      {/* Company and legal pages are not part of the partner funnel, so they
+          carry the plain site nav — no "Partner Program" eyebrow — and keep the
+          partner CTA available because a buyer reading the disclosure is still
+          a buyer. */}
+      <SiteNav links={SITE_NAV_LINKS} ctaHref="/partners" ctaLabel="Partner with us" />
       <main style={{ padding: "var(--sp-16) var(--gutter) var(--section-y)" }}>
         <div style={{ maxWidth: "var(--container-narrow)", margin: "0 auto" }}>
           <Band tone="sand" padding="var(--sp-16) var(--sp-12)">

@@ -2,9 +2,18 @@ import { Band } from "../../components/core/Band";
 import { SectionHeading } from "../../components/core/SectionHeading";
 import { Card } from "../../components/core/Card";
 import { Chip } from "../../components/core/Chip";
-import { Button } from "../../components/core/Button";
 import { Logo } from "../../components/core/Logo";
 
+/**
+ * Below the partner ask on purpose. For a buyer this section answers a narrower
+ * question than it does for a reader — whether the audience relationship
+ * outlasts one search — so it reads as depth of relationship rather than as a
+ * shop.
+ *
+ * No CTAs here: the newsletter and the Organizer have no destination on this
+ * site yet, and a button that goes nowhere is worse than no button. Add them
+ * back the day those routes exist.
+ */
 export function Products() {
   return (
     <>
@@ -14,13 +23,9 @@ export function Products() {
             <div>
               <SectionHeading align="left" rule eyebrow="The Simple Life"
                 title={<>The relationship that <em>outlasts</em> a single decision.</>}
-                lede="Our flagship editorial relationship keeps people informed long after the search that brought them in — and it has a shelf life you can hold." />
-              <div style={{ display: "flex", gap: "var(--sp-2)", margin: "var(--sp-6) 0 var(--sp-8)", flexWrap: "wrap" }}>
+                lede="Our flagship editorial relationship keeps people informed long after the search that brought them in — which is why our audiences are reachable again, not spent after one conversion." />
+              <div style={{ display: "flex", gap: "var(--sp-2)", marginTop: "var(--sp-6)", flexWrap: "wrap" }}>
                 <Chip tone="accent">Weekly newsletter</Chip><Chip>Keepsake edition</Chip><Chip>Large print</Chip>
-              </div>
-              <div style={{ display: "flex", gap: "var(--sp-3)", flexWrap: "wrap" }}>
-                <Button>Read this week&rsquo;s issue</Button>
-                <Button variant="quiet">See the Organizer</Button>
               </div>
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
