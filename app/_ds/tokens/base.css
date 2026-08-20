@@ -132,7 +132,7 @@ code,kbd,pre{font-family:var(--font-mono);font-size:.92em}
 .smn-nav-menu{position:relative;display:none}
 /* The wordmark link is 28px tall — the height of the mark. That is a fine
    header on a desktop pointer and an undersized target on a thumb. */
-@media (max-width:900px){.smn-nav-home{min-height:44px}}
+@media (max-width:900px){.smn-nav-home,.smn-nav-back{min-height:44px;display:inline-flex;align-items:center}}
 @media (max-width:900px){.smn-nav-menu{display:block}}
 .smn-nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;background:transparent;border:1px solid var(--border-default);border-radius:var(--radius-sm);color:var(--text-strong);cursor:pointer}
 .smn-nav-toggle:hover{border-color:var(--border-strong)}

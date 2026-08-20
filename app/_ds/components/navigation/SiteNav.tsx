@@ -49,7 +49,7 @@ export function SiteNav({
             </nav>
           )}
           {secondaryHref && (
-            <a href={secondaryHref} style={{ fontFamily: "var(--font-ui)", fontSize: "var(--fs-body-sm)", color: "var(--text-muted)", textDecoration: "none" }}>
+            <a href={secondaryHref} className="smn-nav-back" style={{ fontFamily: "var(--font-ui)", fontSize: "var(--fs-body-sm)", color: "var(--text-muted)", textDecoration: "none" }}>
               {secondaryLabel ?? "Back"}
             </a>
           )}
