@@ -85,6 +85,11 @@ code,kbd,pre{font-family:var(--font-mono);font-size:.92em}
 .smn-rail-h{flex-direction:row;flex-wrap:wrap;gap:var(--sp-2)}
 .smn-rail-v{flex-direction:column;flex-wrap:nowrap;gap:2px}
 .smn-rail-bar{display:block;width:2px;align-self:stretch;border-radius:2px;flex:0 0 auto}
+/* The deck glow is meant to bleed past the deck. At desktop widths the page
+   margins absorb it; on a phone the gutter is 18px and a 12% bleed is the
+   last thing pushing the document wider than the screen, so it's pulled in. */
+.smn-stack-glow{inset:-16% -12%}
+@media (max-width:900px){.smn-stack-glow{inset:-16% 0}}
 @media (max-width:900px){
   .smn-stack-v{flex-direction:column;align-items:stretch}
   .smn-stack-rail{flex:1 1 auto;max-width:none}

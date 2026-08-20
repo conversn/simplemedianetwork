@@ -56,8 +56,8 @@ export function ScreenStack({
       style={{ position: "relative", flex: 1, minWidth: 0, paddingBottom: layout === "stack" ? 18 : 0, paddingRight: layout === "stack" ? 18 : 0 }}
     >
       {radiant && (
-        <span aria-hidden="true" style={{
-          position: "absolute", inset: "-16% -12%", background: "var(--gradient-radiant)",
+        <span aria-hidden="true" className="smn-stack-glow" style={{
+          position: "absolute", background: "var(--gradient-radiant)",
           filter: "blur(10px)", pointerEvents: "none",
         }} />
       )}
