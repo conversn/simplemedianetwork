@@ -4,6 +4,7 @@ import { PropertyTile } from "../../components/marketing/PropertyTile";
 import { FeatureCard } from "../../components/marketing/FeatureCard";
 import { ScreenStack, type ScreenStackItem } from "../../components/marketing/ScreenStack";
 import { spellCount } from "../../lib/spellCount";
+import type { StyleWithVars } from "../../lib/cssVars";
 
 const SCREENS: ScreenStackItem[] = [
   { src: "/ds/screens/moneysimple-hero.png", label: "MoneySimple — home", property: "moneysimple.org", caption: "The editorial entry point for debt and credit decisions." },
@@ -47,7 +48,7 @@ export function DemandSource() {
         <Band tone="sand" style={{ maxWidth: "var(--container-max)", margin: "0 auto" }}>
           <SectionHeading eyebrow="The network"
             title={<>{spellCount(BRANDS.length)} properties. <em>One standard.</em></>} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: "var(--sp-4)", marginTop: "var(--sp-12)" }}>
+          <div className="smn-autogrid" style={{ marginTop: "var(--sp-12)" }}>
             {BRANDS.map((b) => <PropertyTile key={b.name} {...b} />)}
           </div>
         </Band>
@@ -57,7 +58,7 @@ export function DemandSource() {
           <SectionHeading eyebrow="Quality"
             title={<>Not all demand is <em>equal</em>.</>}
             lede="The people inside our publications have already taken meaningful steps before we connect them to you." />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "var(--sp-4)", marginTop: "var(--sp-16)" }}>
+          <div className="smn-autogrid" style={{ marginTop: "var(--sp-16)", "--min": "240px" } as StyleWithVars}>
             {QUALITIES.map(([ic, t, b]) => <FeatureCard key={t} icon={ic} title={t} body={b} />)}
           </div>
         </div>

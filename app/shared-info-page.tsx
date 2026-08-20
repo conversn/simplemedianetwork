@@ -24,7 +24,7 @@ export function SharedInfoPage({ eyebrow, title, intro, sections }: InfoPageProp
       <SiteNav links={SITE_NAV_LINKS} ctaHref="/partners" ctaLabel="Partner with us" />
       <main style={{ padding: "var(--sp-16) var(--gutter) var(--section-y)" }}>
         <div style={{ maxWidth: "var(--container-narrow)", margin: "0 auto" }}>
-          <Band tone="sand" padding="var(--sp-16) var(--sp-12)">
+          <Band tone="sand" padding="clamp(28px,7vw,64px) clamp(20px,5vw,48px)">
             <span className="smn-eyebrow" style={{ display: "block", marginBottom: "var(--sp-5)" }}>{eyebrow}</span>
             <h1 style={{
               margin: "0 0 var(--sp-6)",

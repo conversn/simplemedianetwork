@@ -2,6 +2,7 @@ import { SectionHeading } from "../../components/core/SectionHeading";
 import { StepTimeline } from "../../components/marketing/StepTimeline";
 import { ScreenStack, type ScreenStackItem } from "../../components/marketing/ScreenStack";
 import { Button } from "../../components/core/Button";
+import type { StyleWithVars } from "../../lib/cssVars";
 
 const VIEWS: ScreenStackItem[] = [
   { src: "/ds/screens/moneysimple-hero.png", label: "MoneySimple", property: "moneysimple.org", caption: "The editorial entry point for debt and credit decisions." },
@@ -30,7 +31,7 @@ export function Model() {
         </div>
       </section>
       <section style={{ padding: "0 var(--gutter) var(--section-y)" }}>
-        <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", display: "grid", gridTemplateColumns: "0.85fr 1.4fr", gap: "var(--sp-16)", alignItems: "center" }}>
+        <div className="smn-split" style={{ maxWidth: "var(--container-max)", margin: "0 auto", "--split": "minmax(0,0.85fr) minmax(0,1.4fr)" } as StyleWithVars}>
           <div>
             <SectionHeading align="left" eyebrow="Inside a property"
               title={<>What a consumer reads <em>before you meet them</em>.</>}

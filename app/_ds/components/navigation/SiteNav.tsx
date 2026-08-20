@@ -1,5 +1,6 @@
 import { Logo } from "../core/Logo";
 import { Button } from "../core/Button";
+import { NavMenu } from "./NavMenu";
 
 export type SiteNavLink = { label: string; href: string };
 
@@ -35,7 +36,7 @@ export function SiteNav({
         <a href={homeHref} style={{ display: "inline-flex", alignItems: "center", gap: "var(--sp-3)", textDecoration: "none" }}>
           <Logo variant="mark" size={28} assetBase="/ds/logos" />
           <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.15 }}>
-            <span style={{ fontFamily: "var(--font-display)", fontSize: 18, letterSpacing: "-0.01em", color: "var(--text-strong)" }}>Simple Media Network</span>
+            <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(15px,4vw,18px)", letterSpacing: "-0.01em", color: "var(--text-strong)" }}>Simple Media Network</span>
             {eyebrow && <span className="smn-eyebrow" style={{ color: "var(--text-muted)" }}>{eyebrow}</span>}
           </span>
         </a>
@@ -53,6 +54,7 @@ export function SiteNav({
             </a>
           )}
           {ctaHref && <Button size="sm" href={ctaHref}>{ctaLabel}</Button>}
+          <NavMenu links={links} />
         </div>
       </div>
     </header>

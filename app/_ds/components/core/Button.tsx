@@ -55,13 +55,12 @@ export function Button({ variant = "primary", size = "md", disabled, block, icon
     cursor: disabled ? "not-allowed" : "pointer",
     opacity: disabled ? 0.4 : 1,
     textDecoration: "none",
-    whiteSpace: "nowrap",
     transition: "background var(--dur-base) var(--ease-standard), border-color var(--dur-base) var(--ease-standard), color var(--dur-base) var(--ease-standard)",
     ...style,
   };
   if (href) {
     return (
-      <a href={href} onClick={disabled ? undefined : onClick}
+      <a href={href} className="smn-btn" onClick={disabled ? undefined : onClick}
         onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
         style={shared}>
         {iconLeft}{children}{iconRight}
@@ -69,7 +68,7 @@ export function Button({ variant = "primary", size = "md", disabled, block, icon
     );
   }
   return (
-    <button type="button" onClick={disabled ? undefined : onClick} disabled={disabled}
+    <button type="button" className="smn-btn" onClick={disabled ? undefined : onClick} disabled={disabled}
       onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
       style={shared}>
       {iconLeft}{children}{iconRight}

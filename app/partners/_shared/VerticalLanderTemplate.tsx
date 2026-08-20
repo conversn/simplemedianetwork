@@ -12,6 +12,7 @@ import { PropertyTile } from "../../_ds/components/marketing/PropertyTile";
 import { Footer } from "../../_ds/components/navigation/Footer";
 import { PartnerPageView } from "./PartnerPageView";
 import { PROPERTIES, type VerticalSlug } from "./properties";
+import type { StyleWithVars } from "../../_ds/lib/cssVars";
 
 export type VerticalLanderConfig = {
   slug: VerticalSlug;
@@ -184,7 +185,7 @@ export function VerticalLanderTemplate({ config }: { config: VerticalLanderConfi
           <SectionHeading eyebrow="The problem you already know"
             title={<>Stop buying <em>blind</em>.</>}
             lede={`If you're already buying ${config.leadNoun}, you can see the CPL. What you often can't see is everything that matters.`} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: "var(--sp-4)", marginTop: "var(--sp-16)" }}>
+          <div className="smn-autogrid" style={{ marginTop: "var(--sp-16)" }}>
             {BLIND.map(([ic, t, b]) => <FeatureCard key={t} icon={ic} title={t} body={b} />)}
           </div>
         </div>
@@ -227,7 +228,7 @@ export function VerticalLanderTemplate({ config }: { config: VerticalLanderConfi
             rule
             lede={program_block.body} />
           <span className="smn-eyebrow" style={{ display: "block", marginTop: "var(--sp-10)", marginBottom: "var(--sp-4)" }}>Qualification may include</span>
-          <ul style={{ margin: "0 0 var(--sp-12)", padding: 0, listStyle: "none", columns: "2", columnGap: "var(--sp-10)", maxWidth: 720 }}>
+          <ul className="smn-qual-list" style={{ margin: "0 0 var(--sp-12)", padding: 0, listStyle: "none" }}>
             {program_block.qualification.map((q) => (
               <li key={q} style={{
                 padding: "9px 0 9px 26px", position: "relative",
@@ -242,7 +243,7 @@ export function VerticalLanderTemplate({ config }: { config: VerticalLanderConfi
             ))}
           </ul>
           <span className="smn-eyebrow" style={{ display: "block", marginBottom: "var(--sp-4)" }}>You control</span>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: "var(--sp-4)" }}>
+          <div className="smn-autogrid" style={{ "--min": "220px" } as StyleWithVars}>
             {CONTROL.map(([ic, t, b]) => <FeatureCard key={t} icon={ic} title={t} body={b} tone="onSand" />)}
           </div>
         </Band>
@@ -253,7 +254,7 @@ export function VerticalLanderTemplate({ config }: { config: VerticalLanderConfi
         <div style={{ maxWidth: "var(--container-max)", margin: "0 auto" }}>
           <SectionHeading eyebrow="The commercial model"
             title={<>We fund the acquisition. <em>You pay for leads.</em></>} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: "var(--sp-4)", margin: "var(--sp-12) 0 var(--section-y)" }}>
+          <div className="smn-autogrid" style={{ margin: "var(--sp-12) 0 var(--section-y)" }}>
             {MODEL.map(([ic, t, b]) => <FeatureCard key={t} icon={ic} title={t} body={b} size="lg" />)}
           </div>
           <SectionHeading rule eyebrow="The right question"
@@ -281,7 +282,7 @@ export function VerticalLanderTemplate({ config }: { config: VerticalLanderConfi
       {/* Fit + apply CTA */}
       <div style={{ padding: "0 var(--gutter) var(--section-y)" }}>
         <Band tone="soft" style={{ maxWidth: "var(--container-max)", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: "var(--sp-16)", alignItems: "center" }}>
+          <div className="smn-split">
             <SectionHeading align="left" eyebrow="Fit"
               title={<>Built for teams that can <em>actually work the leads</em>.</>}
               lede="Designed for operators with:" />
@@ -302,7 +303,7 @@ export function VerticalLanderTemplate({ config }: { config: VerticalLanderConfi
       {/* Source callout — radiant-warm band with PropertyTile */}
       <div style={{ padding: "0 var(--gutter) var(--section-y)" }}>
         <Band tone="radiant-warm" style={{ maxWidth: "var(--container-max)", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.2fr) minmax(0, 1fr)", gap: "var(--sp-16)", alignItems: "center" }}>
+          <div className="smn-split" style={{ "--split": "minmax(0,1.2fr) minmax(0,1fr)" } as StyleWithVars}>
             <SectionHeading align="left" rule eyebrow="The source"
               title={<>{sourceProperty.sourceHeading}</>}
               lede={sourceProperty.sourceBody} />

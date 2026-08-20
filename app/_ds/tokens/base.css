@@ -18,3 +18,115 @@ code,kbd,pre{font-family:var(--font-mono);font-size:.92em}
 .smn-vertical-row{display:grid;grid-template-columns:1.1fr 1.4fr auto;align-items:center;gap:var(--sp-6);padding:var(--sp-6);border-radius:var(--radius-md);border-bottom:1px solid var(--border-hairline);background:transparent;text-decoration:none;transition:background var(--dur-base) var(--ease-standard)}
 .smn-vertical-row:hover{background:var(--white)}
 @media (max-width:820px){.smn-vertical-row{grid-template-columns:1fr;gap:var(--sp-3)}}
+
+/* ---------------------------------------------------------------------------
+   Responsive layout primitives.
+
+   The DS styles layout with React inline styles, which cannot express a media
+   query — so before these classes existed every grid was locked at its desktop
+   column count and a phone rendered the desktop layout squeezed into 360px.
+   Every multi-column grid in the system now routes through one of the classes
+   below. Templates that differ per instance are passed in as `--cols` / `--min`
+   / `--split` custom properties rather than as a new class, so the column count
+   still lives with the component and the breakpoints live here, once.
+
+   Breakpoints: 900px (desktop layout ends) and 600px (two-up becomes one-up).
+   Both are below the 1140px container max, so desktop rendering is unchanged.
+   --------------------------------------------------------------------------- */
+
+/* Two-column split — copy on one side, asset on the other. */
+.smn-split{display:grid;grid-template-columns:var(--split,minmax(0,1fr) minmax(0,1fr));gap:var(--split-gap,var(--sp-16));align-items:center}
+@media (max-width:900px){.smn-split{grid-template-columns:minmax(0,1fr);gap:var(--sp-10)}}
+
+/* Card grid that reflows on its own. `min(100%,…)` is what makes it safe: a
+   bare minmax(300px,1fr) track cannot shrink below 300px and pushes the page
+   sideways on any viewport narrower than that. */
+.smn-autogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,var(--min,230px)),1fr));gap:var(--sp-4)}
+
+/* Fixed column count that collapses. */
+.smn-cols{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:var(--sp-4)}
+@media (max-width:900px){.smn-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.smn-cols{grid-template-columns:minmax(0,1fr)}}
+
+/* Stat row. Stacks outright — three stats side by side on a phone leaves each
+   one about 90px wide, and the numbers are display type. */
+.smn-metrics{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:var(--sp-8)}
+@media (max-width:720px){.smn-metrics{grid-template-columns:minmax(0,1fr);gap:var(--sp-6)}}
+
+/* Numbered timeline. */
+.smn-steps{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:var(--sp-6)}
+@media (max-width:900px){.smn-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.smn-steps{grid-template-columns:minmax(0,1fr)}}
+
+/* Footer. */
+.smn-footer-inner{padding:var(--sp-20) var(--sp-16) var(--sp-10)}
+.smn-footer-grid{display:grid;grid-template-columns:1.6fr repeat(var(--cols,3),minmax(0,1fr));gap:var(--sp-16)}
+.smn-footer-bar{display:flex;justify-content:space-between;align-items:center;gap:var(--sp-3);flex-wrap:wrap}
+.smn-footer-link{display:inline-block}
+@media (max-width:900px){
+  .smn-footer-inner{padding:var(--sp-12) var(--sp-8) var(--sp-8)}
+  .smn-footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-10)}
+  .smn-footer-brand{grid-column:1/-1}
+  .smn-footer-link{padding:9px 0}
+}
+@media (max-width:480px){
+  .smn-footer-inner{padding:var(--sp-10) var(--sp-6) var(--sp-6)}
+  .smn-footer-grid{grid-template-columns:minmax(0,1fr)}
+}
+
+/* Screenshot deck + its selector rail. The rail is a 210px fixed track beside
+   a flexible deck; below the breakpoint it moves under the deck and its rows
+   become wrapping chips, because 210px is well over half a phone screen. */
+.smn-stack{display:flex;gap:var(--sp-6)}
+.smn-stack-h{flex-direction:column;align-items:stretch}
+.smn-stack-v{flex-direction:row;align-items:center}
+.smn-stack-rail{flex:0 0 210px;max-width:210px;min-width:0}
+.smn-rail{display:flex;min-width:0}
+.smn-rail-h{flex-direction:row;flex-wrap:wrap;gap:var(--sp-2)}
+.smn-rail-v{flex-direction:column;flex-wrap:nowrap;gap:2px}
+.smn-rail-bar{display:block;width:2px;align-self:stretch;border-radius:2px;flex:0 0 auto}
+@media (max-width:900px){
+  .smn-stack-v{flex-direction:column;align-items:stretch}
+  .smn-stack-rail{flex:1 1 auto;max-width:none}
+  .smn-rail-v{flex-direction:row;flex-wrap:wrap;gap:var(--sp-2)}
+  .smn-rail-v .smn-rail-bar,.smn-rail-v .smn-rail-caption{display:none}
+}
+
+/* Buttons keep their single-line shape at desktop widths; on a phone a long
+   label has to be allowed to wrap rather than run off the page. `nowrap` lives
+   here and not inline so this rule can win. */
+.smn-btn{white-space:nowrap;max-width:100%}
+@media (max-width:600px){.smn-btn{white-space:normal;text-align:center;min-height:44px}}
+
+/* The wordmark in the lockup, same reason. */
+.smn-logo-word{white-space:nowrap}
+@media (max-width:520px){.smn-logo-word{white-space:normal}}
+
+/* Two-column qualification list. */
+.smn-qual-list{columns:2;column-gap:var(--sp-10);max-width:720px}
+@media (max-width:720px){.smn-qual-list{columns:1}}
+
+/* Partner inquiry form — the conversion point on /partners. Fields go full
+   width below the breakpoint, and to 16px so iOS stops zooming the page in on
+   focus (which leaves the viewport scrolled sideways). */
+.smn-form-card{padding:var(--sp-10)}
+.smn-form-row-2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--sp-5)}
+.smn-form-row-1{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--sp-5)}
+.smn-field{font-size:var(--fs-body-sm)}
+@media (max-width:640px){
+  .smn-form-card{padding:var(--sp-6)}
+  .smn-form-row-2{grid-template-columns:minmax(0,1fr)}
+  .smn-field{font-size:16px;min-height:48px}
+  .smn-submit{width:100%}
+}
+
+/* Mobile nav. `.smn-nav-links` above hides the inline links below 900px; this
+   is what replaces them there — without it the header carries only a wordmark
+   and a CTA and the rest of the site is unreachable from the nav. */
+.smn-nav-menu{position:relative;display:none}
+@media (max-width:900px){.smn-nav-menu{display:block}}
+.smn-nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;background:transparent;border:1px solid var(--border-default);border-radius:var(--radius-sm);color:var(--text-strong);cursor:pointer}
+.smn-nav-toggle:hover{border-color:var(--border-strong)}
+.smn-nav-panel{position:absolute;top:calc(100% + 10px);right:0;z-index:30;min-width:200px;display:flex;flex-direction:column;padding:var(--sp-2);background:var(--white);border:1px solid var(--border-hairline);border-radius:var(--radius-md);box-shadow:var(--shadow-lg)}
+.smn-nav-panel a{padding:12px 14px;border-radius:var(--radius-sm);font-family:var(--font-ui);font-size:var(--fs-body-sm);color:var(--text-strong);text-decoration:none;min-height:44px;display:flex;align-items:center}
+.smn-nav-panel a:hover{background:var(--surface-sunken)}

@@ -28,7 +28,7 @@ export function Brands() {
         <SectionHeading eyebrow="The network"
           title={<>{spellCount(BRANDS.length)} properties. <em>All owned and operated.</em></>}
           lede="Every property serves a specific set of decisions, with its own audience relationship and editorial voice. None of it is rented, syndicated, or bought in — which is why we can say where a consumer came from." />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: "var(--sp-4)", marginTop: "var(--sp-16)" }}>
+        <div className="smn-autogrid" style={{ marginTop: "var(--sp-16)" }}>
           {BRANDS.map((b) => <PropertyTile key={b.name} {...b} />)}
         </div>
       </Band>

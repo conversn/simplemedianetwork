@@ -3,14 +3,18 @@
 --font-ui:var(--font-geist),"Geist","Inter",-apple-system,"Segoe UI",Helvetica,sans-serif;
 --font-mono:var(--font-mono-plex),"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;
 
---fs-hero:78px;
---fs-display-1:64px;
---fs-display-2:52px;
---fs-h1:44px;
---fs-h2:36px;
---fs-h3:26px;
---fs-h4:19px;
---fs-body-lg:19px;
+/* Display sizes are fluid, not fixed. Every clamp reaches its maximum at
+   roughly 950px, so at any desktop width the rendered size is the same number
+   it has always been; below that the headline shrinks with the viewport
+   instead of shearing off the side of a phone. */
+--fs-hero:clamp(42px,8vw,78px);
+--fs-display-1:clamp(38px,6.6vw,64px);
+--fs-display-2:clamp(32px,5.4vw,52px);
+--fs-h1:clamp(30px,4.6vw,44px);
+--fs-h2:clamp(26px,3.8vw,36px);
+--fs-h3:clamp(21px,2.8vw,26px);
+--fs-h4:clamp(17px,2vw,19px);
+--fs-body-lg:clamp(17px,2vw,19px);
 --fs-body:17px;
 --fs-body-sm:15px;
 --fs-caption:13px;

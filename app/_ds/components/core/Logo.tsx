@@ -23,7 +23,7 @@ export function Logo({ variant = "full", tone = "dark", size = 30, assetBase = "
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: size * 0.36, ...style }}>
       {mark}
-      <span style={{ fontFamily: "var(--font-display)", fontWeight: "var(--fw-medium)", fontSize: size * 0.72, letterSpacing: "-0.01em", color: wordColor, lineHeight: 1, whiteSpace: "nowrap" }}>
+      <span className="smn-logo-word" style={{ fontFamily: "var(--font-display)", fontWeight: "var(--fw-medium)", fontSize: size * 0.72, letterSpacing: "-0.01em", color: wordColor, lineHeight: 1.15 }}>
         Simple Media Network
       </span>
     </span>

@@ -108,11 +108,7 @@ export function ScreenStack({
   );
 
   const rail = (
-    <div style={{
-      display: "flex", flexDirection: orientation === "vertical" ? "column" : "row",
-      gap: orientation === "vertical" ? 2 : "var(--sp-2)", flexWrap: orientation === "vertical" ? "nowrap" : "wrap",
-      flex: "0 0 auto", minWidth: 0,
-    }}>
+    <div className={`smn-rail ${orientation === "vertical" ? "smn-rail-v" : "smn-rail-h"}`}>
       {items.map((it, n) => {
         const on = n === i;
         return (
@@ -126,11 +122,13 @@ export function ScreenStack({
               boxShadow: on ? "inset 0 0 0 1px var(--border-accent)" : "none",
               transition: "background var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard)",
             }}>
-            <span style={{ width: 2, alignSelf: "stretch", borderRadius: 2, background: on ? "var(--evergreen)" : "transparent", flex: "0 0 auto", display: orientation === "vertical" ? "block" : "none" }} />
+            {orientation === "vertical" && (
+              <span className="smn-rail-bar" style={{ background: on ? "var(--evergreen)" : "transparent" }} />
+            )}
             <span style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
               <span style={{ fontFamily: "var(--font-ui)", fontSize: "var(--fs-body-sm)", fontWeight: "var(--fw-medium)", color: on ? "var(--text-strong)" : "var(--text-muted)" }}>{it.label}</span>
               {it.caption && orientation === "vertical" && (
-                <span style={{ fontFamily: "var(--font-ui)", fontSize: "var(--fs-caption)", color: "var(--text-subtle)", lineHeight: 1.45 }}>{it.caption}</span>
+                <span className="smn-rail-caption" style={{ fontFamily: "var(--font-ui)", fontSize: "var(--fs-caption)", color: "var(--text-subtle)", lineHeight: 1.45 }}>{it.caption}</span>
               )}
             </span>
           </button>
@@ -140,12 +138,8 @@ export function ScreenStack({
   );
 
   return (
-    <div style={{
-      display: "flex", flexDirection: orientation === "vertical" ? "row" : "column",
-      alignItems: orientation === "vertical" ? "center" : "stretch",
-      gap: "var(--sp-6)", ...style,
-    }}>
-      {orientation === "vertical" ? <>{deck}<div style={{ flex: "0 0 210px", maxWidth: 210 }}>{rail}</div></> : <>{deck}{rail}</>}
+    <div className={`smn-stack ${orientation === "vertical" ? "smn-stack-v" : "smn-stack-h"}`} style={style}>
+      {orientation === "vertical" ? <>{deck}<div className="smn-stack-rail">{rail}</div></> : <>{deck}{rail}</>}
     </div>
   );
 }

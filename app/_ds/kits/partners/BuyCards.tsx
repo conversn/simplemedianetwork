@@ -2,6 +2,7 @@
 import React, { type CSSProperties } from "react";
 import { Band } from "../../components/core/Band";
 import { SectionHeading } from "../../components/core/SectionHeading";
+import type { StyleWithVars } from "../../lib/cssVars";
 
 export type BuyCard = {
   slug: string;
@@ -112,13 +113,7 @@ export function BuyCards() {
         <SectionHeading eyebrow="Choose your vertical"
           title={<>What are you <em>buying?</em></>}
           lede="Each vertical routes to its own program page with real deliverable qualification, or start with the universal request form below." />
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "var(--sp-4)",
-          marginTop: "var(--sp-12)",
-          alignItems: "stretch",
-        }}>
+        <div className="smn-autogrid" style={{ marginTop: "var(--sp-12)", alignItems: "stretch", "--min": "300px" } as StyleWithVars}>
           {CARDS.map((c) => <Card key={c.slug} card={c} />)}
         </div>
       </Band>

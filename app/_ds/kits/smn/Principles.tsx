@@ -24,7 +24,7 @@ export function Principles() {
           <SectionHeading eyebrow="Principles"
             title={<>Independent editorially. <em>Transparent commercially.</em></>}
             lede="The separation is the point. It is what keeps the audience trusting the publication, and it is why the demand that comes out of it is worth buying." />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "var(--sp-4)", margin: "var(--sp-16) 0 var(--sp-6)" }}>
+          <div className="smn-cols" style={{ margin: "var(--sp-16) 0 var(--sp-6)" }}>
             {PRINCIPLES.map(([t, b]) => (
               <Card variant="outline" key={t}>
                 <h4>{t}</h4>

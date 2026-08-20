@@ -19,3 +19,15 @@
 --section-y:110px;
 --band-pad:76px;
 }
+
+/* Page rhythm steps down on small screens. At the desktop gutter a 360px phone
+   spends 21% of the screen on padding and another 152px inside every band —
+   the layout classes can collapse columns, but not if the columns have no room
+   left to occupy. Nothing here applies at or above the 900px breakpoint, so
+   desktop rendering is untouched. */
+@media (max-width:900px){
+  :root{ --gutter:24px; --section-y:72px; --band-pad:40px; }
+}
+@media (max-width:560px){
+  :root{ --gutter:18px; --section-y:60px; --band-pad:26px; }
+}

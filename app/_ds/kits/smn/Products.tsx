@@ -3,6 +3,7 @@ import { SectionHeading } from "../../components/core/SectionHeading";
 import { Card } from "../../components/core/Card";
 import { Chip } from "../../components/core/Chip";
 import { Logo } from "../../components/core/Logo";
+import type { StyleWithVars } from "../../lib/cssVars";
 
 /**
  * Below the partner ask on purpose. For a buyer this section answers a narrower
@@ -19,7 +20,7 @@ export function Products() {
     <>
       <div style={{ padding: "0 var(--gutter)" }}>
         <Band tone="sand" style={{ maxWidth: "var(--container-max)", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--sp-16)", alignItems: "center" }}>
+          <div className="smn-split">
             <div>
               <SectionHeading align="left" rule eyebrow="The Simple Life"
                 title={<>The relationship that <em>outlasts</em> a single decision.</>}
@@ -39,7 +40,7 @@ export function Products() {
           <SectionHeading eyebrow="Products"
             title={<>Publications explain. Products <em>help people finish</em>.</>}
             lede="Where we can solve the problem directly, we build the thing that gets it done — printed, guided, and finishable in an afternoon." />
-          <div style={{ display: "grid", gridTemplateColumns: "1.25fr 1fr", gap: "var(--sp-12)", alignItems: "center", marginTop: "var(--sp-16)" }}>
+          <div className="smn-split" style={{ marginTop: "var(--sp-16)", "--split": "minmax(0,1.25fr) minmax(0,1fr)", "--split-gap": "var(--sp-12)" } as StyleWithVars}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/ds/products/simple-life-organizer-spread.png" alt="The Simple Life Organizer interior spread"
               style={{ width: "100%", borderRadius: "var(--radius-image)", boxShadow: "var(--shadow-lg)" }} />

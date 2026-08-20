@@ -2,6 +2,7 @@ import { Band } from "../../components/core/Band";
 import { SectionHeading } from "../../components/core/SectionHeading";
 import { StepTimeline } from "../../components/marketing/StepTimeline";
 import { FeatureCard } from "../../components/marketing/FeatureCard";
+import type { StyleWithVars } from "../../lib/cssVars";
 
 const INFRA: [string, string, string][] = [
   ["shield-check", "Qualify", "Screen against your criteria before anything is delivered."],
@@ -29,7 +30,7 @@ export function Process() {
           <SectionHeading eyebrow="Powered by CallReady"
             title={<>The delivery layer <em>behind every program</em>.</>}
             lede="CallReady powers qualification, routing, activation, delivery, and measurement for Simple Media Network partners." />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: "var(--sp-4)", marginTop: "var(--sp-12)" }}>
+          <div className="smn-autogrid" style={{ marginTop: "var(--sp-12)", "--min": "220px" } as StyleWithVars}>
             {INFRA.map(([ic, t, b]) => <FeatureCard key={t} icon={ic} title={t} body={b} tone="onSand" />)}
           </div>
         </Band>
