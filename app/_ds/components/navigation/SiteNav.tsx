@@ -33,7 +33,7 @@ export function SiteNav({
   return (
     <header style={{ position: "sticky", top: 0, zIndex: 20, background: "rgba(255,255,255,.9)", backdropFilter: "saturate(150%) blur(10px)", borderBottom: "1px solid var(--border-hairline)" }}>
       <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", padding: "18px var(--gutter)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--sp-4)", flexWrap: "wrap" }}>
-        <a href={homeHref} style={{ display: "inline-flex", alignItems: "center", gap: "var(--sp-3)", textDecoration: "none" }}>
+        <a href={homeHref} className="smn-nav-home" style={{ display: "inline-flex", alignItems: "center", gap: "var(--sp-3)", textDecoration: "none" }}>
           <Logo variant="mark" size={28} assetBase="/ds/logos" />
           <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.15 }}>
             <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(15px,4vw,18px)", letterSpacing: "-0.01em", color: "var(--text-strong)" }}>Simple Media Network</span>

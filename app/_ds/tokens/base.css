@@ -67,7 +67,7 @@ code,kbd,pre{font-family:var(--font-mono);font-size:.92em}
   .smn-footer-inner{padding:var(--sp-12) var(--sp-8) var(--sp-8)}
   .smn-footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-10)}
   .smn-footer-brand{grid-column:1/-1}
-  .smn-footer-link{padding:9px 0}
+  .smn-footer-link{padding:11px 0}
 }
 @media (max-width:480px){
   .smn-footer-inner{padding:var(--sp-10) var(--sp-6) var(--sp-6)}
@@ -95,6 +95,7 @@ code,kbd,pre{font-family:var(--font-mono);font-size:.92em}
   .smn-stack-rail{flex:1 1 auto;max-width:none}
   .smn-rail-v{flex-direction:row;flex-wrap:wrap;gap:var(--sp-2)}
   .smn-rail-v .smn-rail-bar,.smn-rail-v .smn-rail-caption{display:none}
+  .smn-rail button{min-height:44px}
 }
 
 /* Buttons keep their single-line shape at desktop widths; on a phone a long
@@ -129,6 +130,9 @@ code,kbd,pre{font-family:var(--font-mono);font-size:.92em}
    is what replaces them there — without it the header carries only a wordmark
    and a CTA and the rest of the site is unreachable from the nav. */
 .smn-nav-menu{position:relative;display:none}
+/* The wordmark link is 28px tall — the height of the mark. That is a fine
+   header on a desktop pointer and an undersized target on a thumb. */
+@media (max-width:900px){.smn-nav-home{min-height:44px}}
 @media (max-width:900px){.smn-nav-menu{display:block}}
 .smn-nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;background:transparent;border:1px solid var(--border-default);border-radius:var(--radius-sm);color:var(--text-strong);cursor:pointer}
 .smn-nav-toggle:hover{border-color:var(--border-strong)}

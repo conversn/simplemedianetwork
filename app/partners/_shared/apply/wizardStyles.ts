@@ -57,6 +57,7 @@ export const wizardStyles = `
   .pill-grid-2{grid-template-columns:1fr 1fr;max-width:none}
   .pill-choice{padding:16px 18px;min-height:52px;font-size:15px}
   .states-grid{grid-template-columns:repeat(5,1fr);gap:6px}
+  .text-btn{padding:12px 8px;min-height:44px}
   .state-pill{padding:12px 2px;font-size:12px;min-height:44px;border-radius:10px}
   .contact-grid{grid-template-columns:1fr;gap:14px}
   .contact-grid input{font-size:16px;padding:13px 14px}
