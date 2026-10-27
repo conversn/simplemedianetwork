@@ -1,0 +1,278 @@
+/* ---------------------------------------------------------------------------
+   Creative review gallery.
+
+   A port of the self-contained reference build the slate was being zipped from
+   (…/05-MVA/Creative-Review/index.html). It keeps that build's dark review-tool
+   look rather than the SMN marketing theme on purpose: this is an internal
+   partner-review surface, and reviewers judge 9:16 video against black.
+
+   Every selector is prefixed `cr-` and every property the DS sets on bare
+   elements (body background, h1/h2 display font and margins, p margins, link
+   colors) is restated here, because the DS reset in app/_ds/tokens/base.css is
+   global and would otherwise bleed in.
+   --------------------------------------------------------------------------- */
+
+.cr-page {
+  min-height: 100dvh;
+  background: #0d1117;
+  color: #e6edf3;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.cr-header {
+  padding: 34px 28px 22px;
+  border-bottom: 1px solid #222c3a;
+  background: linear-gradient(180deg, #121a24, #0d1117);
+}
+
+.cr-header h1 {
+  margin: 0 0 6px;
+  font-family: inherit;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 1.3;
+  color: #e6edf3;
+}
+
+.cr-meta {
+  color: #8b98a9;
+  font-size: 14px;
+}
+
+.cr-note {
+  margin: 16px 28px 0;
+  padding: 12px 16px;
+  background: #1a2230;
+  border: 1px solid #2a3647;
+  border-radius: 10px;
+  color: #c3cedd;
+  font-size: 13px;
+}
+
+.cr-main {
+  padding: 10px 28px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.cr-section {
+  margin: 40px 0;
+}
+
+.cr-section h2 {
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.3;
+  color: #e6edf3;
+  margin: 0 0 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cr-count {
+  font-size: 12px;
+  background: #223049;
+  color: #9fd0ff;
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-weight: 600;
+}
+
+.cr-sub {
+  color: #8b98a9;
+  font-size: 13px;
+  margin: 0 0 18px;
+}
+
+/* `min(100%, …)` is what keeps the grid off the horizontal scrollbar: a bare
+   minmax(230px, 1fr) track cannot shrink under 230px and widens the document
+   on a narrow phone. Same fix as the DS autogrid. */
+.cr-grid-916 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+  gap: 18px;
+}
+
+.cr-grid-45 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 18px;
+}
+
+.cr-card {
+  margin: 0;
+  background: #161b22;
+  border: 1px solid #222c3a;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.cr-card:hover {
+  border-color: #3b4a60;
+  transform: translateY(-2px);
+}
+
+.cr-card video {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background: #000;
+  display: block;
+  object-fit: cover;
+}
+
+.cr-card button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: #000;
+  cursor: zoom-in;
+}
+
+.cr-card img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+
+.cr-card figcaption {
+  padding: 10px 12px;
+}
+
+.cr-card figcaption b {
+  font-size: 13.5px;
+  display: block;
+  color: #e6edf3;
+}
+
+.cr-card figcaption span {
+  font-size: 12px;
+  color: #8b98a9;
+  display: block;
+  margin-top: 3px;
+}
+
+.cr-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  cursor: zoom-out;
+  border: 0;
+  padding: 0;
+}
+
+.cr-lightbox img {
+  max-width: 92vw;
+  max-height: 92vh;
+  border-radius: 8px;
+}
+
+/* --- Code gate ----------------------------------------------------------- */
+
+.cr-gate-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+}
+
+.cr-gate {
+  width: 100%;
+  max-width: 420px;
+  padding: 28px;
+  background: #161b22;
+  border: 1px solid #222c3a;
+  border-radius: 12px;
+}
+
+.cr-gate h1 {
+  margin: 0 0 8px;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: #e6edf3;
+}
+
+.cr-gate-status {
+  margin: 0;
+  color: #8b98a9;
+  font-size: 13px;
+}
+
+.cr-gate-form {
+  display: grid;
+  gap: 8px;
+}
+
+.cr-gate-label {
+  font-size: 12px;
+  color: #8b98a9;
+}
+
+.cr-gate-input {
+  width: 100%;
+  /* 16px or iOS zooms the page in on focus. */
+  font: inherit;
+  font-size: 16px;
+  min-height: 44px;
+  padding: 0 12px;
+  color: #e6edf3;
+  background: #0d1117;
+  border: 1px solid #2a3647;
+  border-radius: 8px;
+}
+
+.cr-gate-input:focus {
+  outline: none;
+  border-color: #3b4a60;
+}
+
+.cr-gate-submit {
+  min-height: 44px;
+  margin-top: 4px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e6edf3;
+  background: #223049;
+  border: 1px solid #2a3647;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cr-gate-submit:hover {
+  border-color: #3b4a60;
+}
+
+.cr-gate-error {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #ff9b9b;
+}
+
+@media (max-width: 600px) {
+  .cr-header {
+    padding: 26px 18px 18px;
+  }
+  .cr-note {
+    margin: 14px 18px 0;
+  }
+  .cr-main {
+    padding: 10px 18px 48px;
+  }
+}
