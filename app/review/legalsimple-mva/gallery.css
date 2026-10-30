@@ -92,17 +92,39 @@
 
 /* `min(100%, …)` is what keeps the grid off the horizontal scrollbar: a bare
    minmax(230px, 1fr) track cannot shrink under 230px and widens the document
-   on a narrow phone. Same fix as the DS autogrid. */
-.cr-grid-916 {
+   on a narrow phone. Same fix as the DS autogrid.
+
+   Track width is per aspect so every section's tiles come out roughly the same
+   height: tall 9:16 reels get the narrowest column, square statics the widest. */
+.cr-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
   gap: 18px;
 }
 
-.cr-grid-45 {
-  display: grid;
+.cr-grid-9x16 {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+}
+
+.cr-grid-4x5 {
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
-  gap: 18px;
+}
+
+.cr-grid-1x1 {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+}
+
+/* The tile reserves its slot before the media loads, so the grid doesn't
+   reflow as 2048px PNGs arrive. */
+.cr-media-9x16 {
+  aspect-ratio: 9 / 16;
+}
+
+.cr-media-4x5 {
+  aspect-ratio: 4 / 5;
+}
+
+.cr-media-1x1 {
+  aspect-ratio: 1 / 1;
 }
 
 .cr-card {
@@ -121,7 +143,6 @@
 
 .cr-card video {
   width: 100%;
-  aspect-ratio: 9 / 16;
   background: #000;
   display: block;
   object-fit: cover;
@@ -138,7 +159,6 @@
 
 .cr-card img {
   width: 100%;
-  aspect-ratio: 4 / 5;
   object-fit: cover;
   display: block;
   background: #000;

@@ -33,7 +33,7 @@ export function CreativeReviewGallery({ code }: { code: string }) {
       <header className="cr-header">
         <h1>LegalSimple — MVA Creative Review</h1>
         <div className="cr-meta">
-          Motor-Vehicle-Accident campaign · Phase 1 slate · {ASSET_COUNT} creatives · generated 2026-10
+          Motor-Vehicle-Accident campaign · Phase 1 slate · {ASSET_COUNT} creatives · updated 2026-10-30
         </div>
       </header>
 
@@ -51,7 +51,7 @@ export function CreativeReviewGallery({ code }: { code: string }) {
               {section.heading} <span className="cr-count">{section.assets.length}</span>
             </h2>
             <p className="cr-sub">{section.sub}</p>
-            <div className={section.kind === "image" ? "cr-grid-45" : "cr-grid-916"}>
+            <div className={`cr-grid cr-grid-${section.ratio}`}>
               {section.assets.map((asset) => {
                 const src = `${base}/${section.dir}/${asset.file}`;
                 return (
@@ -62,10 +62,21 @@ export function CreativeReviewGallery({ code }: { code: string }) {
                         aria-label={`Enlarge ${asset.title}`}
                         onClick={() => setLightbox({ src, alt: asset.title })}
                       >
-                        <img src={src} alt={asset.title} loading="lazy" />
+                        <img
+                          className={`cr-media-${section.ratio}`}
+                          src={src}
+                          alt={asset.title}
+                          loading="lazy"
+                        />
                       </button>
                     ) : (
-                      <video src={src} controls preload="metadata" playsInline />
+                      <video
+                        className={`cr-media-${section.ratio}`}
+                        src={src}
+                        controls
+                        preload="metadata"
+                        playsInline
+                      />
                     )}
                     <figcaption>
                       <b>{asset.title}</b>
